@@ -6,643 +6,487 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Research — Benjamin Clark</title>
-  <meta name="description" content="Research publications, grants, and work in progress by Benjamin Clark, University of Oregon.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
   <style>
     :root {
-      --black: #0d0d0d;
-      --white: #f7f5f0;
-      --slate: #1c1c1e;
-      --mid: #3a3a3c;
-      --muted: #8a8a8e;
-      --rule: #2a2a2c;
-      --accent: #4f6ef7;
-      --accent-dim: rgba(79,110,247,0.1);
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'Newsreader', serif;
-      --nav-h: 68px;
-      --max-w: 1120px;
-      --pad: clamp(1.5rem, 5vw, 4rem);
+      --bg: #faf9f7;
+      --bg2: #f2f0ec;
+      --bg3: #e8e5e0;
+      --ink: #1a1917;
+      --ink2: #3d3b38;
+      --muted: #7a7673;
+      --rule: #dedad5;
+      --accent: #2d5be3;
+      --accent-light: #e8eefb;
+      --accent-dark: #1e3fa0;
+      --font-serif: 'Literata', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --nav-h: 64px;
+      --max-w: 1100px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --radius: 6px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      background: var(--black);
-      color: var(--white);
-      -webkit-font-smoothing: antialiased;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9999;
-    }
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      z-index: 500;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 var(--pad);
-      background: rgba(13,13,13,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav-logo { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+    body { font-family: var(--font-serif); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 17px; line-height: 1.7; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); }
+    .nav-logo { font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
     .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-    .nav-links a { font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.4rem 0.85rem; border-radius: 2px; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--white); background: var(--rule); }
-    .nav-links a.active { color: var(--accent); background: var(--rule); }
-    .nav-actions { display: flex; gap: 1rem; align-items: center; }
-    .nav-icon { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-icon:hover { color: var(--white); }
-    .nav-cta { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem; border-radius: 2px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .nav-cta:hover { background: var(--accent); color: var(--black); }
+    .nav-center { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-center a { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; padding: 0.35rem 0.8rem; border-radius: var(--radius); transition: color 0.15s, background 0.15s; }
+    .nav-center a:hover { color: var(--ink); background: var(--bg2); }
+    .nav-center a.active { color: var(--accent); background: var(--accent-light); }
+    .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-right a { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-right a:hover { color: var(--ink); }
+    .nav-btn { background: var(--accent) !important; color: #fff !important; padding: 0.4rem 1rem !important; border-radius: var(--radius) !important; font-size: 0.8rem !important; }
+    .nav-btn:hover { background: var(--accent-dark) !important; color: #fff !important; }
 
-    /* PAGE LAYOUT */
-    .page-wrapper { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
-
+    /* PAGE HEADER */
     .page-header {
-      padding-top: calc(var(--nav-h) + 5rem);
-      padding-bottom: 4rem;
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 3rem;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
       border-bottom: 1px solid var(--rule);
-      margin-bottom: 0;
     }
-    .section-tag { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-    .page-header h1 { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
-    .page-header p { font-size: 1.05rem; color: var(--muted); font-style: italic; max-width: 560px; line-height: 1.75; }
+    .eyebrow { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: var(--muted); font-family: var(--font-sans); font-weight: 400; max-width: 520px; line-height: 1.65; }
 
-    /* FILTERS */
+    /* LAYOUT */
+    .content-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* FILTER BAR */
     .filter-bar {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--rule);
-      margin-bottom: 4rem;
-    }
-
-    .filter-btn {
-      font-family: var(--font-display);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      background: none;
-      border: 1px solid var(--rule);
-      padding: 0.45rem 1rem;
-      border-radius: 2px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn:hover, .filter-btn.active { color: var(--white); border-color: var(--accent); background: var(--accent-dim); }
-    .filter-btn.active { color: var(--accent); }
-
-    /* WIP SECTION */
-    .wip-section { margin-bottom: 5rem; }
-
-    .wip-section h2, .pub-section h2, .grant-section h2, .book-section h2 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .wip-card {
-      background: var(--slate);
-      border: 1px solid var(--rule);
-      padding: 1.75rem 2rem;
-      margin-bottom: 2px;
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-    }
-
-    .wip-status {
-      font-family: var(--font-display);
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.3rem 0.7rem;
-      border-radius: 1px;
-      white-space: nowrap;
-      margin-top: 0.2rem;
-    }
-
-    .wip-status.review { color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); }
-    .wip-status.progress { color: var(--accent); border: 1px solid rgba(79,110,247,0.3); background: var(--accent-dim); }
-
-    .wip-title { font-size: 1rem; line-height: 1.6; font-weight: 300; }
-    .wip-coauth { font-family: var(--font-display); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em; color: var(--muted); margin-top: 0.4rem; }
-
-    /* PUBLICATIONS */
-    .pub-section { margin-bottom: 5rem; }
-
-    .pub-item {
       padding: 1.75rem 0;
       border-bottom: 1px solid var(--rule);
-      display: grid;
-      grid-template-columns: 3.5rem 1fr;
-      gap: 1.5rem;
-      align-items: start;
-      transition: background 0.2s;
+      margin-bottom: 3rem;
     }
-
-    .pub-year {
-      font-family: var(--font-display);
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--accent);
-      padding-top: 0.2rem;
+    .filter-btn {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: #fff;
+      border: 1px solid var(--rule);
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.15s;
     }
+    .filter-btn:hover { color: var(--ink); border-color: var(--ink2); }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-    .pub-cite {
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: rgba(247,245,240,0.8);
-      font-weight: 300;
-    }
-
-    .pub-cite strong { color: var(--white); font-weight: 400; }
-
-    .pub-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
-
-    .pub-tag {
-      font-family: var(--font-display);
-      font-size: 0.58rem;
-      font-weight: 700;
+    /* SECTION HEADINGS */
+    .pub-group { margin-bottom: 4rem; }
+    .group-title {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
+    }
+
+    /* WIP CARDS */
+    .wip-list { display: flex; flex-direction: column; gap: 0; }
+    .wip-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .wip-badge {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      white-space: nowrap;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    .wip-badge.review { background: #fef3c7; color: #92400e; }
+    .wip-badge.progress { background: var(--accent-light); color: var(--accent); }
+    .wip-title { font-size: 0.97rem; line-height: 1.6; color: var(--ink2); font-weight: 300; }
+    .wip-auth { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* PUBLICATION LIST */
+    .pub-list { display: flex; flex-direction: column; }
+    .pub-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: start;
+    }
+    .pub-year {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      padding-top: 0.25rem;
+    }
+    .pub-cite {
+      font-size: 0.96rem;
+      line-height: 1.75;
+      color: var(--ink2);
+      font-weight: 300;
+    }
+    .pub-cite strong { font-weight: 500; color: var(--ink); }
+    .pub-cite em { font-style: italic; }
+    .pub-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+    .pub-tag {
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--bg2);
       border: 1px solid var(--rule);
-      padding: 0.2rem 0.55rem;
-      border-radius: 1px;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
     }
 
     /* GRANTS */
-    .grant-section { margin-bottom: 5rem; }
-
-    .grant-group { margin-bottom: 3rem; }
-
-    .grant-year-header {
-      font-family: var(--font-display);
+    .grant-list { display: flex; flex-direction: column; }
+    .grant-period-label {
+      font-family: var(--font-sans);
       font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      font-weight: 600;
       color: var(--muted);
-      margin-bottom: 1rem;
-      margin-top: 2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1.25rem 0 0.5rem;
     }
-
     .grant-item {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 2rem;
-      align-items: start;
-      padding: 1.25rem 0;
+      padding: 0.9rem 0;
       border-bottom: 1px solid var(--rule);
+      align-items: baseline;
     }
-
-    .grant-title { font-size: 0.95rem; line-height: 1.6; font-weight: 300; margin-bottom: 0.3rem; }
-    .grant-role { font-family: var(--font-display); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-    .grant-amount { font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
-
-    /* BOOKS */
-    .book-section { margin-bottom: 5rem; }
+    .grant-title { font-size: 0.96rem; color: var(--ink2); font-weight: 300; line-height: 1.55; margin-bottom: 0.2rem; }
+    .grant-role { font-family: var(--font-sans); font-size: 0.72rem; color: var(--muted); }
+    .grant-amt { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--accent); white-space: nowrap; }
 
     /* FOOTER */
-    footer { border-top: 1px solid var(--rule); padding: 3rem 0; }
-    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-inner p, .footer-inner a { font-family: var(--font-display); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-    .footer-inner a:hover { color: var(--white); }
+    footer { border-top: 1px solid var(--rule); padding: 2.5rem var(--pad); background: var(--bg); margin-top: 5rem; }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-inner p, .footer-inner a { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+    .footer-inner a:hover { color: var(--ink); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 
-    .fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.7s ease forwards; }
-    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .fade-up { opacity: 0; transform: translateY(16px); animation: fu 0.6s ease forwards; }
+    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.18s; }
+    @keyframes fu { to { opacity: 1; transform: none; } }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
+      .nav-center { display: none; }
       .pub-item { grid-template-columns: 1fr; }
-      .pub-year { display: inline-block; margin-bottom: 0.25rem; }
-      .grant-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .pub-year { display: inline-block; margin-bottom: 0.2rem; }
+      .grant-item { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">B<span>.</span>Clark</a>
-    <ul class="nav-links">
-      <li><a href="index.html">About</a></li>
-      <li><a href="research.html" class="active">Research</a></li>
-      <li><a href="cv.html">CV</a></li>
-      <li><a href="consulting.html">Consulting</a></li>
-    </ul>
-    <div class="nav-actions">
-      <a href="mailto:bclark2@uoregon.edu" class="nav-icon"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" class="nav-icon" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-      <a href="consulting.html" class="nav-cta">Work With Me</a>
-    </div>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">About</a></li>
+    <li><a href="research.html" class="active">Research</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="consulting.html">Consulting</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+    <a href="consulting.html" class="nav-btn">Work With Me</a>
+  </div>
+</nav>
 
-  <div class="page-wrapper">
-    <div class="page-header">
-      <div class="section-tag fade-up d1">Research</div>
-      <h1 class="fade-up d2">Publications<br>&amp; Grants</h1>
-      <p class="fade-up d3">Peer-reviewed scholarship on local government, public finance, civic technology, and environmental policy.</p>
-    </div>
+<div class="page-header fade-up d1">
+  <div class="eyebrow">Research</div>
+  <h1>Publications &amp; Grants</h1>
+  <p>Peer-reviewed scholarship on local government, public finance, civic technology, and environmental policy.</p>
+</div>
 
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterPubs('all', this)">All</button>
-      <button class="filter-btn" onclick="filterPubs('finance', this)">Finance &amp; Budgeting</button>
-      <button class="filter-btn" onclick="filterPubs('coproduction', this)">Coproduction &amp; Civic Tech</button>
-      <button class="filter-btn" onclick="filterPubs('mobility', this)">Mobility &amp; Urban</button>
-      <button class="filter-btn" onclick="filterPubs('environment', this)">Environment &amp; Health</button>
-    </div>
+<div class="content-wrap">
 
-    <!-- WORK IN PROGRESS -->
-    <div class="wip-section" id="wip">
-      <h2>Work in Progress</h2>
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterPubs('all',this)">All</button>
+    <button class="filter-btn" onclick="filterPubs('finance',this)">Finance &amp; Budgeting</button>
+    <button class="filter-btn" onclick="filterPubs('coproduction',this)">Coproduction &amp; Civic Tech</button>
+    <button class="filter-btn" onclick="filterPubs('mobility',this)">Mobility &amp; Urban</button>
+    <button class="filter-btn" onclick="filterPubs('environment',this)">Environment &amp; Health</button>
+  </div>
 
-      <div class="wip-card">
-        <div class="wip-status review">Under Review</div>
+  <!-- WORK IN PROGRESS -->
+  <div class="pub-group" id="wip">
+    <div class="group-title">Work in Progress</div>
+    <div class="wip-list">
+      <div class="wip-item">
+        <span class="wip-badge review">Under Review</span>
         <div>
           <div class="wip-title">"Does Coproduction Influence Other Protective Actions &amp; Decisions During Wildfires?"</div>
-          <div class="wip-coauth">With Shahinur Bashar</div>
+          <div class="wip-auth">With Shahinur Bashar</div>
         </div>
       </div>
-
-      <div class="wip-card">
-        <div class="wip-status review">Under Review</div>
+      <div class="wip-item">
+        <span class="wip-badge review">Under Review</span>
         <div>
           <div class="wip-title">"Internet of Things Enabled Co-Assessment: How Equitable is IoT Air Quality Monitoring?"</div>
-          <div class="wip-coauth">With Jay Matonte</div>
+          <div class="wip-auth">With Jay Matonte</div>
         </div>
       </div>
-
-      <div class="wip-card">
-        <div class="wip-status progress">In Progress</div>
-        <div>
-          <div class="wip-title">Police-Involved Fatal Shootings, Part II</div>
-        </div>
+      <div class="wip-item">
+        <span class="wip-badge progress">In Progress</span>
+        <div><div class="wip-title">Police-Involved Fatal Shootings, Part II</div></div>
       </div>
-
-      <div class="wip-card">
-        <div class="wip-status progress">In Progress</div>
-        <div>
-          <div class="wip-title">Agile Government in Response to Wildfire Recovery</div>
-        </div>
+      <div class="wip-item">
+        <span class="wip-badge progress">In Progress</span>
+        <div><div class="wip-title">Agile Government in Response to Wildfire Recovery</div></div>
       </div>
     </div>
+  </div>
 
-    <!-- PEER-REVIEWED PUBLICATIONS -->
-    <div class="pub-section" id="publications">
-      <h2>Peer-Reviewed Publications</h2>
+  <!-- PEER-REVIEWED PUBLICATIONS -->
+  <div class="pub-group" id="publications">
+    <div class="group-title">Peer-Reviewed Publications</div>
+    <div class="pub-list">
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2025</div>
-        <div>
-          <div class="pub-cite">Guzman, T. &amp; <strong>Clark, B.Y.</strong> (2025). Estimating the Negative Credit Impacts of Police-Involved Fatalities. <em>Public Finance Review, 53</em>(1): 3–28.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Police</span></div>
-        </div>
+        <div><div class="pub-cite">Guzman, T. &amp; <strong>Clark, B.Y.</strong> (2025). Estimating the Negative Credit Impacts of Police-Involved Fatalities. <em>Public Finance Review, 53</em>(1): 3–28.</div><div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Police &amp; Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2024</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Parker, R. (2024). Determinants of the Coproduction of Public Health During the COVID-19 Pandemic. <em>Social Sciences &amp; Humanities Open, 9</em>.</div>
-          <div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">Health</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Parker, R. (2024). Determinants of the Coproduction of Public Health During the COVID-19 Pandemic. <em>Social Sciences &amp; Humanities Open, 9</em>.</div><div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">Public Health</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2024</div>
-        <div>
-          <div class="pub-cite">McDonald, B.D., et al. incl. <strong>Clark, B.Y.</strong> (2024). Establishing an Agenda for Public Budgeting and Finance Research. <em>Public Finance Journal, 1</em>(1): 9–28.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Budgeting</span></div>
-        </div>
+        <div><div class="pub-cite">McDonald, B.D., et al. incl. <strong>Clark, B.Y.</strong> (2024). Establishing an Agenda for Public Budgeting and Finance Research. <em>Public Finance Journal, 1</em>(1): 9–28.</div><div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Budgeting</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction mobility">
         <div class="pub-year">2023</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2023). Transportation and Coproduction: Looking for Vulnerabilities to Boost and Enhance Co-Assessment. <em>Public Money &amp; Management, 43</em>(8): 841–848.</div>
-          <div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">Transportation</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2023). Transportation and Coproduction: Looking for Vulnerabilities to Boost and Enhance Co-Assessment. <em>Public Money &amp; Management, 43</em>(8): 841–848.</div><div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">Transportation</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2022</div>
-        <div>
-          <div class="pub-cite">Guzman, T. &amp; <strong>Clark, B.Y.</strong> (2022). Crime and Credit: The Empirical Study of How Crime Affects Credit Ratings in Large U.S. Cities. <em>Social Science Quarterly, 103</em>(5): 1234–1247.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Credit Ratings</span></div>
-        </div>
+        <div><div class="pub-cite">Guzman, T. &amp; <strong>Clark, B.Y.</strong> (2022). Crime and Credit: The Empirical Study of How Crime Affects Credit Ratings in Large U.S. Cities. <em>Social Science Quarterly, 103</em>(5): 1234–1247.</div><div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Credit Ratings</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance coproduction">
         <div class="pub-year">2022</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Guzman, T. (2022). Smarter City, Smarter Investment? A Study of the Relationship Between 311 Systems and Credit Ratings in American Cities. <em>Government Information Quarterly, 39</em>(4).</div>
-          <div class="pub-tags"><span class="pub-tag">Civic Tech</span><span class="pub-tag">Finance</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Guzman, T. (2022). Smarter City, Smarter Investment? A Study of the Relationship Between 311 Systems and Credit Ratings in American Cities. <em>Government Information Quarterly, 39</em>(4).</div><div class="pub-tags"><span class="pub-tag">Civic Tech</span><span class="pub-tag">Finance</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2022</div>
-        <div>
-          <div class="pub-cite">Matonte, J., Parker, R. &amp; <strong>Clark, B.Y.</strong> (2022). The Failure of Opportunity Zones in Oregon. <em>Cityscape, 24</em>(1): 53–75.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Urban Policy</span></div>
-        </div>
+        <div><div class="pub-cite">Matonte, J., Parker, R. &amp; <strong>Clark, B.Y.</strong> (2022). The Failure of Opportunity Zones in Oregon. <em>Cityscape, 24</em>(1): 53–75.</div><div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Urban Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="mobility environment">
         <div class="pub-year">2022</div>
-        <div>
-          <div class="pub-cite">Alexander, S., Agrawal, A.W. &amp; <strong>Clark, B.Y.</strong> (2022). Local Climate Action Planning as a Tool to Harness GHG Mitigation and Equity Potential of AVs. <em>Transportation Research Record, 2676</em>(3): 521–534.</div>
-          <div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Climate</span></div>
-        </div>
+        <div><div class="pub-cite">Alexander, S., Agrawal, A.W. &amp; <strong>Clark, B.Y.</strong> (2022). Local Climate Action Planning as a Tool to Harness GHG Mitigation and Equity Potential of AVs. <em>Transportation Research Record, 2676</em>(3): 521–534.</div><div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Climate</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="mobility finance">
         <div class="pub-year">2021</div>
-        <div>
-          <div class="pub-cite">Lewis, R. &amp; <strong>Clark, B.Y.</strong> (2021). Retooling Transportation Financing in a New Mobility Future. <em>Transportation Research Interdisciplinary Perspectives, 10</em>.</div>
-          <div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Finance</span></div>
-        </div>
+        <div><div class="pub-cite">Lewis, R. &amp; <strong>Clark, B.Y.</strong> (2021). Retooling Transportation Financing in a New Mobility Future. <em>Transportation Research Interdisciplinary Perspectives, 10</em>.</div><div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Finance</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="mobility">
         <div class="pub-year">2021</div>
-        <div>
-          <div class="pub-cite">Ngo, N., Götschi, T. &amp; <strong>Clark, B.Y.</strong> (2021). The Effects of Ride-Hailing Services on Bus Ridership in a Medium-Sized Urban Area. <em>Transport Policy, 105</em>: 44–53.</div>
-          <div class="pub-tags"><span class="pub-tag">Ride-Hailing</span><span class="pub-tag">Transit</span></div>
-        </div>
+        <div><div class="pub-cite">Ngo, N., Götschi, T. &amp; <strong>Clark, B.Y.</strong> (2021). The Effects of Ride-Hailing Services on Bus Ridership in a Medium-Sized Urban Area. <em>Transport Policy, 105</em>: 44–53.</div><div class="pub-tags"><span class="pub-tag">Ride-Hailing</span><span class="pub-tag">Transit</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="mobility">
         <div class="pub-year">2021</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brown, A. (2021). What Does Ride-Hailing Mean For Parking? <em>Case Studies on Transport Policy, 9</em>(2): 775–783.</div>
-          <div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Parking</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brown, A. (2021). What Does Ride-Hailing Mean For Parking? <em>Case Studies on Transport Policy, 9</em>(2): 775–783.</div><div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Parking</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2020</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong>, Brudney, J.L., Jang, S.G. &amp; Davy, B. (2020). Determinants of 311 Response Time Biases: A Study of 15 US Cities. <em>American Review of Public Administration, 50</em>(3): 315–327.</div>
-          <div class="pub-tags"><span class="pub-tag">311 Systems</span><span class="pub-tag">Coproduction</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong>, Brudney, J.L., Jang, S.G. &amp; Davy, B. (2020). Determinants of 311 Response Time Biases: A Study of 15 US Cities. <em>American Review of Public Administration, 50</em>(3): 315–327.</div><div class="pub-tags"><span class="pub-tag">311 Systems</span><span class="pub-tag">Coproduction</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance mobility">
         <div class="pub-year">2020</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2020). The Impacts of Autonomous Vehicles on Local Government Budgeting and Finance: Case of Solid Waste Collection. <em>National Tax Journal, 73</em>(1): 259–282.</div>
-          <div class="pub-tags"><span class="pub-tag">AVs</span><span class="pub-tag">Finance</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2020). The Impacts of Autonomous Vehicles on Local Government Budgeting and Finance: Case of Solid Waste Collection. <em>National Tax Journal, 73</em>(1): 259–282.</div><div class="pub-tags"><span class="pub-tag">AVs</span><span class="pub-tag">Finance</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2019</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2019). Citizen Representation in City Government-Driven Crowdsourcing. <em>Computer Supported Cooperative Work, 28</em>(5): 883–910.</div>
-          <div class="pub-tags"><span class="pub-tag">Crowdsourcing</span><span class="pub-tag">Civic Tech</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2019). Citizen Representation in City Government-Driven Crowdsourcing. <em>Computer Supported Cooperative Work, 28</em>(5): 883–910.</div><div class="pub-tags"><span class="pub-tag">Crowdsourcing</span><span class="pub-tag">Civic Tech</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction finance">
         <div class="pub-year">2017</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Guzman, T. (2017). Does Technologically Enabled Citizen Participation Lead to Budget Adjustments? <em>American Review of Public Administration, 47</em>(8): 945–961.</div>
-          <div class="pub-tags"><span class="pub-tag">Participation</span><span class="pub-tag">Budgeting</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Guzman, T. (2017). Does Technologically Enabled Citizen Participation Lead to Budget Adjustments? <em>American Review of Public Administration, 47</em>(8): 945–961.</div><div class="pub-tags"><span class="pub-tag">Participation</span><span class="pub-tag">Budgeting</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2017</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong>, Zingale, N. &amp; Logan, J. (2017). Intelligence and Information Gathering through Deliberative Crowdsourcing. <em>Journal of Public and Nonprofit Affairs, 3</em>(1): 55–78.</div>
-          <div class="pub-tags"><span class="pub-tag">Crowdsourcing</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong>, Zingale, N. &amp; Logan, J. (2017). Intelligence and Information Gathering through Deliberative Crowdsourcing. <em>Journal of Public and Nonprofit Affairs, 3</em>(1): 55–78.</div><div class="pub-tags"><span class="pub-tag">Crowdsourcing</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2016</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong>, Zingale, N., Logan, J. &amp; Brudney, J.L. (2016). A Framework for Using Crowdsourcing in Government. <em>International Journal of Public Administration in the Digital Age, 3</em>(4): 57–75.</div>
-          <div class="pub-tags"><span class="pub-tag">Crowdsourcing</span><span class="pub-tag">E-Government</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong>, Zingale, N., Logan, J. &amp; Brudney, J.L. (2016). A Framework for Using Crowdsourcing in Government. <em>International Journal of Public Administration in the Digital Age, 3</em>(4): 57–75.</div><div class="pub-tags"><span class="pub-tag">Crowdsourcing</span><span class="pub-tag">E-Government</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2015</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2015). Evaluating the Validity and Reliability of the Financial Condition Index at the Local Level. <em>Public Budgeting and Finance, 35</em>(2): 66–68.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2015). Evaluating the Validity and Reliability of the Financial Condition Index at the Local Level. <em>Public Budgeting and Finance, 35</em>(2): 66–68.</div><div class="pub-tags"><span class="pub-tag">Finance</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="coproduction">
         <div class="pub-year">2013</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong>, Brudney, J.L. &amp; Jang, S.G. (2013). Coproduction of Government Services and the New Information Technology: Investigating the Distributional Biases. <em>Public Administration Review, 73</em>(5): 687–701.</div>
-          <div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">IT</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong>, Brudney, J.L. &amp; Jang, S.G. (2013). Coproduction of Government Services and the New Information Technology: Investigating the Distributional Biases. <em>Public Administration Review, 73</em>(5): 687–701.</div><div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">IT</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="environment">
         <div class="pub-year">2013</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2013). Multilateral, Regional, and National Determinants of Policy Adoption: The Case of HIV/AIDS Legislative Action. <em>International Journal of Public Health, 58</em>(2): 285–293.</div>
-          <div class="pub-tags"><span class="pub-tag">Health Policy</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2013). Multilateral, Regional, and National Determinants of Policy Adoption: The Case of HIV/AIDS Legislative Action. <em>International Journal of Public Health, 58</em>(2): 285–293.</div><div class="pub-tags"><span class="pub-tag">Health Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2012</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Llorens, J. (2012). Investments in Scientific Research: Examining Funding Threshold Effects on Scientific Collaboration. <em>Policy Studies Journal, 40</em>(4): 698–729.</div>
-          <div class="pub-tags"><span class="pub-tag">Research Policy</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Llorens, J. (2012). Investments in Scientific Research: Examining Funding Threshold Effects on Scientific Collaboration. <em>Policy Studies Journal, 40</em>(4): 698–729.</div><div class="pub-tags"><span class="pub-tag">Research Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2011</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2011). Influences and Conflicts of Federal Policies in Academic-Industrial Scientific Collaboration. <em>Journal of Technology Transfer, 36</em>(5): 514–545.</div>
-          <div class="pub-tags"><span class="pub-tag">Policy</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2011). Influences and Conflicts of Federal Policies in Academic-Industrial Scientific Collaboration. <em>Journal of Technology Transfer, 36</em>(5): 514–545.</div><div class="pub-tags"><span class="pub-tag">Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="environment finance">
         <div class="pub-year">2011</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Whitford, A.B. (2011). Does More Federal Environmental Funding Increase or Decrease States' Efforts? <em>Journal of Policy Analysis and Management, 30</em>(1): 136–152.</div>
-          <div class="pub-tags"><span class="pub-tag">Environment</span><span class="pub-tag">Finance</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Whitford, A.B. (2011). Does More Federal Environmental Funding Increase or Decrease States' Efforts? <em>Journal of Policy Analysis and Management, 30</em>(1): 136–152.</div><div class="pub-tags"><span class="pub-tag">Environment</span><span class="pub-tag">Finance</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="finance">
         <div class="pub-year">2010</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2010). The Effects of Government Academic and Industrial Policy on Cross-University Collaboration. <em>Science and Public Policy, 37</em>(5): 314–330.</div>
-          <div class="pub-tags"><span class="pub-tag">Policy</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2010). The Effects of Government Academic and Industrial Policy on Cross-University Collaboration. <em>Science and Public Policy, 37</em>(5): 314–330.</div><div class="pub-tags"><span class="pub-tag">Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="environment">
         <div class="pub-year">2009</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2009). Policy Adoption in Dynamic International Environments: Evidence from National AIDS Programs. <em>Public Administration and Development, 29</em>(5): 362–373.</div>
-          <div class="pub-tags"><span class="pub-tag">Health Policy</span></div>
-        </div>
+        <div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2009). Policy Adoption in Dynamic International Environments: Evidence from National AIDS Programs. <em>Public Administration and Development, 29</em>(5): 362–373.</div><div class="pub-tags"><span class="pub-tag">Health Policy</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="environment">
         <div class="pub-year">2009</div>
-        <div>
-          <div class="pub-cite">Hardee, K., <strong>Clark, B.Y.</strong>, Yuan, V. et al. (2009). HIV and AIDS Stigma and Discrimination in China: Results from a National Survey. <em>Asia-Pacific Population Journal, 24</em>(2).</div>
-          <div class="pub-tags"><span class="pub-tag">Health</span></div>
-        </div>
+        <div><div class="pub-cite">Hardee, K., <strong>Clark, B.Y.</strong>, Yuan, V. et al. (2009). HIV and AIDS Stigma and Discrimination in China. <em>Asia-Pacific Population Journal, 24</em>(2).</div><div class="pub-tags"><span class="pub-tag">Health</span></div></div>
       </div>
 
       <div class="pub-item" data-topics="environment finance">
         <div class="pub-year">2007</div>
-        <div>
-          <div class="pub-cite">Whitford, A.B. &amp; <strong>Clark, B.Y.</strong> (2007). Designing Property Rights for Water: Mediating Market, Government, and Corporate Failures. <em>Policy Sciences, 40</em>(4): 335–351.</div>
-          <div class="pub-tags"><span class="pub-tag">Environmental Policy</span><span class="pub-tag">Water</span></div>
-        </div>
+        <div><div class="pub-cite">Whitford, A.B. &amp; <strong>Clark, B.Y.</strong> (2007). Designing Property Rights for Water: Mediating Market, Government, and Corporate Failures. <em>Policy Sciences, 40</em>(4): 335–351.</div><div class="pub-tags"><span class="pub-tag">Environmental Policy</span><span class="pub-tag">Water</span></div></div>
       </div>
+
     </div>
+  </div>
 
-    <!-- BOOK CHAPTERS -->
-    <div class="book-section">
-      <h2>Book Chapters</h2>
-
-      <div class="pub-item" data-topics="coproduction">
-        <div class="pub-year">2021</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2021). Too Much of a Good Thing? Frequent Flyers and the Implications for the Coproduction of Public Service Delivery. In E. Welch (Ed.), <em>E-Government Research Handbook</em>. Edward Elgar.</div>
-          <div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">E-Government</span></div>
-        </div>
-      </div>
-
-      <div class="pub-item" data-topics="coproduction">
-        <div class="pub-year">2021</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2021). Co-Assessment through Digital Technologies. In Loeffler &amp; Bovaird (Eds.), <em>The Palgrave Handbook on Co-Production of Public Services and Outcomes</em>. Palgrave.</div>
-          <div class="pub-tags"><span class="pub-tag">Coproduction</span><span class="pub-tag">Digital</span></div>
-        </div>
-      </div>
-
-      <div class="pub-item" data-topics="mobility finance">
-        <div class="pub-year">2018</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Lewis, R. (2018). Future Transport and City Budgets. In W. Riggs (Ed.), <em>Disruptive Transport</em>. Routledge.</div>
-          <div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Finance</span></div>
-        </div>
-      </div>
-
-      <div class="pub-item" data-topics="coproduction">
-        <div class="pub-year">2016</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Shurik, M. (2016). Improving Citizen Satisfaction with Local Government using 311 Systems. In Gibson &amp; Julnes (Eds.), <em>Innovations in the Public and Nonprofit Sectors</em>. Routledge.</div>
-          <div class="pub-tags"><span class="pub-tag">311 Systems</span></div>
-        </div>
-      </div>
-
-      <div class="pub-item" data-topics="finance">
-        <div class="pub-year">2015</div>
-        <div>
-          <div class="pub-cite">Hexter, K., Hill, E., <strong>Clark, B.Y.</strong>, et al. (2015). Revitalizing Distressed Older Suburbs. In K. Anacker (Ed.), <em>The New American Suburb</em>. Ashgate.</div>
-          <div class="pub-tags"><span class="pub-tag">Urban Policy</span></div>
-        </div>
-      </div>
-
-      <div class="pub-item" data-topics="finance">
-        <div class="pub-year">2014</div>
-        <div>
-          <div class="pub-cite"><strong>Clark, B.Y.</strong> (2014). Can Tax Expenditures Stimulate Growth in Rust Belt Cities? In W. Bowen (Ed.), <em>The Road From the Rustbelt</em>. Upjohn Institute Press.</div>
-          <div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Urban</span></div>
-        </div>
-      </div>
+  <!-- BOOK CHAPTERS -->
+  <div class="pub-group" id="chapters">
+    <div class="group-title">Book Chapters</div>
+    <div class="pub-list">
+      <div class="pub-item" data-topics="coproduction"><div class="pub-year">2021</div><div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Brudney, J.L. (2021). Too Much of a Good Thing? Frequent Flyers and the Implications for the Coproduction of Public Service Delivery. In E. Welch (Ed.), <em>E-Government Research Handbook</em>. Edward Elgar.</div><div class="pub-tags"><span class="pub-tag">Coproduction</span></div></div></div>
+      <div class="pub-item" data-topics="coproduction"><div class="pub-year">2021</div><div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2021). Co-Assessment through Digital Technologies. In Loeffler &amp; Bovaird (Eds.), <em>The Palgrave Handbook on Co-Production of Public Services and Outcomes</em>. Palgrave.</div><div class="pub-tags"><span class="pub-tag">Coproduction</span></div></div></div>
+      <div class="pub-item" data-topics="mobility finance"><div class="pub-year">2018</div><div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Lewis, R. (2018). Future Transport and City Budgets. In W. Riggs (Ed.), <em>Disruptive Transport</em>. Routledge.</div><div class="pub-tags"><span class="pub-tag">Mobility</span><span class="pub-tag">Finance</span></div></div></div>
+      <div class="pub-item" data-topics="coproduction"><div class="pub-year">2016</div><div><div class="pub-cite"><strong>Clark, B.Y.</strong> &amp; Shurik, M. (2016). Improving Citizen Satisfaction with Local Government using 311 Systems. In Gibson &amp; Julnes (Eds.), <em>Innovations in the Public and Nonprofit Sectors</em>. Routledge.</div><div class="pub-tags"><span class="pub-tag">311 Systems</span></div></div></div>
+      <div class="pub-item" data-topics="finance"><div class="pub-year">2015</div><div><div class="pub-cite">Hexter, K., Hill, E., <strong>Clark, B.Y.</strong>, et al. (2015). Revitalizing Distressed Older Suburbs. In K. Anacker (Ed.), <em>The New American Suburb</em>. Ashgate.</div><div class="pub-tags"><span class="pub-tag">Urban Policy</span></div></div></div>
+      <div class="pub-item" data-topics="finance"><div class="pub-year">2014</div><div><div class="pub-cite"><strong>Clark, B.Y.</strong> (2014). Can Tax Expenditures Stimulate Growth in Rust Belt Cities? In W. Bowen (Ed.), <em>The Road From the Rustbelt</em>. Upjohn Institute Press.</div><div class="pub-tags"><span class="pub-tag">Finance</span><span class="pub-tag">Urban</span></div></div></div>
     </div>
+  </div>
 
-    <!-- GRANTS -->
-    <div class="grant-section">
-      <h2>Funded Grants &amp; Research Support</h2>
+  <!-- GRANTS -->
+  <div class="pub-group" id="grants">
+    <div class="group-title">Funded Grants &amp; Research Support</div>
+    <div class="grant-list">
+      <div class="grant-period-label">2022–2027</div>
+      <div class="grant-item"><div><div class="grant-title">EPA Region 10 Water Infrastructure Environmental Finance Center — Environmental Protection Agency / RCAP</div><div class="grant-role">Sub-awardee (UO PI)</div></div><div class="grant-amt">$375,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amt">$500,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Grow Back Better: Social &amp; Ecological Factors Shaping Wildfire Recovery — Joint Fire Sciences Program / BLM</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amt">$500,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Indoor Air Quality Data Analysis for Oakridge Air — EPA/GoodCompany</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amt">$398,542</div></div>
 
-      <div class="grant-year-header">2022–2027</div>
+      <div class="grant-period-label">2021–2022</div>
+      <div class="grant-item"><div><div class="grant-title">Cooperative Research Agreement with Ministry of Economy, Trade, and Industry, Japan (METI)</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$16,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Food for Lane County Data Management</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$44,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$180,000</div></div>
 
-      <div class="grant-item"><div><div class="grant-title">EPA Region 10 Water Infrastructure Environmental Finance Center — Environmental Protection Agency / RCAP</div><div class="grant-role">Sub-awardee (UO PI)</div></div><div class="grant-amount">$375,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amount">$500,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Grow Back Better: Social &amp; Ecological Factors Shaping Wildfire Recovery — Joint Fire Sciences Program / BLM</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amount">$500,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Indoor Air Quality Data Analysis for Oakridge Air — EPA/GoodCompany</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amount">$398,542</div></div>
+      <div class="grant-period-label">2020–2021</div>
+      <div class="grant-item"><div><div class="grant-title">Oregon Smoke Survey — Oregon Health Authority</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amt">$50,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Mask Monitoring on University of Oregon Campus and Lane County</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$44,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Lane County Hazard Mitigation Implementation Strategy — FEMA</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amt">$94,040</div></div>
+      <div class="grant-item"><div><div class="grant-title">Cooperative Research Agreement with METI, Japan (IPRE)</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$16,000</div></div>
 
-      <div class="grant-year-header">2021–2022</div>
+      <div class="grant-period-label">2018–2019</div>
+      <div class="grant-item"><div><div class="grant-title">Investigating Effects of TNCs on Parking Demand and Revenues — National Institute of Transportation and Communities</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$48,863</div></div>
+      <div class="grant-item"><div><div class="grant-title">Harnessing GHG Mitigation Potential of On-Demand Mobility and AVs — Mineta Transportation Institute</div><div class="grant-role">Researcher</div></div><div class="grant-amt">$25,836</div></div>
+      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$90,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">How Will Autonomous Vehicles Change Local Government Budgeting and Finance? — NITC</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$20,000</div></div>
 
-      <div class="grant-item"><div><div class="grant-title">Cooperative Research Agreement with Ministry of Economy, Trade, and Industry, Japan (METI)</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$16,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Food for Lane County Data Management</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$44,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$180,000</div></div>
-
-      <div class="grant-year-header">2020–2021</div>
-
-      <div class="grant-item"><div><div class="grant-title">Oregon Smoke Survey — Oregon Health Authority</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amount">$50,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Mask Monitoring on University of Oregon Campus and Lane County</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$44,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">Lane County Hazard Mitigation Implementation Strategy — FEMA</div><div class="grant-role">Co-Principal Investigator</div></div><div class="grant-amount">$94,040</div></div>
-
-      <div class="grant-year-header">2018–2019</div>
-
-      <div class="grant-item"><div><div class="grant-title">Investigating Effects of TNCs on Parking Demand and Revenues — National Institute of Transportation and Communities</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$48,863</div></div>
-      <div class="grant-item"><div><div class="grant-title">Lane County-PPPM Policy Lab, Lane County Government</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$90,000</div></div>
-      <div class="grant-item"><div><div class="grant-title">How Will Autonomous Vehicles Change Local Government Budgeting and Finance? — National Institute of Transportation and Communities</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amount">$20,000</div></div>
+      <div class="grant-period-label">2015–2016</div>
+      <div class="grant-item"><div><div class="grant-title">Great Lakes Environmental Finance Center — Environmental Protection Agency</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$155,000</div></div>
+      <div class="grant-item"><div><div class="grant-title">Identifying Health Disparities Using Individual Electronic Medical Records — Cleveland State University</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$23,343</div></div>
+      <div class="grant-item"><div><div class="grant-title">Cleveland's Food Swamps — Levin College / NIH</div><div class="grant-role">Principal Investigator</div></div><div class="grant-amt">$5,000</div></div>
     </div>
+  </div>
 
-  </div><!-- /page-wrapper -->
+</div><!-- /content-wrap -->
 
-  <footer>
-    <div class="footer-inner">
-      <p>© 2024 Benjamin Y. Clark</p>
-      <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-        <a href="index.html">About</a>
-        <a href="research.html">Research</a>
-        <a href="cv.html">CV</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
-      </div>
+<footer>
+  <div class="footer-inner">
+    <p>© 2024 Benjamin Y. Clark · University of Oregon</p>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html">CV</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script>
-    function filterPubs(topic, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.pub-item').forEach(item => {
-        if (topic === 'all' || item.dataset.topics?.includes(topic)) {
-          item.style.display = 'grid';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-  </script>
+<script>
+  function filterPubs(topic, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.pub-item').forEach(item => {
+      const show = topic === 'all' || (item.dataset.topics && item.dataset.topics.includes(topic));
+      item.style.display = show ? 'grid' : 'none';
+    });
+  }
+</script>
 </body>
 </html>

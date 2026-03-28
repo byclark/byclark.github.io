@@ -6,1025 +6,676 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Consulting — Benjamin Clark</title>
-  <meta name="description" content="Benjamin Clark offers consulting services to local governments, nonprofits, and public agencies in public management, financial analysis, data analytics, and policy evaluation.">
+  <meta name="description" content="Benjamin Clark offers consulting to local governments, nonprofits, and public agencies in management, analytics, finance, and policy evaluation.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
   <style>
     :root {
-      --black: #0d0d0d;
-      --white: #f7f5f0;
-      --slate: #1c1c1e;
-      --mid: #3a3a3c;
-      --muted: #8a8a8e;
-      --rule: #2a2a2c;
-      --accent: #4f6ef7;
-      --accent-dim: rgba(79,110,247,0.1);
-      --accent-bright: #7b96ff;
-      --font-display: 'Syne', sans-serif;
-      --font-body: 'Newsreader', serif;
-      --nav-h: 68px;
-      --max-w: 1120px;
-      --pad: clamp(1.5rem, 5vw, 4rem);
+      --bg: #faf9f7; --bg2: #f2f0ec; --bg3: #e8e5e0;
+      --ink: #1a1917; --ink2: #3d3b38; --muted: #7a7673;
+      --rule: #dedad5; --accent: #2d5be3; --accent-light: #e8eefb; --accent-dark: #1e3fa0;
+      --font-serif: 'Literata', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --nav-h: 64px; --max-w: 1100px; --pad: clamp(1.25rem, 4vw, 3.5rem); --radius: 6px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: var(--font-body); background: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-    body::after {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999;
-    }
-    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 500; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); background: rgba(13,13,13,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--rule); }
-    .nav-logo { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+    body { font-family: var(--font-serif); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; font-size: 17px; line-height: 1.7; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(250,249,247,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); }
+    .nav-logo { font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--ink); text-decoration: none; }
     .nav-logo span { color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
-    .nav-links a { font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.4rem 0.85rem; border-radius: 2px; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--white); background: var(--rule); }
-    .nav-links a.active { color: var(--accent); background: var(--rule); }
-    .nav-actions { display: flex; gap: 1rem; align-items: center; }
-    .nav-icon { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
-    .nav-icon:hover { color: var(--white); }
-    .nav-cta { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.4rem 1rem; border-radius: 2px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .nav-cta:hover { background: var(--accent); color: var(--black); }
+    .nav-center { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-center a { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; padding: 0.35rem 0.8rem; border-radius: var(--radius); transition: color 0.15s, background 0.15s; }
+    .nav-center a:hover { color: var(--ink); background: var(--bg2); }
+    .nav-center a.active { color: var(--accent); background: var(--accent-light); }
+    .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-right a { font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .nav-right a:hover { color: var(--ink); }
+    .nav-btn { background: var(--accent) !important; color: #fff !important; padding: 0.4rem 1rem !important; border-radius: var(--radius) !important; font-size: 0.8rem !important; }
+    .nav-btn:hover { background: var(--accent-dark) !important; color: #fff !important; }
 
-    .wrapper { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
-    .section-tag { font-family: var(--font-display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    /* SHARED */
+    .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); }
+    .eyebrow { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    h2 { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 400; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 1rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-sans); font-size: 0.82rem; font-weight: 500; text-decoration: none; padding: 0.6rem 1.25rem; border-radius: var(--radius); transition: all 0.15s; }
+    .btn-solid { background: var(--accent); color: #fff; }
+    .btn-solid:hover { background: var(--accent-dark); }
+    .btn-ghost { border: 1px solid var(--rule); color: var(--ink2); background: #fff; }
+    .btn-ghost:hover { border-color: var(--ink2); }
 
-    /* ── HERO ── */
-    .consult-hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: end;
-      padding-top: var(--nav-h);
-      border-bottom: 1px solid var(--rule);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--rule) 1px, transparent 1px),
-        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .hero-grid-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 70% 80% at 30% 60%, rgba(13,13,13,0) 0%, var(--black) 70%);
-    }
-
-    .hero-left {
-      position: relative;
-      z-index: 2;
-      padding: 6rem var(--pad) 5rem;
-      padding-right: 3rem;
-    }
-
-    .hero-left h1 {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      font-weight: 800;
-      line-height: 0.92;
-      letter-spacing: -0.03em;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-left h1 .accent-word {
-      display: block;
-      color: transparent;
-      -webkit-text-stroke: 1px var(--accent);
-    }
-
-    .hero-desc {
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: rgba(247,245,240,0.65);
-      font-weight: 300;
-      max-width: 480px;
-      margin-bottom: 3rem;
-    }
-
-    .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .btn-primary { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); background: var(--white); padding: 0.9rem 2rem; text-decoration: none; border-radius: 2px; transition: background 0.2s, color 0.2s; }
-    .btn-primary:hover { background: var(--accent); }
-    .btn-outline { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); border: 1px solid var(--rule); padding: 0.9rem 2rem; text-decoration: none; border-radius: 2px; transition: border-color 0.2s, background 0.2s; }
-    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
-
-    .hero-right {
-      position: relative;
-      z-index: 2;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      border-left: 1px solid var(--rule);
-    }
-
-    .hero-stat-stack { display: flex; flex-direction: column; }
-
-    .hero-stat {
-      padding: 2rem 2.5rem;
+    /* HERO */
+    .hero {
+      padding-top: calc(var(--nav-h) + 5rem);
+      padding-bottom: 5rem;
       border-bottom: 1px solid var(--rule);
     }
-
-    .hero-stat-n {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-
-    .hero-stat-label {
-      font-family: var(--font-display);
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    /* ── CREDIBILITY STRIP ── */
-    .cred-strip {
-      background: var(--slate);
-      border-bottom: 1px solid var(--rule);
-      padding: 1.5rem var(--pad);
-    }
-
-    .cred-strip-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .cred-label {
-      font-family: var(--font-display);
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .cred-orgs {
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .cred-org {
-      font-family: var(--font-display);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: rgba(247,245,240,0.4);
-    }
-
-    /* ── WHO I WORK WITH ── */
-    .who-section {
-      padding: 7rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .who-section-inner {
+    .hero-inner {
       max-width: var(--max-w);
       margin: 0 auto;
       padding: 0 var(--pad);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 1.02rem; color: var(--ink2); line-height: 1.85; font-weight: 300; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    /* STAT CARDS */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .stat-card-n {
+      font-family: var(--font-sans);
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .stat-card-label {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      line-height: 1.4;
     }
 
-    .who-head {
+    /* PARTNER STRIP */
+    .partner-strip {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--rule);
+      padding: 1.25rem var(--pad);
+    }
+    .partner-strip-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .partner-label { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+    .partner-names { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .partner-name { font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--bg3); }
+
+    /* WHO */
+    .who-section { padding: 5.5rem 0; border-bottom: 1px solid var(--rule); }
+    .who-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+    .who-intro p { font-size: 1rem; color: var(--ink2); line-height: 1.85; font-weight: 300; }
+    .client-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .client-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .client-card:hover { border-color: var(--accent); box-shadow: 0 2px 16px rgba(45,91,227,0.07); }
+    .client-icon { width: 36px; height: 36px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 0.9rem; margin-bottom: 1rem; }
+    .client-card h3 { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+    .client-card p { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+
+    /* SERVICES */
+    .services-section { padding: 5.5rem 0; background: var(--bg2); border-bottom: 1px solid var(--rule); }
+    .services-head { margin-bottom: 2.5rem; }
+    .services-head p { font-family: var(--font-sans); font-size: 0.95rem; color: var(--muted); max-width: 540px; margin-top: 0.5rem; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .service-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { border-color: var(--accent); box-shadow: 0 2px 16px rgba(45,91,227,0.07); }
+    .service-num { font-family: var(--font-sans); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .service-card h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; }
+    .service-card p { font-family: var(--font-sans); font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+    .service-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+    .service-bullets li { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.5rem; }
+    .service-bullets li::before { content: '→'; color: var(--accent); font-size: 0.7rem; margin-top: 0.15rem; flex-shrink: 0; }
+
+    /* CREDENTIALS */
+    .creds-section { padding: 5.5rem 0; border-bottom: 1px solid var(--rule); }
+    .creds-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
       align-items: start;
-      margin-bottom: 5rem;
     }
+    .creds-left h2 { margin-bottom: 1rem; }
+    .creds-left p { font-family: var(--font-sans); font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
+    .cred-list { display: flex; flex-direction: column; }
+    .cred-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+    .cred-check { width: 20px; height: 20px; background: var(--accent-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2rem; }
+    .cred-check i { color: var(--accent); font-size: 0.6rem; }
+    .cred-text h4 { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; }
+    .cred-text p { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
 
-    .who-head h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-    }
+    /* PROCESS */
+    .process-section { padding: 5.5rem 0; background: var(--bg2); border-bottom: 1px solid var(--rule); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2.5rem; }
+    .process-step { background: #fff; border: 1px solid var(--rule); border-radius: var(--radius); padding: 1.75rem; }
+    .step-num { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 600; color: var(--rule); line-height: 1; margin-bottom: 1rem; }
+    .process-step h3 { font-family: var(--font-sans); font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+    .process-step p { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
 
-    .who-head p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: rgba(247,245,240,0.65);
-      font-weight: 300;
-      padding-top: 0.5rem;
-    }
-
-    .client-types {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: var(--rule);
-    }
-
-    .client-card {
-      background: var(--black);
-      padding: 2.5rem 2rem;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.25s;
-    }
-
-    .client-card:hover { background: var(--slate); }
-
-    .client-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-
-    .client-card:hover::before { transform: scaleX(1); }
-
-    .client-icon {
-      font-size: 1.75rem;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .client-card h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .client-card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-
-    /* ── SERVICES ── */
-    .services-section {
-      padding: 7rem 0;
-      border-bottom: 1px solid var(--rule);
-      background: var(--slate);
-    }
-
-    .services-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
-
-    .services-head {
-      margin-bottom: 4rem;
-    }
-
-    .services-head h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-      background: var(--rule);
-    }
-
-    .service-card {
-      background: var(--slate);
-      padding: 3rem 2.5rem;
-      transition: background 0.25s;
-      position: relative;
-    }
-
-    .service-card:hover { background: var(--mid); }
-
-    .service-number {
-      font-family: var(--font-display);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-    }
-
-    .service-card h3 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .service-card p {
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.8;
-      font-weight: 300;
-      margin-bottom: 1.5rem;
-    }
-
-    .service-examples {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .service-example {
-      font-family: var(--font-display);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(247,245,240,0.35);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .service-example::before {
-      content: '→';
-      color: var(--accent);
-      font-size: 0.7rem;
-    }
-
-    /* ── EXPERTISE ── */
-    .expertise-section {
-      padding: 7rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .expertise-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
-    }
-
-    .expertise-left h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 2rem;
-    }
-
-    .expertise-left p {
-      font-size: 1rem;
-      color: rgba(247,245,240,0.65);
-      line-height: 1.85;
-      font-weight: 300;
-    }
-
-    .credential-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .credential-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.25rem;
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .credential-icon {
-      color: var(--accent);
-      font-size: 0.9rem;
-      padding-top: 0.25rem;
-      min-width: 16px;
-    }
-
-    .credential-text h4 {
-      font-family: var(--font-display);
-      font-size: 0.82rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-
-    .credential-text p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* ── PROCESS ── */
-    .process-section {
-      padding: 7rem 0;
-      border-bottom: 1px solid var(--rule);
-      background: var(--slate);
-    }
-
-    .process-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
-    }
-
-    .process-inner h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 4rem;
-    }
-
-    .process-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2px;
-      background: var(--rule);
-    }
-
-    .process-step {
-      background: var(--slate);
-      padding: 2.5rem 2rem;
-    }
-
-    .step-num {
-      font-family: var(--font-display);
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--rule);
-      line-height: 1;
-      margin-bottom: 1.5rem;
-    }
-
-    .process-step h3 {
-      font-family: var(--font-display);
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-
-    .process-step p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.65;
-      font-weight: 300;
-    }
-
-    /* ── CONTACT ── */
-    .contact-section {
-      padding: 8rem 0;
-    }
-
+    /* CONTACT */
+    .contact-section { padding: 5.5rem 0; }
     .contact-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 var(--pad);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      gap: 5rem;
       align-items: start;
     }
+    .contact-left h2 { margin-bottom: 1rem; }
+    .contact-left p { font-family: var(--font-sans); font-size: 0.95rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; background: #fff; }
+    .contact-info-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; border-bottom: 1px solid var(--rule); text-decoration: none; transition: background 0.15s; }
+    .contact-info-item:last-child { border-bottom: none; }
+    .contact-info-item:hover { background: var(--bg2); }
+    .contact-info-icon { width: 32px; height: 32px; background: var(--accent-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 0.78rem; flex-shrink: 0; }
+    .contact-info-text p { font-family: var(--font-sans); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.1rem; }
+    .contact-info-text span { font-family: var(--font-sans); font-size: 0.88rem; color: var(--ink); }
 
-    .contact-left h2 {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.0;
-      margin-bottom: 2rem;
-    }
-
-    .contact-left p {
-      font-size: 1rem;
-      color: rgba(247,245,240,0.6);
-      line-height: 1.85;
-      font-weight: 300;
-      margin-bottom: 2.5rem;
-    }
-
-    .contact-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      background: var(--rule);
-    }
-
-    .contact-method {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      background: var(--black);
-      padding: 1.5rem 2rem;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .contact-method:hover { background: var(--slate); }
-
-    .contact-method-icon {
-      color: var(--accent);
-      font-size: 1rem;
-      min-width: 20px;
-    }
-
-    .contact-method-text h4 {
-      font-family: var(--font-display);
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.2rem;
-    }
-
-    .contact-method-text p {
-      font-size: 0.9rem;
-      color: var(--white);
-    }
-
-    .contact-right {
-      background: var(--slate);
+    /* FORM */
+    .contact-form-wrap {
+      background: #fff;
       border: 1px solid var(--rule);
-      padding: 3rem;
+      border-radius: var(--radius);
+      padding: 2rem;
     }
-
-    .contact-right h3 {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .contact-right .sub {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      font-style: italic;
-    }
-
-    .form-group { margin-bottom: 1.25rem; }
-
-    .form-label {
-      display: block;
-      font-family: var(--font-display);
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .form-input, .form-textarea, .form-select {
+    .contact-form-wrap h3 { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+    .contact-form-wrap .sub { font-family: var(--font-sans); font-size: 0.82rem; color: var(--muted); margin-bottom: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-label { display: block; font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: var(--ink2); margin-bottom: 0.4rem; }
+    .form-input, .form-select, .form-textarea {
       width: 100%;
-      background: var(--black);
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: var(--bg);
       border: 1px solid var(--rule);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.92rem;
-      padding: 0.8rem 1rem;
-      border-radius: 2px;
-      transition: border-color 0.2s;
+      border-radius: var(--radius);
+      padding: 0.6rem 0.85rem;
+      transition: border-color 0.15s;
       outline: none;
       appearance: none;
     }
-
-    .form-input:focus, .form-textarea:focus, .form-select:focus {
-      border-color: var(--accent);
-    }
-
-    .form-textarea { resize: vertical; min-height: 120px; }
-
-    .form-select option { background: var(--black); }
-
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); background: #fff; }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--muted); }
+    .form-textarea { resize: vertical; min-height: 110px; }
+    .form-select { cursor: pointer; }
     .form-submit {
       width: 100%;
-      font-family: var(--font-display);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--black);
-      background: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
       border: none;
-      padding: 1rem 2rem;
-      border-radius: 2px;
+      border-radius: var(--radius);
+      padding: 0.75rem 1.5rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.15s;
       margin-top: 0.5rem;
     }
-    .form-submit:hover { background: var(--accent); }
+    .form-submit:hover { background: var(--accent-dark); }
 
-    /* FOOTER */
-    footer { border-top: 1px solid var(--rule); padding: 3rem 0; }
-    .footer-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--pad); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-inner p, .footer-inner a { font-family: var(--font-display); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
-    .footer-inner a:hover { color: var(--white); }
-
-    .fade-up { opacity: 0; transform: translateY(24px); animation: fadeUp 0.75s ease forwards; }
-    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; } .d4 { animation-delay: 0.5s; }
-    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-    @media (max-width: 860px) {
-      .consult-hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 3rem; }
-      .hero-right { border-left: none; border-top: 1px solid var(--rule); }
-      .hero-stat-stack { flex-direction: row; flex-wrap: wrap; }
-      .hero-stat { flex: 1; min-width: 150px; border-right: 1px solid var(--rule); }
-      .who-head, .expertise-inner, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .client-types { grid-template-columns: 1fr 1fr; }
-      .services-grid { grid-template-columns: 1fr; }
-      .process-steps { grid-template-columns: 1fr 1fr; }
-      .nav-links { display: none; }
+    /* SUCCESS message */
+    .form-success {
+      display: none;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: #166534;
     }
 
+    /* FOOTER */
+    footer { border-top: 1px solid var(--rule); padding: 2.5rem var(--pad); background: var(--bg); }
+    .footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-inner p, .footer-inner a { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+    .footer-inner a:hover { color: var(--ink); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(16px); animation: fu 0.65s ease forwards; }
+    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.2s; } .d3 { animation-delay: 0.35s; }
+    @keyframes fu { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 900px) {
+      .hero-inner, .who-intro, .creds-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .client-cards { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
     @media (max-width: 600px) {
-      .client-types { grid-template-columns: 1fr; }
+      .nav-center { display: none; }
+      .client-cards { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">B<span>.</span>Clark</a>
-    <ul class="nav-links">
-      <li><a href="index.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="cv.html">CV</a></li>
-      <li><a href="consulting.html" class="active">Consulting</a></li>
-    </ul>
-    <div class="nav-actions">
-      <a href="mailto:bclark2@uoregon.edu" class="nav-icon"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" class="nav-icon" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-      <a href="#contact" class="nav-cta">Get in Touch</a>
-    </div>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="consulting.html" class="active">Consulting</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+    <a href="#contact" class="nav-btn">Get in Touch</a>
+  </div>
+</nav>
 
-  <!-- ── HERO ── -->
-  <section class="consult-hero">
-    <div class="hero-grid-bg"></div>
-
-    <div class="hero-left">
-      <div class="section-tag fade-up d1">Consulting Services</div>
-      <h1 class="fade-up d2">
-        Research<br>that<br>
-        <span class="accent-word">works.</span>
-      </h1>
-      <p class="hero-desc fade-up d3">Two decades of peer-reviewed research on local government, public finance, and data analytics — applied directly to the problems your organization faces.</p>
-      <div class="hero-cta-group fade-up d4">
-        <a href="#contact" class="btn-primary">Start a Conversation <i class="fas fa-arrow-right"></i></a>
-        <a href="cv.html" class="btn-outline">View My CV</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow fade-up d1">Consulting Services</div>
+      <h1 class="fade-up d2">Research that works <em>for you.</em></h1>
+      <p class="hero-desc fade-up d2">Two decades of peer-reviewed research on local government, public finance, and data analytics — applied directly to the problems your organization faces.</p>
+      <div class="hero-btns fade-up d3">
+        <a href="#contact" class="btn btn-solid">Get in Touch <i class="fas fa-arrow-right"></i></a>
+        <a href="cv.html" class="btn btn-ghost">View My CV</a>
       </div>
     </div>
-
-    <div class="hero-right">
-      <div class="hero-stat-stack">
-        <div class="hero-stat">
-          <div class="hero-stat-n">25+</div>
-          <div class="hero-stat-label">Peer-Reviewed Publications</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-n">$2M+</div>
-          <div class="hero-stat-label">In Funded Research</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-n">15+</div>
-          <div class="hero-stat-label">Years in Applied Research</div>
-        </div>
-        <div class="hero-stat" style="border-bottom:none;">
-          <div class="hero-stat-n">10+</div>
-          <div class="hero-stat-label">Government Partners</div>
-        </div>
+    <div class="stat-cards fade-up d2">
+      <div class="stat-card">
+        <div class="stat-card-n">25+</div>
+        <div class="stat-card-label">Peer-reviewed publications</div>
       </div>
-    </div>
-  </section>
-
-  <!-- ── CREDIBILITY STRIP ── -->
-  <div class="cred-strip">
-    <div class="cred-strip-inner">
-      <span class="cred-label">Past Partners &amp; Funders</span>
-      <div class="cred-orgs">
-        <span class="cred-org">Lane County Government</span>
-        <span class="cred-org">U.S. EPA</span>
-        <span class="cred-org">FEMA</span>
-        <span class="cred-org">Oregon Health Authority</span>
-        <span class="cred-org">METI Japan</span>
-        <span class="cred-org">MetroLab Network</span>
-        <span class="cred-org">MetroHealth Medical Center</span>
+      <div class="stat-card">
+        <div class="stat-card-n">$2M+</div>
+        <div class="stat-card-label">In funded research</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">15+</div>
+        <div class="stat-card-label">Years in academia &amp; practice</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-n">10+</div>
+        <div class="stat-card-label">Government partners</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ── WHO I WORK WITH ── -->
-  <section class="who-section">
-    <div class="who-section-inner">
-      <div class="who-head">
-        <div>
-          <div class="section-tag">Who I Work With</div>
-          <h2>Organizations that serve the public.</h2>
-        </div>
-        <p>My consulting practice is built on the same rigor as my academic research — applied to the real operational and strategic challenges facing public-sector and mission-driven organizations. If your work involves government, communities, or the public good, let's talk.</p>
+<!-- PARTNER STRIP -->
+<div class="partner-strip">
+  <div class="partner-strip-inner">
+    <span class="partner-label">Past Partners &amp; Funders</span>
+    <div class="partner-names">
+      <span class="partner-name">Lane County Government</span>
+      <span class="partner-name">U.S. EPA</span>
+      <span class="partner-name">FEMA</span>
+      <span class="partner-name">Oregon Health Authority</span>
+      <span class="partner-name">METI Japan</span>
+      <span class="partner-name">MetroLab Network</span>
+      <span class="partner-name">MetroHealth Medical Center</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHO -->
+<section class="who-section">
+  <div class="wrap">
+    <div class="who-intro">
+      <div>
+        <div class="eyebrow">Who I Work With</div>
+        <h2>Organizations that serve the public.</h2>
       </div>
-
-      <div class="client-types">
-        <div class="client-card">
-          <div class="client-icon"><i class="fas fa-city"></i></div>
-          <h3>Local Governments</h3>
-          <p>Cities, counties, and regional authorities navigating budget pressures, service delivery challenges, digital transformation, and emergency recovery.</p>
-        </div>
-        <div class="client-card">
-          <div class="client-icon"><i class="fas fa-hand-holding-heart"></i></div>
-          <h3>Nonprofits &amp; Foundations</h3>
-          <p>Mission-driven organizations seeking rigorous program evaluation, data strategy, and evidence-based management practices.</p>
-        </div>
-        <div class="client-card">
-          <div class="client-icon"><i class="fas fa-leaf"></i></div>
-          <h3>Environmental &amp; Public Health Agencies</h3>
-          <p>Agencies addressing air quality, wildfire recovery, environmental finance, and community resilience through data-driven approaches.</p>
-        </div>
+      <p>My consulting draws on the same rigor as my academic research — applied to the real operational and strategic challenges facing public-sector and mission-driven organizations. If your work involves government, communities, or the public good, I'd like to hear from you.</p>
+    </div>
+    <div class="client-cards">
+      <div class="client-card">
+        <div class="client-icon"><i class="fas fa-city"></i></div>
+        <h3>Local Governments</h3>
+        <p>Cities, counties, and regional authorities navigating budget pressures, service delivery challenges, digital transformation, and emergency recovery.</p>
+      </div>
+      <div class="client-card">
+        <div class="client-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <h3>Nonprofits &amp; Foundations</h3>
+        <p>Mission-driven organizations seeking rigorous program evaluation, data strategy, and evidence-based management practices.</p>
+      </div>
+      <div class="client-card">
+        <div class="client-icon"><i class="fas fa-leaf"></i></div>
+        <h3>Public Health &amp; Environmental Agencies</h3>
+        <p>Agencies working on air quality, wildfire recovery, environmental finance, and community resilience through data-driven approaches.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── SERVICES ── -->
-  <section class="services-section">
-    <div class="services-inner">
-      <div class="services-head">
-        <div class="section-tag">What I Offer</div>
-        <h2>Consulting Services</h2>
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="wrap">
+    <div class="services-head">
+      <div class="eyebrow">What I Offer</div>
+      <h2>Consulting Services</h2>
+      <p>Each engagement is grounded in empirical research and tailored to your organization's specific context and goals.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Financial Health &amp; Budget Analysis</h3>
+        <p>Assess your organization's financial condition, identify vulnerabilities, and develop evidence-based strategies for long-term sustainability — grounded in published research on municipal finance and credit ratings.</p>
+        <ul class="service-bullets">
+          <li>Financial condition assessment</li>
+          <li>Revenue forecasting &amp; scenario planning</li>
+          <li>Credit rating implications analysis</li>
+          <li>Cost-benefit analysis of programs and policies</li>
+        </ul>
       </div>
-
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-number">01</div>
-          <h3>Financial Health &amp; Budget Analysis</h3>
-          <p>Assess your organization's financial condition, identify fiscal vulnerabilities, and develop evidence-based strategies for long-term budget sustainability. Grounded in published research on municipal finance, credit ratings, and local government fiscal health.</p>
-          <div class="service-examples">
-            <span class="service-example">Financial condition assessment</span>
-            <span class="service-example">Revenue forecasting &amp; scenario planning</span>
-            <span class="service-example">Credit rating implications analysis</span>
-            <span class="service-example">Cost-benefit analysis of programs</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-number">02</div>
-          <h3>Data Analytics &amp; Program Evaluation</h3>
-          <p>Design and execute rigorous quantitative evaluations of programs, policies, and service delivery systems. From defining the right questions to communicating results to decision-makers, I translate data into actionable insight.</p>
-          <div class="service-examples">
-            <span class="service-example">Program outcome evaluation</span>
-            <span class="service-example">Survey design &amp; analysis</span>
-            <span class="service-example">311 &amp; service request data analysis</span>
-            <span class="service-example">IoT &amp; sensor data interpretation</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-number">03</div>
-          <h3>Public Management Strategy</h3>
-          <p>Improve organizational effectiveness, service delivery, and community engagement. Drawing on research in coproduction and collaborative governance, I help organizations strengthen the relationship between government and the people they serve.</p>
-          <div class="service-examples">
-            <span class="service-example">Coproduction strategy &amp; design</span>
-            <span class="service-example">Organizational effectiveness review</span>
-            <span class="service-example">Citizen engagement system design</span>
-            <span class="service-example">Strategic planning facilitation</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-number">04</div>
-          <h3>Wildfire &amp; Emergency Recovery Policy</h3>
-          <p>Evidence-based guidance for communities and agencies navigating wildfire recovery, hazard mitigation, and building long-term climate resilience. Based on active field research in Oregon's recovery landscape.</p>
-          <div class="service-examples">
-            <span class="service-example">Recovery strategy development</span>
-            <span class="service-example">Hazard mitigation planning support</span>
-            <span class="service-example">Community resilience assessment</span>
-            <span class="service-example">Air quality intervention evaluation</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-number">05</div>
-          <h3>Environmental Finance</h3>
-          <p>Navigate water infrastructure financing, environmental compliance costs, and green investment strategies. Rooted in EPA-funded research and direct advisory experience with the Environmental Finance Advisory Board.</p>
-          <div class="service-examples">
-            <span class="service-example">Water infrastructure finance planning</span>
-            <span class="service-example">Environmental funding strategy</span>
-            <span class="service-example">Regulatory compliance cost analysis</span>
-            <span class="service-example">Grant &amp; funding opportunity review</span>
-          </div>
-        </div>
-
-        <div class="service-card">
-          <div class="service-number">06</div>
-          <h3>Civic Technology &amp; Innovation</h3>
-          <p>Evaluate, implement, or optimize technology investments in government — from 311 systems and open data platforms to GenAI applications. I help organizations make evidence-based technology decisions.</p>
-          <div class="service-examples">
-            <span class="service-example">311 system evaluation &amp; design</span>
-            <span class="service-example">Open data strategy</span>
-            <span class="service-example">GenAI for local government guidance</span>
-            <span class="service-example">Technology ROI assessment</span>
-          </div>
-        </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Data Analytics &amp; Program Evaluation</h3>
+        <p>Design and execute rigorous evaluations of programs, policies, and service delivery systems. I translate data into actionable findings for decision-makers.</p>
+        <ul class="service-bullets">
+          <li>Program outcome and impact evaluation</li>
+          <li>Survey design and quantitative analysis</li>
+          <li>311 and service request data analysis</li>
+          <li>IoT and sensor data interpretation</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Public Management Strategy</h3>
+        <p>Improve organizational effectiveness, service delivery, and community engagement. Drawing on research in coproduction and collaborative governance, I help organizations strengthen public relationships.</p>
+        <ul class="service-bullets">
+          <li>Coproduction strategy and design</li>
+          <li>Organizational effectiveness review</li>
+          <li>Citizen engagement system design</li>
+          <li>Strategic planning facilitation</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>Wildfire &amp; Emergency Recovery</h3>
+        <p>Evidence-based guidance for communities navigating wildfire recovery, hazard mitigation, and long-term climate resilience — based on active field research in Oregon.</p>
+        <ul class="service-bullets">
+          <li>Recovery strategy development</li>
+          <li>Hazard mitigation planning support</li>
+          <li>Community resilience assessment</li>
+          <li>Air quality intervention evaluation</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <h3>Environmental Finance</h3>
+        <p>Navigate water infrastructure financing, environmental compliance costs, and green investment strategies — rooted in EPA-funded research and direct advisory work with the Environmental Finance Advisory Board.</p>
+        <ul class="service-bullets">
+          <li>Water infrastructure finance planning</li>
+          <li>Environmental funding strategy</li>
+          <li>Regulatory compliance cost analysis</li>
+          <li>Grant and funding opportunity review</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <h3>Civic Technology &amp; Innovation</h3>
+        <p>Evaluate, plan, or optimize technology investments in government — from 311 systems and open data to GenAI applications. I help organizations make evidence-based technology decisions.</p>
+        <ul class="service-bullets">
+          <li>311 system evaluation and design</li>
+          <li>Open data strategy</li>
+          <li>GenAI for local government guidance</li>
+          <li>Technology ROI assessment</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── EXPERTISE / CREDENTIALS ── -->
-  <section class="expertise-section">
-    <div class="expertise-inner">
-      <div class="expertise-left">
-        <div class="section-tag">Why Work With Me</div>
-        <h2>Academic rigor meets real-world results.</h2>
-        <p>My consulting is not generic advice — it's grounded in 20+ years of empirical research, direct government partnerships, and hands-on applied policy work. Every engagement draws from a body of peer-reviewed work and lived experience in the field.</p>
+<!-- CREDENTIALS -->
+<section class="creds-section">
+  <div class="wrap">
+    <div class="creds-inner">
+      <div class="creds-left">
+        <div class="eyebrow">Why Work With Me</div>
+        <h2>Academic rigor. Practical results.</h2>
+        <p>My consulting is not generic advice — it is grounded in 20+ years of empirical research, direct government partnerships, and hands-on applied policy work. Every engagement draws from a body of peer-reviewed scholarship and real experience in the field.</p>
       </div>
-      <div class="credential-list">
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
+      <div class="cred-list">
+        <div class="cred-item">
+          <div class="cred-check"><i class="fas fa-check"></i></div>
+          <div class="cred-text">
             <h4>Ph.D. in Public Administration, University of Georgia</h4>
             <p>Deep methodological expertise in quantitative research, policy analysis, and program evaluation.</p>
           </div>
         </div>
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
-            <h4>Co-Founder, Oregon Policy Lab</h4>
-            <p>Built a university-government partnership model connecting rigorous research with applied policy solutions since 2018.</p>
+        <div class="cred-item">
+          <div class="cred-check"><i class="fas fa-check"></i></div>
+          <div class="cred-text">
+            <h4>Co-Founder, Oregon Policy Lab (2018–present)</h4>
+            <p>Built a university-government partnership model connecting research with real policy challenges for 6+ years.</p>
           </div>
         </div>
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
+        <div class="cred-item">
+          <div class="cred-check"><i class="fas fa-check"></i></div>
+          <div class="cred-text">
             <h4>Expert Consultant, EPA Environmental Finance Advisory Board</h4>
             <p>Provided direct advisory expertise to federal environmental finance decision-making.</p>
           </div>
         </div>
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
+        <div class="cred-item">
+          <div class="cred-check"><i class="fas fa-check"></i></div>
+          <div class="cred-text">
             <h4>Budget Analyst, Athens-Clarke County Government</h4>
             <p>Practitioner experience inside local government — I understand the real constraints organizations face.</p>
           </div>
         </div>
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
-            <h4>MetroLab Network Task Force Member — GenAI for Local Governments</h4>
-            <p>Active leadership in the national conversation on technology adoption in public sector organizations.</p>
-          </div>
-        </div>
-        <div class="credential-item">
-          <div class="credential-icon"><i class="fas fa-check"></i></div>
-          <div class="credential-text">
-            <h4>Editorial Board: Public Administration Review, ARPA</h4>
-            <p>At the forefront of cutting-edge research in public management and administration.</p>
+        <div class="cred-item">
+          <div class="cred-check"><i class="fas fa-check"></i></div>
+          <div class="cred-text">
+            <h4>MetroLab Network — GenAI for Local Governments Task Force</h4>
+            <p>Active leadership in the national conversation on technology adoption in the public sector.</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── PROCESS ── -->
-  <section class="process-section">
-    <div class="process-inner">
-      <div class="section-tag">How It Works</div>
-      <h2>A straightforward process.</h2>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-num">01</div>
-          <h3>Initial Conversation</h3>
-          <p>We talk through your challenge, context, and what a successful outcome looks like for your organization.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-num">02</div>
-          <h3>Scoping &amp; Proposal</h3>
-          <p>I develop a clear scope of work, timeline, and fee structure tailored to your needs and budget.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-num">03</div>
-          <h3>Research &amp; Analysis</h3>
-          <p>Deep engagement with your data, documents, and stakeholders — applying rigorous methods to your specific context.</p>
-        </div>
-        <div class="process-step">
-          <div class="step-num">04</div>
-          <h3>Actionable Deliverables</h3>
-          <p>Clear findings, practical recommendations, and support for implementation — not a report that sits on a shelf.</p>
-        </div>
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="wrap">
+    <div class="eyebrow">How It Works</div>
+    <h2>A straightforward engagement process.</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h3>Initial Conversation</h3>
+        <p>We discuss your challenge, context, and what a successful outcome looks like for your organization. No obligation.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h3>Scoping &amp; Proposal</h3>
+        <p>I develop a clear scope of work, timeline, and fee structure tailored to your needs and budget.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h3>Research &amp; Analysis</h3>
+        <p>Deep engagement with your data, documents, and stakeholders — applying rigorous methods to your specific situation.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h3>Actionable Deliverables</h3>
+        <p>Clear findings, practical recommendations, and ongoing support for implementation — not a report that sits on a shelf.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── CONTACT ── -->
-  <section class="contact-section" id="contact">
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="wrap">
     <div class="contact-inner">
       <div class="contact-left">
-        <div class="section-tag">Get in Touch</div>
-        <h2>Let's work together.</h2>
-        <p>Whether you have a specific project in mind or just want to explore whether my expertise fits your needs, I'd love to hear from you. I typically respond within 48 hours.</p>
-
-        <div class="contact-methods">
-          <a href="mailto:bclark2@uoregon.edu" class="contact-method">
-            <div class="contact-method-icon"><i class="fas fa-envelope"></i></div>
-            <div class="contact-method-text">
-              <h4>Email</h4>
-              <p>bclark2@uoregon.edu</p>
-            </div>
+        <div class="eyebrow">Get in Touch</div>
+        <h2>Let's talk about your project.</h2>
+        <p>Whether you have a specific project in mind or just want to explore whether my expertise fits your needs, I'd be glad to hear from you. I typically respond within 48 hours.</p>
+        <div class="contact-info">
+          <a href="mailto:bclark2@uoregon.edu" class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-info-text"><p>Email</p><span>bclark2@uoregon.edu</span></div>
           </a>
-          <div class="contact-method">
-            <div class="contact-method-icon"><i class="fas fa-phone"></i></div>
-            <div class="contact-method-text">
-              <h4>Phone</h4>
-              <p>541.346.7320</p>
-            </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-info-text"><p>Phone</p><span>541.346.7320</span></div>
           </div>
-          <div class="contact-method">
-            <div class="contact-method-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="contact-method-text">
-              <h4>Location</h4>
-              <p>Hendricks Hall, University of Oregon, Eugene OR</p>
-            </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-info-text"><p>Office</p><span>Hendricks Hall, University of Oregon, Eugene OR</span></div>
           </div>
         </div>
       </div>
 
-      <div class="contact-right">
+      <!-- SIMPLE FORM — opens a pre-filled email in the user's email client -->
+      <div class="contact-form-wrap">
         <h3>Send a Message</h3>
-        <p class="sub">Tell me about your project or question.</p>
-        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <p class="sub">Fill this out and it will open a pre-addressed email for you to send.</p>
+        <div class="form-row">
           <div class="form-group">
-            <label class="form-label" for="name">Your Name</label>
-            <input class="form-input" type="text" id="name" name="name" placeholder="Jane Smith" required>
+            <label class="form-label" for="fname">First Name</label>
+            <input class="form-input" type="text" id="fname" placeholder="Jane">
           </div>
           <div class="form-group">
-            <label class="form-label" for="org">Organization</label>
-            <input class="form-input" type="text" id="org" name="organization" placeholder="City of Eugene">
+            <label class="form-label" for="lname">Last Name</label>
+            <input class="form-input" type="text" id="lname" placeholder="Smith">
           </div>
-          <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="jane@example.gov" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="service">Area of Interest</label>
-            <select class="form-select" id="service" name="service">
-              <option value="">Select a service area...</option>
-              <option>Financial Health &amp; Budget Analysis</option>
-              <option>Data Analytics &amp; Program Evaluation</option>
-              <option>Public Management Strategy</option>
-              <option>Wildfire &amp; Emergency Recovery Policy</option>
-              <option>Environmental Finance</option>
-              <option>Civic Technology &amp; Innovation</option>
-              <option>Other / Not Sure Yet</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="message">Tell Me About Your Project</label>
-            <textarea class="form-textarea" id="message" name="message" placeholder="Briefly describe the challenge or question you're working on..." required></textarea>
-          </div>
-          <button type="submit" class="form-submit">Send Message <i class="fas fa-arrow-right"></i></button>
-        </form>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="org">Organization</label>
+          <input class="form-input" type="text" id="org" placeholder="City of Portland">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="replyemail">Your Email</label>
+          <input class="form-input" type="email" id="replyemail" placeholder="jane@example.gov">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service">Area of Interest</label>
+          <select class="form-select" id="service">
+            <option value="">Select a service area...</option>
+            <option>Financial Health &amp; Budget Analysis</option>
+            <option>Data Analytics &amp; Program Evaluation</option>
+            <option>Public Management Strategy</option>
+            <option>Wildfire &amp; Emergency Recovery</option>
+            <option>Environmental Finance</option>
+            <option>Civic Technology &amp; Innovation</option>
+            <option>Other / Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Tell Me About Your Project</label>
+          <textarea class="form-textarea" id="message" placeholder="Briefly describe the challenge or question you're working on..."></textarea>
+        </div>
+        <button class="form-submit" onclick="sendEmail()">
+          <i class="fas fa-envelope"></i> Send Message
+        </button>
+        <div class="form-success" id="formSuccess">
+          ✓ Your email client should open with a pre-filled message. If it didn't, you can email directly at <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>.
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer>
-    <div class="footer-inner">
-      <p>© 2024 Benjamin Y. Clark</p>
-      <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-        <a href="index.html">About</a>
-        <a href="research.html">Research</a>
-        <a href="cv.html">CV</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
-      </div>
+<footer>
+  <div class="footer-inner">
+    <p>© 2024 Benjamin Y. Clark · University of Oregon</p>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html">CV</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
     </div>
-  </footer>
+  </div>
+</footer>
+
+<script>
+  function sendEmail() {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const org = document.getElementById('org').value.trim();
+    const replyEmail = document.getElementById('replyemail').value.trim();
+    const service = document.getElementById('service').value;
+    const message = document.getElementById('message').value.trim();
+
+    if (!fname && !message) {
+      alert('Please fill in at least your name and a message before sending.');
+      return;
+    }
+
+    const name = [fname, lname].filter(Boolean).join(' ');
+    const subject = service
+      ? `Consulting Inquiry — ${service}`
+      : 'Consulting Inquiry';
+
+    const body = [
+      name ? `Name: ${name}` : '',
+      org ? `Organization: ${org}` : '',
+      replyEmail ? `Reply-to: ${replyEmail}` : '',
+      service ? `Area of interest: ${service}` : '',
+      '',
+      message || '(No message provided)'
+    ].filter(s => s !== null).join('\n');
+
+    const mailto = `mailto:bclark2@uoregon.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+</script>
 
 </body>
 </html>
