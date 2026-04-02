@@ -22,6 +22,9 @@
   <meta name="twitter:title" content="Benjamin Clark | Public Administration Consultant & Professor">
   <meta name="twitter:description" content="Expert consultant in local government finance, public policy, data analytics, and emergency management. University of Oregon.">
   <meta name="twitter:image" content="https://byclark.github.io/assets/img/headshot.jpg">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232d5be3'/><text x='50' y='67' font-family='system-ui,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'>BC</text></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -203,8 +206,8 @@
 
     /* ── HERO ── */
     .hero {
-      padding-top: calc(var(--nav-h) + 5rem);
-      padding-bottom: 5rem;
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 4rem;
       padding-left: var(--pad);
       padding-right: var(--pad);
       max-width: var(--max-w);
@@ -354,7 +357,7 @@
 
     /* ── RESEARCH AREAS ── */
     .section {
-      padding: 5rem var(--pad);
+      padding: 3.5rem var(--pad);
       max-width: var(--max-w);
       margin: 0 auto;
     }
@@ -483,6 +486,34 @@
     .services-list-item:last-child { border-bottom: none; }
     .services-list-item i { color: var(--accent); font-size: 0.75rem; width: 16px; }
 
+    /* ── CONTACT CTA ── */
+    .contact-band {
+      border-top: 1px solid var(--rule);
+      padding: 5rem var(--pad);
+      text-align: center;
+      background: var(--bg);
+    }
+    .contact-band-inner {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    .contact-band h2 {
+      margin-bottom: 1rem;
+    }
+    .contact-band p {
+      font-size: 1rem;
+      color: var(--ink2);
+      font-weight: 300;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--rule);
@@ -595,22 +626,22 @@
     <div class="topic-card">
       <div class="topic-icon"><i class="fas fa-landmark"></i></div>
       <h3>Local Government Finance</h3>
-      <p>Credit ratings, budgeting, and the fiscal impacts of major policy events on municipalities.</p>
+      <p>How do cities and counties manage fiscal stress — and how do credit markets judge their resilience? My work examines municipal credit ratings, budget decision-making under pressure, and the long-run fiscal consequences of major disruptions including recessions, natural disasters, and shifts in state policy. A recurring theme is how governments balance short-term survival with long-term financial health.</p>
     </div>
     <div class="topic-card">
       <div class="topic-icon"><i class="fas fa-users"></i></div>
       <h3>Coproduction &amp; Civic Tech</h3>
-      <p>311 systems, crowdsourcing, and how digital tools mediate citizen participation in public services.</p>
+      <p>Public services increasingly depend on citizens as active participants, not just recipients. I study 311 non-emergency request systems, open data platforms, and crowdsourced service delivery — examining who engages, what motivates participation, and whether digital tools improve or entrench inequities in service quality across neighborhoods and communities.</p>
     </div>
     <div class="topic-card">
       <div class="topic-icon"><i class="fas fa-fire"></i></div>
       <h3>Wildfire &amp; Climate</h3>
-      <p>Agile government response, smoke health interventions, and IoT air quality monitoring.</p>
+      <p>Wildfire and smoke are redefining what local governments must manage. My research covers agile government responses to climate-related disasters, the public health consequences of smoke exposure, and the deployment of low-cost IoT sensors for real-time air quality monitoring. I am particularly interested in how governments build adaptive capacity before, during, and after emergencies.</p>
     </div>
     <div class="topic-card">
       <div class="topic-icon"><i class="fas fa-car"></i></div>
       <h3>Mobility &amp; Urban Systems</h3>
-      <p>Autonomous vehicles, ride-hailing, parking revenue, and the future of transportation finance.</p>
+      <p>New mobility technologies — autonomous vehicles, ride-hailing, micro-mobility — are disrupting the revenue streams cities depend on. I examine how transportation finance models must evolve, the regulatory challenges of governing emerging technologies, and the fiscal implications of declining parking and fuel-tax revenues for municipal governments navigating the transition.</p>
     </div>
   </div>
 </div>
@@ -633,6 +664,18 @@
       <div class="services-list-item"><i class="fas fa-check-circle"></i>Civic Technology &amp; Innovation</div>
       <div class="services-list-item"><i class="fas fa-check-circle"></i>Wildfire &amp; Emergency Recovery Policy</div>
       <div class="services-list-item"><i class="fas fa-check-circle"></i>Environmental Finance</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT CTA -->
+<div class="contact-band">
+  <div class="contact-band-inner">
+    <h2>Let's Work Together</h2>
+    <p>Whether you're navigating a budget challenge, evaluating a program, or thinking through a difficult policy problem, I'd like to hear about it. I take on a limited number of consulting engagements each year and am happy to discuss fit before any commitment.</p>
+    <div class="contact-links">
+      <a href="mailto:bclark2@uoregon.edu" class="btn btn-solid"><i class="fas fa-envelope"></i> bclark2@uoregon.edu</a>
+      <a href="consulting.html" class="btn btn-ghost">View Consulting Services</a>
     </div>
   </div>
 </div>
