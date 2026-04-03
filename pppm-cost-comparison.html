@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduate Program Cost Comparison | UO PPPM</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --uo-green: #154733;
+            --uo-green-mid: #1a5c42;
+            --uo-emerald: #13AA67;
+            --uo-gold: #FEE11A;
+            --text-dark: #1a1a1a;
+            --text-medium: #5a5a5a;
+            --text-light: #909090;
+            --bg-light: #f4f6f4;
+            --bg-white: #ffffff;
+            --border: #dde5e0;
+            --shadow: 0 2px 8px rgba(21,71,51,0.07);
+            --shadow-lg: 0 6px 24px rgba(21,71,51,0.12);
+            --radius: 10px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ─────────────────────────────────── */
+        header {
+            background: var(--uo-green);
+            color: white;
+        }
+        .header-eyebrow {
+            background: rgba(0,0,0,0.25);
+            padding: 7px 40px;
+            font-size: 11.5px;
+            color: #b8d8c8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.2px;
+        }
+        .header-eyebrow a { color: #b8d8c8; text-decoration: none; }
+        .header-eyebrow a:hover { color: var(--uo-gold); }
+        .header-body {
+            padding: 30px 40px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .header-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+            margin-bottom: 5px;
+        }
+        .header-text p {
+            font-size: 14px;
+            color: #b8d8c8;
+            max-width: 620px;
+        }
+        .prototype-badge {
+            display: inline-block;
+            background: var(--uo-gold);
+            color: var(--uo-green);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-left: 10px;
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+        }
+
+        /* ── LAYOUT ──────────────────────────────────── */
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 30px 24px 48px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--uo-green);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── CARDS ───────────────────────────────────── */
+        .card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        /* ── DISCLAIMER ──────────────────────────────── */
+        .notice {
+            background: #fffbeb;
+            border: 1px solid #f0d040;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: #6b4e00;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .notice-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+        .notice strong { font-weight: 700; }
+
+        /* ── CONTROLS ────────────────────────────────── */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .tab-group {
+            display: flex;
+            background: #e8ede9;
+            padding: 3px;
+            border-radius: 8px;
+            gap: 2px;
+        }
+        .tab-btn {
+            padding: 7px 18px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s;
+            background: transparent;
+            color: var(--text-medium);
+        }
+        .tab-btn.active {
+            background: white;
+            color: var(--uo-green);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .controls-note {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* ── SELECTOR PANEL ──────────────────────────── */
+        .selector-panel {
+            padding: 22px 24px;
+            margin-bottom: 24px;
+        }
+        .selector-inner {
+            display: grid;
+            grid-template-columns: 1fr 48px 1fr;
+            gap: 16px;
+            align-items: end;
+        }
+        @media (max-width: 680px) {
+            .selector-inner { grid-template-columns: 1fr; }
+            .vs-badge { display: none; }
+        }
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 7px;
+        }
+        .select-wrap { position: relative; }
+        .select-wrap select {
+            width: 100%;
+            padding: 10px 36px 10px 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px;
+            font-size: 14px;
+            color: var(--text-dark);
+            background: white;
+            appearance: none;
+            cursor: pointer;
+            transition: border-color 0.18s;
+        }
+        .select-wrap select:focus { outline: none; border-color: var(--uo-green); }
+        .select-wrap::after {
+            content: '▾';
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+            font-size: 13px;
+        }
+        .vs-badge {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--border);
+            padding-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* ── COMPARISON CARDS ────────────────────────── */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 680px) { .comparison-grid { grid-template-columns: 1fr; } }
+
+        .program-card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .program-card.is-base { border-top: 4px solid var(--uo-green); }
+        .program-card.is-compare { border-top: 4px solid var(--uo-emerald); }
+        .program-card.is-empty { border-top: 4px solid #ddd; }
+
+        .pc-header {
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .pc-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-bottom: 9px;
+        }
+        .is-base .pc-badge { background: #e5f0ea; color: var(--uo-green); }
+        .is-compare .pc-badge { background: #dff5ec; color: #0c8a52; }
+        .pc-header h3 { font-size: 17px; font-weight: 800; margin-bottom: 2px; }
+        .pc-school { font-size: 13px; color: var(--text-medium); margin-bottom: 3px; }
+        .pc-location { font-size: 12px; color: var(--text-light); }
+        .pc-accred { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+        .accred-chip {
+            font-size: 10px; padding: 2px 7px;
+            background: #ecf4f0; color: var(--uo-green);
+            border-radius: 3px; font-weight: 700;
+        }
+
+        .pc-body { padding: 18px 22px; flex: 1; }
+        .pc-primary-cost { margin-bottom: 18px; }
+        .pc-cost-label {
+            font-size: 10.5px; text-transform: uppercase;
+            letter-spacing: 0.8px; color: var(--text-light);
+            font-weight: 700; margin-bottom: 3px;
+        }
+        .pc-cost-amount {
+            font-size: 34px; font-weight: 900;
+            color: var(--uo-green); letter-spacing: -1.5px;
+            line-height: 1;
+        }
+        .pc-cost-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+
+        .diff-chip {
+            display: inline-flex; align-items: center; gap: 3px;
+            font-size: 11px; font-weight: 700;
+            padding: 2px 8px; border-radius: 10px;
+        }
+        .diff-less { background: #e1f5ea; color: #1b7d42; }
+        .diff-more { background: #fde9e9; color: #b83232; }
+        .diff-same { background: #f0f0f0; color: #888; }
+
+        .pc-rows { display: flex; flex-direction: column; }
+        .pc-row {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 9px 0;
+            border-bottom: 1px solid #f5f5f5;
+            font-size: 13px;
+        }
+        .pc-row:last-child { border-bottom: none; }
+        .pc-row .r-label { color: var(--text-medium); font-weight: 500; }
+        .pc-row .r-value { font-weight: 700; color: var(--text-dark); text-align: right; max-width: 55%; }
+        .r-value.accent { color: var(--uo-green); }
+        .r-value.small { font-size: 12px; font-weight: 600; }
+
+        .pc-note {
+            font-size: 11.5px; color: var(--text-light);
+            font-style: italic; margin-top: 14px;
+            padding-top: 12px; border-top: 1px solid #f5f5f5;
+            line-height: 1.5;
+        }
+        .pc-link {
+            display: inline-block; margin-top: 10px;
+            font-size: 12px; color: var(--uo-green);
+            text-decoration: none; font-weight: 600;
+        }
+        .pc-link:hover { text-decoration: underline; }
+
+        .empty-card-body {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 48px 24px; text-align: center;
+            color: var(--text-light);
+        }
+        .empty-card-body .e-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.5; }
+        .empty-card-body p { font-size: 14px; max-width: 240px; }
+
+        /* ── CHART ───────────────────────────────────── */
+        .chart-card {
+            padding: 22px 24px;
+            margin-bottom: 24px;
+        }
+        .chart-wrap { position: relative; }
+
+        /* ── TABLE ───────────────────────────────────── */
+        .table-card {
+            padding: 22px 24px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+        .table-search-row {
+            display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+        }
+        .search-wrap {
+            position: relative; flex: 1; min-width: 220px;
+        }
+        .search-wrap input {
+            width: 100%; padding: 9px 13px 9px 34px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px; font-size: 13.5px; color: var(--text-dark);
+            background: white; transition: border-color 0.18s;
+        }
+        .search-wrap input:focus { outline: none; border-color: var(--uo-green); }
+        .search-wrap .s-icon {
+            position: absolute; left: 11px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light); font-size: 13px;
+        }
+        .filter-select {
+            padding: 9px 30px 9px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px; font-size: 13px;
+            color: var(--text-dark); background: white;
+            appearance: none; cursor: pointer;
+        }
+        .filter-wrap { position: relative; }
+        .filter-wrap::after {
+            content: '▾'; position: absolute; right: 11px;
+            top: 50%; transform: translateY(-50%);
+            color: var(--text-light); pointer-events: none; font-size: 12px;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 680px; }
+        thead th {
+            text-align: left; padding: 9px 13px;
+            font-size: 10.5px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.7px;
+            color: var(--text-medium); border-bottom: 2px solid #eee;
+            cursor: pointer; user-select: none; white-space: nowrap;
+        }
+        thead th:hover { color: var(--uo-green); }
+        thead th.sort-asc::after { content: ' ↑'; color: var(--uo-green); }
+        thead th.sort-desc::after { content: ' ↓'; color: var(--uo-green); }
+
+        tbody tr { transition: background 0.12s; }
+        tbody tr:hover { background: #f5faf7; }
+        tbody tr.row-base { background: #f0f7f3; }
+        tbody tr.row-base:hover { background: #e8f2ec; }
+        tbody td { padding: 11px 13px; border-bottom: 1px solid #f3f3f3; vertical-align: middle; }
+
+        .cell-program strong { display: block; font-weight: 700; color: var(--text-dark); font-size: 13.5px; }
+        .cell-program .inst { font-size: 11.5px; color: var(--text-light); margin-top: 1px; }
+        .cell-program .progs { font-size: 11px; color: #bbb; margin-top: 2px; }
+
+        .type-badge {
+            display: inline-block; padding: 2px 8px; border-radius: 10px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+        }
+        .type-public { background: #e3f2e8; color: #1a7a40; }
+        .type-private { background: #f0e8f7; color: #7b3bb0; }
+        .type-uo { background: var(--uo-gold); color: var(--uo-green); }
+
+        .td-cost { font-weight: 700; white-space: nowrap; }
+        .td-diff { display: block; font-size: 10px; font-weight: 700; margin-top: 2px; }
+        .td-diff.d-less { color: #1b7d42; }
+        .td-diff.d-more { color: #b83232; }
+
+        .acr-pill {
+            display: inline-block; padding: 2px 6px; border-radius: 3px;
+            font-size: 10px; font-weight: 700;
+            background: #ecf4f0; color: var(--uo-green);
+            margin-right: 3px; margin-bottom: 2px;
+        }
+
+        /* ── ADD PROGRAM ─────────────────────────────── */
+        .add-card { padding: 22px 24px; margin-bottom: 24px; }
+        .add-card > p { font-size: 14px; color: var(--text-medium); margin-bottom: 16px; }
+        .add-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 13px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%; padding: 9px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 7px; font-size: 13.5px;
+            color: var(--text-dark); background: white;
+            transition: border-color 0.18s;
+        }
+        .form-group input:focus,
+        .form-group select:focus { outline: none; border-color: var(--uo-green); }
+        .btn-add {
+            width: 100%; padding: 10px;
+            background: var(--uo-green); color: white;
+            border: none; border-radius: 7px;
+            font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: background 0.18s;
+            height: 40px; align-self: end;
+        }
+        .btn-add:hover { background: var(--uo-green-mid); }
+        .add-session-note { font-size: 11.5px; color: var(--text-light); font-style: italic; margin-top: 10px; }
+
+        /* ── FOOTER ──────────────────────────────────── */
+        footer {
+            background: var(--uo-green);
+            color: #9fcfb5;
+            padding: 22px 40px;
+            font-size: 12px;
+            text-align: center;
+        }
+        footer a { color: var(--uo-gold); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        footer .f-divider { margin: 0 8px; opacity: 0.4; }
+    </style>
+</head>
+<body>
+
+<!-- ── HEADER ───────────────────────────────────────── -->
+<header>
+    <div class="header-eyebrow">
+        <a href="https://uoregon.edu" target="_blank">University of Oregon</a>
+        <span>›</span>
+        <a href="https://pppm.uoregon.edu" target="_blank">School of Planning, Public Policy and Management</a>
+    </div>
+    <div class="header-body">
+        <div class="header-icon">🎓</div>
+        <div class="header-text">
+            <h1>Graduate Program Cost Comparison <span class="prototype-badge">Prototype</span></h1>
+            <p>Compare the estimated cost of UO PPPM graduate programs with other public service, public affairs, and planning programs nationwide.</p>
+        </div>
+    </div>
+</header>
+
+<!-- ── MAIN ─────────────────────────────────────────── -->
+<div class="container">
+
+    <!-- Notice -->
+    <div class="notice">
+        <span class="notice-icon">⚠️</span>
+        <div>
+            <strong>Prototype — Data is approximate.</strong>
+            Tuition figures are based on publicly available information from 2024–2025 academic year sources and may not reflect the most current rates. Costs vary by program track, enrollment status, credit load, and year. Always verify current costs directly with each institution. This tool is for general comparison and discussion purposes only.
+        </div>
+    </div>
+
+    <!-- Residency Toggle -->
+    <div class="controls-row">
+        <div class="tab-group">
+            <button class="tab-btn active" id="tab-instate" onclick="setResidency('instate', this)">🏠 In-State / Resident</button>
+            <button class="tab-btn" id="tab-outofstate" onclick="setResidency('outofstate', this)">✈️ Out-of-State</button>
+        </div>
+        <span class="controls-note" id="residency-note">Showing in-state / Oregon resident rates</span>
+    </div>
+
+    <!-- ── SIDE-BY-SIDE COMPARISON ─── -->
+    <div class="section-label">Side-by-Side Comparison</div>
+
+    <div class="card selector-panel" style="margin-bottom:18px;">
+        <div class="selector-inner">
+            <div class="form-group">
+                <label>UO PPPM Program</label>
+                <div class="select-wrap">
+                    <select id="uoProgramSelect" onchange="updateCards()">
+                        <option value="mpa">Master of Public Administration (MPA)</option>
+                        <option value="mcrp">Master of Community and Regional Planning (MCRP)</option>
+                        <option value="mnm">Master of Nonprofit Management (MNM)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="form-group">
+                <label>Compare With</label>
+                <div class="select-wrap">
+                    <select id="compareSelect" onchange="updateCards()">
+                        <option value="">— Select a program —</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison-grid" id="comparisonGrid">
+        <!-- rendered by JS -->
+    </div>
+
+    <!-- ── CHART ─── -->
+    <div class="card chart-card" id="chartCard" style="display:none; margin-bottom:24px;">
+        <div class="section-label">Visual Cost Comparison</div>
+        <div class="chart-wrap">
+            <canvas id="costChart" height="90"></canvas>
+        </div>
+    </div>
+
+    <!-- ── FULL TABLE ─── -->
+    <div class="section-label">All Programs</div>
+    <div class="card table-card">
+        <div class="table-search-row">
+            <div class="search-wrap">
+                <span class="s-icon">🔍</span>
+                <input type="text" id="tableSearch" placeholder="Search by institution, location, or program type…" oninput="renderTable()">
+            </div>
+            <div class="filter-wrap">
+                <select class="filter-select" id="typeFilter" onchange="renderTable()">
+                    <option value="all">All institution types</option>
+                    <option value="public">Public only</option>
+                    <option value="private">Private only</option>
+                </select>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="setSortField('name')">Program / Institution</th>
+                    <th onclick="setSortField('type')">Type</th>
+                    <th onclick="setSortField('location')">Location</th>
+                    <th onclick="setSortField('inStateAnnual')">Annual (In-State)</th>
+                    <th onclick="setSortField('outOfStateAnnual')">Annual (Out-of-State)</th>
+                    <th onclick="setSortField('totalInState')">Total (In-State)</th>
+                    <th onclick="setSortField('totalOOS')">Total (Out-of-State)</th>
+                    <th>Accreditation</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <!-- ── ADD PROGRAM ─── -->
+    <div class="section-label">Add a Program Manually</div>
+    <div class="card add-card">
+        <p>Don't see the program you want to compare? Enter its cost information below to add it to the comparison. Your entry will be available for this session only.</p>
+        <div class="add-grid">
+            <div class="form-group">
+                <label>Institution Name *</label>
+                <input type="text" id="aInstitution" placeholder="e.g., University of Florida">
+            </div>
+            <div class="form-group">
+                <label>School / Department</label>
+                <input type="text" id="aSchool" placeholder="e.g., Askew School of PA">
+            </div>
+            <div class="form-group">
+                <label>Program Type</label>
+                <input type="text" id="aProgram" placeholder="e.g., MPA, MPP, MCRP">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="aLocation" placeholder="e.g., Tallahassee, FL">
+            </div>
+            <div class="form-group">
+                <label>In-State Annual Cost ($) *</label>
+                <input type="number" id="aInState" placeholder="e.g., 18000" min="0">
+            </div>
+            <div class="form-group">
+                <label>Out-of-State Annual Cost ($) *</label>
+                <input type="number" id="aOutState" placeholder="e.g., 32000" min="0">
+            </div>
+            <div class="form-group">
+                <label>Program Length</label>
+                <select id="aLength">
+                    <option value="1">1 year</option>
+                    <option value="2" selected>2 years</option>
+                    <option value="3">3 years</option>
+                </select>
+            </div>
+            <div class="form-group" style="display:flex;align-items:flex-end;">
+                <button class="btn-add" onclick="addCustomProgram()">+ Add to Comparison</button>
+            </div>
+        </div>
+        <p class="add-session-note">* Required fields. Custom programs are stored in this browser session only and are not saved permanently.</p>
+    </div>
+
+</div><!-- /container -->
+
+<!-- ── FOOTER ───────────────────────────────────────── -->
+<footer>
+    <p>
+        <strong style="color:white;">UO PPPM Graduate Program Cost Comparison</strong>
+        <span class="f-divider">|</span>
+        <a href="https://pppm.uoregon.edu" target="_blank">pppm.uoregon.edu</a>
+        <span class="f-divider">|</span>
+        University of Oregon · Eugene, OR 97403
+    </p>
+    <p style="margin-top:6px;">
+        Prototype tool for discussion purposes only. Tuition data sourced from institutional websites, approx. 2024–2025.
+        <span class="f-divider">|</span>
+        All figures are estimates — verify with each institution.
+    </p>
+</footer>
+
+<script>
+// ============================================================
+// PROGRAM DATA
+// ============================================================
+const PROGRAMS = [
+  {
+    id: 'uo-pppm',
+    name: 'UO PPPM',
+    institution: 'University of Oregon',
+    school: 'School of Planning, Public Policy and Management',
+    location: 'Eugene, OR',
+    type: 'public',
+    programs: ['MPA','MCRP','MNM'],
+    accreditation: ['NASPAA','PAB'],
+    inStateAnnual: 19474,
+    outOfStateAnnual: 33379,
+    inStateCPH: 623,
+    outOfStateCPH: 1138,
+    years: 2,
+    website: 'https://pppm.uoregon.edu',
+    dataYear: '2024–25',
+    notes: 'Includes mandatory fees. Per-credit rates: $623 (resident) / $1,138 (non-resident). PPPM offers MPA, MCRP, and MNM programs. Dual-degree options available.',
+    isBase: true,
+    custom: false
+  },
+  {
+    id: 'psu-hatfield',
+    name: 'PSU Hatfield School',
+    institution: 'Portland State University',
+    school: 'Hatfield School of Government',
+    location: 'Portland, OR',
+    type: 'public',
+    programs: ['MPA','MPA Urban Admin'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 17745,
+    outOfStateAnnual: 23334,
+    inStateCPH: 477,
+    outOfStateCPH: 711,
+    years: 2,
+    website: 'https://www.pdx.edu/hatfield',
+    dataYear: '2024–25',
+    notes: 'Base graduate per-credit rates: $477 (resident) / $711 (non-resident). MPA requires ~48 credits. Strong urban focus; located in Portland metro area.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'uw-evans',
+    name: 'UW Evans School',
+    institution: 'University of Washington',
+    school: 'Evans School of Public Policy & Governance',
+    location: 'Seattle, WA',
+    type: 'public',
+    programs: ['MPA','MPAff','EMPA'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 27299,
+    outOfStateAnnual: 27299,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://evans.uw.edu',
+    dataYear: '2025–26',
+    notes: 'Full-time MPA uses a flat annual rate ($27,299) that is the same for all students regardless of residency. Part-time/EMPA tracks have different pricing.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'asu-watts',
+    name: 'ASU Watts College',
+    institution: 'Arizona State University',
+    school: 'Watts College of Public Service & Community Solutions',
+    location: 'Tempe/Phoenix, AZ',
+    type: 'public',
+    programs: ['MPA','MPP','MS Emergency Mgmt'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 12960,
+    outOfStateAnnual: 28680,
+    inStateCPH: 720,
+    outOfStateCPH: 1593,
+    years: 2,
+    website: 'https://spa.asu.edu',
+    dataYear: '2024–25',
+    notes: 'Estimated from ASU graduate tuition rates plus program fees. Consistently ranked in U.S. News top 15 public affairs programs. Very large program enrollment.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'cu-denver',
+    name: 'CU Denver Public Affairs',
+    institution: 'University of Colorado Denver',
+    school: 'School of Public Affairs',
+    location: 'Denver, CO',
+    type: 'public',
+    programs: ['MPA','Accelerated MPA','MPP','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 15500,
+    outOfStateAnnual: 30000,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://publicaffairs.ucdenver.edu',
+    dataYear: '2024–25',
+    notes: 'Note: Accelerated 1-year MPA is a flat $27,500 for all students. Standard 2-year program rates are estimated; verify at ucdenver.edu.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'gmu-schar',
+    name: 'George Mason Schar School',
+    institution: 'George Mason University',
+    school: 'Schar School of Policy and Government',
+    location: 'Fairfax, VA',
+    type: 'public',
+    programs: ['MPA','MPP','MS','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 14202,
+    outOfStateAnnual: 33120,
+    inStateCPH: 789,
+    outOfStateCPH: 1840,
+    years: 2,
+    website: 'https://schar.gmu.edu',
+    dataYear: '2024–25',
+    notes: 'Per-credit rates: $789 (VA resident). MPA program requires 36 credit hours (~$28,400 total in-state). DC and MD residents may qualify for in-state rate.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'osu-glenn',
+    name: 'OSU Glenn College',
+    institution: 'Ohio State University',
+    school: 'John Glenn College of Public Affairs',
+    location: 'Columbus, OH',
+    type: 'public',
+    programs: ['MPA','MPP','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 13901,
+    outOfStateAnnual: 42740,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://glenn.osu.edu',
+    dataYear: '2024–25',
+    notes: 'General OSU graduate tuition rates; Glenn College program-specific fees may differ slightly. Very affordable for Ohio residents.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'iu-oneill',
+    name: "IU O'Neill School",
+    institution: 'Indiana University Bloomington',
+    school: "Paul H. O'Neill School of Public & Environmental Affairs",
+    location: 'Bloomington, IN',
+    type: 'public',
+    programs: ['MPA','MPAff','MSES','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 11904,
+    outOfStateAnnual: 35058,
+    inStateCPH: 496,
+    outOfStateCPH: 1461,
+    years: 2,
+    website: 'https://oneill.indiana.edu',
+    dataYear: '2024–25',
+    notes: 'Online MPA: $730/credit (same for in/out-of-state). In-person rates vary. MPA requires ~48 credits. One of the most affordable large public programs for IN residents.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'unc-sog',
+    name: 'UNC Chapel Hill',
+    institution: 'University of North Carolina',
+    school: 'School of Government',
+    location: 'Chapel Hill, NC',
+    type: 'public',
+    programs: ['MPA','MPH'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 10766,
+    outOfStateAnnual: 28408,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://sog.unc.edu',
+    dataYear: '2024–25',
+    notes: 'One of the most affordable programs for in-state students nationally. UNC is consistently ranked among the top public universities in the U.S. Rates are estimated.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'fsu-askew',
+    name: 'FSU Askew School',
+    institution: 'Florida State University',
+    school: "Reubin O'D. Askew School of Public Administration & Policy",
+    location: 'Tallahassee, FL',
+    type: 'public',
+    programs: ['MPA','MPP','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 9606,
+    outOfStateAnnual: 24914,
+    inStateCPH: 534,
+    outOfStateCPH: 1384,
+    years: 2,
+    website: 'https://askew.fsu.edu',
+    dataYear: '2024–25',
+    notes: 'Among the most affordable NASPAA-accredited programs for in-state students. Per-credit rates: $534 (FL resident) / $1,384 (non-resident). Rates estimated.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'rutgers-spaa',
+    name: 'Rutgers SPAA',
+    institution: 'Rutgers University–Newark',
+    school: 'School of Public Affairs and Administration',
+    location: 'Newark, NJ',
+    type: 'public',
+    programs: ['MPA','MPP','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 17460,
+    outOfStateAnnual: 27810,
+    inStateCPH: 873,
+    outOfStateCPH: 1391,
+    years: 2,
+    website: 'https://spaa.newark.rutgers.edu',
+    dataYear: '2024–25',
+    notes: 'Rates estimated from Rutgers graduate per-credit rates. Located near New York City; strong urban and public policy focus.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'um-ford',
+    name: 'U-M Ford School',
+    institution: 'University of Michigan',
+    school: 'Gerald R. Ford School of Public Policy',
+    location: 'Ann Arbor, MI',
+    type: 'public',
+    programs: ['MPP','MPA','BAP/MPP','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 26648,
+    outOfStateAnnual: 50188,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://fordschool.umich.edu',
+    dataYear: '2024–25',
+    notes: 'High out-of-state cost reflects Michigan flagship status. Top-ranked MPP program. Strong research and policy focus. Rates estimated.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'usc-price',
+    name: 'USC Price School',
+    institution: 'University of Southern California',
+    school: 'Sol Price School of Public Policy',
+    location: 'Los Angeles, CA',
+    type: 'private',
+    programs: ['MPA','MPL','MPP','MHM','PhD'],
+    accreditation: ['NASPAA','PAB'],
+    inStateAnnual: 62000,
+    outOfStateAnnual: 62000,
+    inStateCPH: 2316,
+    outOfStateCPH: 2316,
+    years: 2,
+    website: 'https://priceschool.usc.edu',
+    dataYear: '2024–25',
+    notes: 'Private university — no in/out-of-state distinction. One of the few programs accredited by both NASPAA (public admin) and PAB (planning). Significant scholarship funding available.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'maxwell-syracuse',
+    name: 'Syracuse Maxwell School',
+    institution: 'Syracuse University',
+    school: 'Maxwell School of Citizenship and Public Affairs',
+    location: 'Syracuse, NY',
+    type: 'private',
+    programs: ['MPA','MAIR','MPAff','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 60450,
+    outOfStateAnnual: 60450,
+    inStateCPH: 2015,
+    outOfStateCPH: 2015,
+    years: 2,
+    website: 'https://www.maxwell.syr.edu',
+    dataYear: '2024–25',
+    notes: 'Private university — no in/out-of-state distinction. Consistently ranked #1 MPA program (U.S. News). Per-credit: $2,015. Substantial fellowship funding available for admitted students.',
+    isBase: false, custom: false
+  },
+  {
+    id: 'harvard-hks',
+    name: 'Harvard Kennedy School',
+    institution: 'Harvard University',
+    school: 'Harvard Kennedy School of Government',
+    location: 'Cambridge, MA',
+    type: 'private',
+    programs: ['MPA','MPA/ID','MPP','MC/MPA','PhD'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 66960,
+    outOfStateAnnual: 66960,
+    inStateCPH: null,
+    outOfStateCPH: null,
+    years: 2,
+    website: 'https://www.hks.harvard.edu',
+    dataYear: '2024–25',
+    notes: 'Private university — no in/out-of-state distinction. Tuition only; does not include ~$4,000 in fees or living expenses. Generous need-based aid; many students receive substantial fellowships.',
+    isBase: false, custom: false
+  }
+];
+
+let customPrograms = [];
+let residencyMode = 'instate';
+let sortField = 'inStateAnnual';
+let sortDir = 'asc';
+let chartInstance = null;
+
+// ── HELPERS ──────────────────────────────────────────
+function fmt(n) {
+  if (n === null || n === undefined || isNaN(n)) return 'N/A';
+  return '$' + Math.round(n).toLocaleString();
+}
+function allPrograms() { return [...PROGRAMS, ...customPrograms]; }
+function baseProgram() { return PROGRAMS.find(p => p.isBase); }
+function nonBasePrograms() { return allPrograms().filter(p => !p.isBase); }
+function annualCost(p) { return residencyMode === 'instate' ? p.inStateAnnual : p.outOfStateAnnual; }
+function totalCost(p) { return annualCost(p) * p.years; }
+function cph(p) { return residencyMode === 'instate' ? p.inStateCPH : p.outOfStateCPH; }
+
+// ── INIT ──────────────────────────────────────────────
+function init() {
+  const sel = document.getElementById('compareSelect');
+  sel.innerHTML = '<option value="">— Select a program to compare —</option>';
+  nonBasePrograms().forEach(p => {
+    const o = document.createElement('option');
+    o.value = p.id;
+    o.textContent = p.name + ' — ' + p.institution;
+    sel.appendChild(o);
+  });
+  renderCards(null);
+  renderTable();
+}
+
+// ── RESIDENCY ─────────────────────────────────────────
+function setResidency(mode, btn) {
+  residencyMode = mode;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('residency-note').textContent =
+    mode === 'instate' ? 'Showing in-state / resident rates' : 'Showing out-of-state / non-resident rates';
+  const cid = document.getElementById('compareSelect').value || null;
+  renderCards(cid);
+  renderTable();
+  if (cid) updateChart(allPrograms().find(p => p.id === cid));
+}
+
+// ── CARDS ─────────────────────────────────────────────
+function updateCards() {
+  const cid = document.getElementById('compareSelect').value || null;
+  renderCards(cid);
+  if (cid) updateChart(allPrograms().find(p => p.id === cid));
+  else { document.getElementById('chartCard').style.display = 'none'; }
+}
+
+function renderCards(compareId) {
+  const base = baseProgram();
+  const compare = compareId ? allPrograms().find(p => p.id === compareId) : null;
+  const grid = document.getElementById('comparisonGrid');
+  grid.innerHTML = buildCard(base, 'is-base', 'UO PPPM — Your Program', null);
+  if (compare) {
+    grid.innerHTML += buildCard(compare, 'is-compare', 'Comparison Program', base);
+    document.getElementById('chartCard').style.display = 'block';
+    updateChart(compare);
+  } else {
+    grid.innerHTML += `
+      <div class="program-card is-empty">
+        <div class="pc-header"><div class="pc-badge" style="background:#f5f5f5;color:#aaa;">Comparison</div><h3 style="color:#ccc;">No Program Selected</h3></div>
+        <div class="empty-card-body">
+          <div class="e-icon">🔍</div>
+          <p>Select a program above to see a side-by-side cost comparison.</p>
+        </div>
+      </div>`;
+    document.getElementById('chartCard').style.display = 'none';
+  }
+}
+
+function buildCard(p, css, badgeText, base) {
+  const annual = annualCost(p);
+  const total = totalCost(p);
+  const perCredit = cph(p);
+  const mode = residencyMode === 'instate' ? 'In-State / Resident' : 'Out-of-State';
+
+  let diffHtml = '';
+  if (base) {
+    const diff = annual - annualCost(base);
+    const pct = Math.abs(Math.round((diff / annualCost(base)) * 100));
+    const savings = annual < annualCost(base) - 100;
+    const pricier = annual > annualCost(base) + 100;
+    if (savings)
+      diffHtml = `<span class="diff-chip diff-less">▼ ${fmt(Math.abs(diff))}/yr (${pct}% less than UO PPPM)</span>`;
+    else if (pricier)
+      diffHtml = `<span class="diff-chip diff-more">▲ ${fmt(Math.abs(diff))}/yr (${pct}% more than UO PPPM)</span>`;
+    else
+      diffHtml = `<span class="diff-chip diff-same">≈ Similar cost to UO PPPM</span>`;
+  }
+
+  const accredBadges = (p.accreditation || []).map(a => `<span class="accred-chip">${a}</span>`).join('');
+
+  return `
+  <div class="program-card ${css}">
+    <div class="pc-header">
+      <div class="pc-badge">${badgeText}</div>
+      <h3>${p.name}</h3>
+      <div class="pc-school">${p.school}</div>
+      <div class="pc-location">📍 ${p.location}</div>
+      <div class="pc-accred">${accredBadges}</div>
+    </div>
+    <div class="pc-body">
+      <div class="pc-primary-cost">
+        <div class="pc-cost-label">${mode} Annual Tuition &amp; Fees</div>
+        <div class="pc-cost-amount">${fmt(annual)}</div>
+        <div class="pc-cost-sub">per academic year ${diffHtml}</div>
+      </div>
+      <div class="pc-rows">
+        <div class="pc-row">
+          <span class="r-label">Est. Total Program Cost</span>
+          <span class="r-value accent">${fmt(total)}</span>
+        </div>
+        <div class="pc-row">
+          <span class="r-label">Program Length</span>
+          <span class="r-value">${p.years} year${p.years !== 1 ? 's' : ''}</span>
+        </div>
+        <div class="pc-row">
+          <span class="r-label">Per Credit Hour</span>
+          <span class="r-value">${perCredit ? fmt(perCredit) : 'Flat-rate / N/A'}</span>
+        </div>
+        <div class="pc-row">
+          <span class="r-label">Institution Type</span>
+          <span class="r-value">${p.type === 'public' ? '🏛️ Public' : '🏢 Private'}</span>
+        </div>
+        <div class="pc-row">
+          <span class="r-label">Degrees Offered</span>
+          <span class="r-value small">${(p.programs || []).join(', ')}</span>
+        </div>
+        <div class="pc-row">
+          <span class="r-label">Data Year</span>
+          <span class="r-value">${p.dataYear}${p.custom ? ' (user-entered)' : ''}</span>
+        </div>
+      </div>
+      ${p.notes ? `<div class="pc-note">ℹ️ ${p.notes}</div>` : ''}
+      ${p.website ? `<a class="pc-link" href="${p.website}" target="_blank">Visit program website →</a>` : ''}
+    </div>
+  </div>`;
+}
+
+// ── CHART ─────────────────────────────────────────────
+function updateChart(compare) {
+  const base = baseProgram();
+  if (!compare) return;
+  const bAnnual = annualCost(base), bTotal = totalCost(base);
+  const cAnnual = annualCost(compare), cTotal = totalCost(compare);
+
+  const ctx = document.getElementById('costChart').getContext('2d');
+  if (chartInstance) chartInstance.destroy();
+  chartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Annual Cost', 'Total Program Cost (Est.)'],
+      datasets: [
+        { label: 'UO PPPM', data: [bAnnual, bTotal], backgroundColor: '#154733', borderRadius: 5 },
+        { label: compare.name, data: [cAnnual, cTotal], backgroundColor: '#13AA67', borderRadius: 5 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top' },
+        tooltip: {
+          callbacks: {
+            label: ctx => `${ctx.dataset.label}: $${ctx.raw.toLocaleString()}`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { callback: v => '$' + v.toLocaleString() }
+        }
+      }
+    }
+  });
+}
+
+// ── TABLE ─────────────────────────────────────────────
+function setSortField(field) {
+  sortDir = (sortField === field && sortDir === 'asc') ? 'desc' : 'asc';
+  sortField = field;
+  document.querySelectorAll('thead th').forEach(th => th.classList.remove('sort-asc', 'sort-desc'));
+  renderTable();
+}
+
+function renderTable() {
+  const query = (document.getElementById('tableSearch').value || '').toLowerCase();
+  const typeFilter = document.getElementById('typeFilter').value;
+  const base = baseProgram();
+  const maxCost = Math.max(...allPrograms().map(p => p.outOfStateAnnual || 0));
+
+  let programs = allPrograms().filter(p => {
+    const matchType = typeFilter === 'all' || p.type === typeFilter;
+    const matchText = !query ||
+      p.name.toLowerCase().includes(query) ||
+      p.institution.toLowerCase().includes(query) ||
+      p.location.toLowerCase().includes(query) ||
+      (p.programs || []).some(pr => pr.toLowerCase().includes(query)) ||
+      (p.school || '').toLowerCase().includes(query);
+    return matchType && matchText;
+  });
+
+  programs.sort((a, b) => {
+    let av, bv;
+    if (sortField === 'name') { av = a.name; bv = b.name; }
+    else if (sortField === 'type') { av = a.type; bv = b.type; }
+    else if (sortField === 'location') { av = a.location; bv = b.location; }
+    else if (sortField === 'inStateAnnual') { av = a.inStateAnnual; bv = b.inStateAnnual; }
+    else if (sortField === 'outOfStateAnnual') { av = a.outOfStateAnnual; bv = b.outOfStateAnnual; }
+    else if (sortField === 'totalInState') { av = a.inStateAnnual * a.years; bv = b.inStateAnnual * b.years; }
+    else if (sortField === 'totalOOS') { av = a.outOfStateAnnual * a.years; bv = b.outOfStateAnnual * b.years; }
+    else { av = 0; bv = 0; }
+    if (typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+    return sortDir === 'asc' ? av - bv : bv - av;
+  });
+
+  // Always keep base at top
+  const baseIdx = programs.findIndex(p => p.isBase);
+  if (baseIdx > 0) { const [b] = programs.splice(baseIdx, 1); programs.unshift(b); }
+
+  // Header sort indicator
+  const fieldMap = { name: 0, type: 1, location: 2, inStateAnnual: 3, outOfStateAnnual: 4, totalInState: 5, totalOOS: 6 };
+  const headers = document.querySelectorAll('thead th');
+  const hi = fieldMap[sortField];
+  if (hi !== undefined) {
+    headers[hi].classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+  }
+
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+
+  programs.forEach(p => {
+    const tr = document.createElement('tr');
+    if (p.isBase) tr.className = 'row-base';
+
+    const baseAnnual = annualCost(base);
+    const thisAnnual = annualCost(p);
+    const diff = thisAnnual - baseAnnual;
+    const pct = Math.abs(Math.round((diff / baseAnnual) * 100));
+    let diffEl = '';
+    if (!p.isBase) {
+      if (diff < -100) diffEl = `<span class="td-diff d-less">▼ ${pct}% vs UO</span>`;
+      else if (diff > 100) diffEl = `<span class="td-diff d-more">▲ ${pct}% vs UO</span>`;
+    }
+
+    const badgeType = p.isBase ? 'type-uo' : (p.type === 'public' ? 'type-public' : 'type-private');
+    const badgeLabel = p.isBase ? 'UO PPPM' : p.type;
+    const accred = (p.accreditation || []).map(a => `<span class="acr-pill">${a}</span>`).join('');
+
+    tr.innerHTML = `
+      <td class="cell-program">
+        <strong>${p.name}</strong>
+        <div class="inst">${p.institution}</div>
+        <div class="progs">${(p.programs || []).join(' · ')}</div>
+      </td>
+      <td><span class="type-badge ${badgeType}">${badgeLabel}</span></td>
+      <td style="font-size:12px;color:var(--text-medium);">${p.location}</td>
+      <td class="td-cost">${fmt(p.inStateAnnual)}${residencyMode === 'instate' ? diffEl : ''}</td>
+      <td class="td-cost">${fmt(p.outOfStateAnnual)}${residencyMode === 'outofstate' ? diffEl : ''}</td>
+      <td class="td-cost">${fmt(p.inStateAnnual * p.years)}<br><span style="font-size:10px;color:#bbb;">${p.years}yr est.</span></td>
+      <td class="td-cost">${fmt(p.outOfStateAnnual * p.years)}<br><span style="font-size:10px;color:#bbb;">${p.years}yr est.</span></td>
+      <td>${accred || '<span style="color:#ccc;font-size:11px;">—</span>'}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── ADD CUSTOM ────────────────────────────────────────
+function addCustomProgram() {
+  const institution = document.getElementById('aInstitution').value.trim();
+  const inState = parseFloat(document.getElementById('aInState').value);
+  const outState = parseFloat(document.getElementById('aOutState').value);
+  if (!institution || !inState || !outState) {
+    alert('Please fill in at least the Institution Name, In-State Cost, and Out-of-State Cost fields.');
+    return;
+  }
+  const id = 'custom-' + Date.now();
+  customPrograms.push({
+    id, isBase: false, custom: true,
+    name: institution,
+    institution,
+    school: document.getElementById('aSchool').value.trim() || '',
+    location: document.getElementById('aLocation').value.trim() || 'Not specified',
+    type: 'public',
+    programs: [document.getElementById('aProgram').value.trim() || 'MPA'],
+    accreditation: [],
+    inStateAnnual: inState,
+    outOfStateAnnual: outState,
+    inStateCPH: null, outOfStateCPH: null,
+    years: parseInt(document.getElementById('aLength').value) || 2,
+    website: null,
+    dataYear: 'User entered',
+    notes: 'Manually entered data — not verified from official sources.'
+  });
+  ['aInstitution','aSchool','aProgram','aLocation','aInState','aOutState'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+
+  // Rebuild compare select and auto-select new entry
+  const sel = document.getElementById('compareSelect');
+  const opt = document.createElement('option');
+  opt.value = id;
+  opt.textContent = institution + ' (custom)';
+  sel.appendChild(opt);
+  sel.value = id;
+
+  renderTable();
+  updateCards();
+  document.getElementById('comparisonGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── BOOT ──────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
