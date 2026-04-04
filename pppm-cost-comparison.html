@@ -572,9 +572,9 @@
                 <label>UO PPPM Program</label>
                 <div class="select-wrap">
                     <select id="uoProgramSelect" onchange="updateCards()">
-                        <option value="mpa">Master of Public Administration (MPA)</option>
-                        <option value="mcrp">Master of Community and Regional Planning (MCRP)</option>
-                        <option value="mnm">Master of Nonprofit Management (MNM)</option>
+                        <option value="uo-mpa">Master of Public Administration (MPA) — 12 months</option>
+                        <option value="uo-mcrp">Master of Community and Regional Planning (MCRP) — 2 years</option>
+                        <option value="uo-mnm">Master of Nonprofit Management (MNM) — 12 months</option>
                     </select>
                 </div>
             </div>
@@ -703,24 +703,69 @@
 // ============================================================
 const PROGRAMS = [
   {
-    id: 'uo-pppm',
-    name: 'UO PPPM',
+    id: 'uo-mpa',
+    name: 'UO PPPM — MPA',
     institution: 'University of Oregon',
     school: 'School of Planning, Public Policy and Management',
     location: 'Eugene, OR',
     type: 'public',
-    programs: ['MPA','MCRP','MNM'],
-    accreditation: ['NASPAA','PAB'],
+    programs: ['MPA'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 19474,
+    outOfStateAnnual: 33379,
+    inStateCPH: 623,
+    outOfStateCPH: 1138,
+    years: 1,
+    website: 'https://pppm.uoregon.edu/mpa',
+    dataYear: '2024–25',
+    notes: '12-month program across 4 quarters (Fall, Winter, Spring, Summer). Per-credit rates: $623 (resident) / $1,138 (non-resident). Includes mandatory fees. NASPAA accredited.',
+    state: 'OR',
+    isBase: true,
+    isUO: true,
+    custom: false
+  },
+  {
+    id: 'uo-mcrp',
+    name: 'UO PPPM — MCRP',
+    institution: 'University of Oregon',
+    school: 'School of Planning, Public Policy and Management',
+    location: 'Eugene, OR',
+    type: 'public',
+    programs: ['MCRP'],
+    accreditation: ['PAB'],
     inStateAnnual: 19474,
     outOfStateAnnual: 33379,
     inStateCPH: 623,
     outOfStateCPH: 1138,
     years: 2,
-    website: 'https://pppm.uoregon.edu',
+    website: 'https://pppm.uoregon.edu/mcrp',
     dataYear: '2024–25',
-    notes: 'Includes mandatory fees. Per-credit rates: $623 (resident) / $1,138 (non-resident). PPPM offers MPA, MCRP, and MNM programs. Dual-degree options available.',
+    notes: '2-year program. Per-credit rates: $623 (resident) / $1,138 (non-resident). Includes mandatory fees. PAB (planning) accredited. Dual-degree options available.',
     state: 'OR',
-    isBase: true,
+    isBase: false,
+    isUO: true,
+    custom: false
+  },
+  {
+    id: 'uo-mnm',
+    name: 'UO PPPM — MNM',
+    institution: 'University of Oregon',
+    school: 'School of Planning, Public Policy and Management',
+    location: 'Eugene, OR',
+    type: 'public',
+    programs: ['MNM'],
+    accreditation: ['NASPAA'],
+    inStateAnnual: 19474,
+    outOfStateAnnual: 33379,
+    inStateCPH: 623,
+    outOfStateCPH: 1138,
+    years: 1,
+    website: 'https://pppm.uoregon.edu/mnm',
+    dataYear: '2024–25',
+    notes: '12-month program across 4 quarters (Fall, Winter, Spring, Summer). Per-credit rates: $623 (resident) / $1,138 (non-resident). Includes mandatory fees. NASPAA accredited.',
+    state: 'OR',
+    isBase: false,
+    isUO: true,
     custom: false
   },
   {
@@ -1039,8 +1084,12 @@ function fmt(n) {
   return '$' + Math.round(n).toLocaleString();
 }
 function allPrograms() { return [...PROGRAMS, ...customPrograms]; }
-function baseProgram() { return PROGRAMS.find(p => p.isBase); }
-function nonBasePrograms() { return allPrograms().filter(p => !p.isBase); }
+function baseProgram() {
+  const sel = document.getElementById('uoProgramSelect');
+  const id = sel ? sel.value : 'uo-mpa';
+  return PROGRAMS.find(p => p.id === id) || PROGRAMS.find(p => p.isBase);
+}
+function nonBasePrograms() { return allPrograms().filter(p => !p.isUO); }
 function annualCost(p) {
   if (p.type === 'private' || p.inStateAnnual === p.outOfStateAnnual) return p.inStateAnnual;
   return userState === p.state ? p.inStateAnnual : p.outOfStateAnnual;
