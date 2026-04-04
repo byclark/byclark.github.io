@@ -499,13 +499,68 @@
         </div>
     </div>
 
-    <!-- Residency Toggle -->
+    <!-- State of Residence Selector -->
     <div class="controls-row">
-        <div class="tab-group">
-            <button class="tab-btn active" id="tab-instate" onclick="setResidency('instate', this)">🏠 In-State / Resident</button>
-            <button class="tab-btn" id="tab-outofstate" onclick="setResidency('outofstate', this)">✈️ Out-of-State</button>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <label style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-medium);white-space:nowrap;">🏠 Your State of Residence:</label>
+            <div class="select-wrap" style="width:230px;margin:0;">
+                <select id="stateSelect" onchange="setResidentState(this.value)" style="font-size:13px;padding:8px 32px 8px 11px;">
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR" selected>Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                        <option value="OTHER">Other / International</option>
+                </select>
+            </div>
         </div>
-        <span class="controls-note" id="residency-note">Showing in-state / Oregon resident rates</span>
+        <span class="controls-note" id="residency-note">Showing rates for Oregon residents</span>
     </div>
 
     <!-- ── SIDE-BY-SIDE COMPARISON ─── -->
@@ -664,6 +719,7 @@ const PROGRAMS = [
     website: 'https://pppm.uoregon.edu',
     dataYear: '2024–25',
     notes: 'Includes mandatory fees. Per-credit rates: $623 (resident) / $1,138 (non-resident). PPPM offers MPA, MCRP, and MNM programs. Dual-degree options available.',
+    state: 'OR',
     isBase: true,
     custom: false
   },
@@ -684,7 +740,31 @@ const PROGRAMS = [
     website: 'https://www.pdx.edu/hatfield',
     dataYear: '2024–25',
     notes: 'Base graduate per-credit rates: $477 (resident) / $711 (non-resident). MPA requires ~48 credits. Strong urban focus; located in Portland metro area.',
-    isBase: false, custom: false
+    state: 'OR',
+    isBase: false,
+    state: 'OR',
+    custom: false
+  },
+  {
+    id: 'osu-oregon',
+    name: 'OSU School of Public Policy',
+    institution: 'Oregon State University',
+    school: 'School of Public Policy',
+    location: 'Corvallis, OR',
+    type: 'public',
+    programs: ['MPP'],
+    accreditation: [],
+    inStateAnnual: 17916,
+    outOfStateAnnual: 29391,
+    inStateCPH: 608,
+    outOfStateCPH: 1033,
+    years: 2,
+    website: 'https://liberalarts.oregonstate.edu/spp',
+    dataYear: '2024–25',
+    notes: 'Per-credit rates: $608 (OR resident) / $1,033 (non-resident). MPP program approx. 54 credits over 2 years. Rates estimated from OSU graduate tuition schedule; verify at oregonstate.edu.',
+    isBase: false,
+    state: 'OR',
+    custom: false
   },
   {
     id: 'uw-evans',
@@ -703,6 +783,7 @@ const PROGRAMS = [
     website: 'https://evans.uw.edu',
     dataYear: '2025–26',
     notes: 'Full-time MPA uses a flat annual rate ($27,299) that is the same for all students regardless of residency. Part-time/EMPA tracks have different pricing.',
+    state: 'WA',
     isBase: false, custom: false
   },
   {
@@ -722,6 +803,7 @@ const PROGRAMS = [
     website: 'https://spa.asu.edu',
     dataYear: '2024–25',
     notes: 'Estimated from ASU graduate tuition rates plus program fees. Consistently ranked in U.S. News top 15 public affairs programs. Very large program enrollment.',
+    state: 'AZ',
     isBase: false, custom: false
   },
   {
@@ -741,6 +823,7 @@ const PROGRAMS = [
     website: 'https://publicaffairs.ucdenver.edu',
     dataYear: '2024–25',
     notes: 'Note: Accelerated 1-year MPA is a flat $27,500 for all students. Standard 2-year program rates are estimated; verify at ucdenver.edu.',
+    state: 'CO',
     isBase: false, custom: false
   },
   {
@@ -760,6 +843,7 @@ const PROGRAMS = [
     website: 'https://schar.gmu.edu',
     dataYear: '2024–25',
     notes: 'Per-credit rates: $789 (VA resident). MPA program requires 36 credit hours (~$28,400 total in-state). DC and MD residents may qualify for in-state rate.',
+    state: 'VA',
     isBase: false, custom: false
   },
   {
@@ -779,6 +863,7 @@ const PROGRAMS = [
     website: 'https://glenn.osu.edu',
     dataYear: '2024–25',
     notes: 'General OSU graduate tuition rates; Glenn College program-specific fees may differ slightly. Very affordable for Ohio residents.',
+    state: 'OH',
     isBase: false, custom: false
   },
   {
@@ -798,6 +883,7 @@ const PROGRAMS = [
     website: 'https://oneill.indiana.edu',
     dataYear: '2024–25',
     notes: 'Online MPA: $730/credit (same for in/out-of-state). In-person rates vary. MPA requires ~48 credits. One of the most affordable large public programs for IN residents.',
+    state: 'IN',
     isBase: false, custom: false
   },
   {
@@ -817,6 +903,7 @@ const PROGRAMS = [
     website: 'https://sog.unc.edu',
     dataYear: '2024–25',
     notes: 'One of the most affordable programs for in-state students nationally. UNC is consistently ranked among the top public universities in the U.S. Rates are estimated.',
+    state: 'NC',
     isBase: false, custom: false
   },
   {
@@ -836,6 +923,7 @@ const PROGRAMS = [
     website: 'https://askew.fsu.edu',
     dataYear: '2024–25',
     notes: 'Among the most affordable NASPAA-accredited programs for in-state students. Per-credit rates: $534 (FL resident) / $1,384 (non-resident). Rates estimated.',
+    state: 'FL',
     isBase: false, custom: false
   },
   {
@@ -855,6 +943,7 @@ const PROGRAMS = [
     website: 'https://spaa.newark.rutgers.edu',
     dataYear: '2024–25',
     notes: 'Rates estimated from Rutgers graduate per-credit rates. Located near New York City; strong urban and public policy focus.',
+    state: 'NJ',
     isBase: false, custom: false
   },
   {
@@ -874,6 +963,7 @@ const PROGRAMS = [
     website: 'https://fordschool.umich.edu',
     dataYear: '2024–25',
     notes: 'High out-of-state cost reflects Michigan flagship status. Top-ranked MPP program. Strong research and policy focus. Rates estimated.',
+    state: 'MI',
     isBase: false, custom: false
   },
   {
@@ -893,6 +983,7 @@ const PROGRAMS = [
     website: 'https://priceschool.usc.edu',
     dataYear: '2024–25',
     notes: 'Private university — no in/out-of-state distinction. One of the few programs accredited by both NASPAA (public admin) and PAB (planning). Significant scholarship funding available.',
+    state: null,
     isBase: false, custom: false
   },
   {
@@ -912,6 +1003,7 @@ const PROGRAMS = [
     website: 'https://www.maxwell.syr.edu',
     dataYear: '2024–25',
     notes: 'Private university — no in/out-of-state distinction. Consistently ranked #1 MPA program (U.S. News). Per-credit: $2,015. Substantial fellowship funding available for admitted students.',
+    state: null,
     isBase: false, custom: false
   },
   {
@@ -931,12 +1023,13 @@ const PROGRAMS = [
     website: 'https://www.hks.harvard.edu',
     dataYear: '2024–25',
     notes: 'Private university — no in/out-of-state distinction. Tuition only; does not include ~$4,000 in fees or living expenses. Generous need-based aid; many students receive substantial fellowships.',
+    state: null,
     isBase: false, custom: false
   }
 ];
 
 let customPrograms = [];
-let residencyMode = 'instate';
+let userState = 'OR';
 let sortField = 'inStateAnnual';
 let sortDir = 'asc';
 let chartInstance = null;
@@ -949,7 +1042,10 @@ function fmt(n) {
 function allPrograms() { return [...PROGRAMS, ...customPrograms]; }
 function baseProgram() { return PROGRAMS.find(p => p.isBase); }
 function nonBasePrograms() { return allPrograms().filter(p => !p.isBase); }
-function annualCost(p) { return residencyMode === 'instate' ? p.inStateAnnual : p.outOfStateAnnual; }
+function annualCost(p) {
+  if (p.type === 'private' || p.inStateAnnual === p.outOfStateAnnual) return p.inStateAnnual;
+  return userState === p.state ? p.inStateAnnual : p.outOfStateAnnual;
+}
 function totalCost(p) { return annualCost(p) * p.years; }
 function cph(p) { return residencyMode === 'instate' ? p.inStateCPH : p.outOfStateCPH; }
 
@@ -968,12 +1064,28 @@ function init() {
 }
 
 // ── RESIDENCY ─────────────────────────────────────────
-function setResidency(mode, btn) {
-  residencyMode = mode;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+const STATE_NAMES = {
+  AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',
+  CO:'Colorado',CT:'Connecticut',DE:'Delaware',DC:'District of Columbia',
+  FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',
+  IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',
+  ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',
+  MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',
+  NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',
+  NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',
+  PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',
+  TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',
+  WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming',
+  OTHER:'Other / International'
+};
+
+function setResidentState(state) {
+  userState = state;
+  const name = STATE_NAMES[state] || state;
   document.getElementById('residency-note').textContent =
-    mode === 'instate' ? 'Showing in-state / resident rates' : 'Showing out-of-state / non-resident rates';
+    state === 'OTHER'
+      ? 'Showing out-of-state / non-resident rates'
+      : 'Showing rates for ' + name + ' residents';
   const cid = document.getElementById('compareSelect').value || null;
   renderCards(cid);
   renderTable();
@@ -1014,7 +1126,8 @@ function buildCard(p, css, badgeText, base) {
   const annual = annualCost(p);
   const total = totalCost(p);
   const perCredit = cph(p);
-  const mode = residencyMode === 'instate' ? 'In-State / Resident' : 'Out-of-State';
+  const isInState = p.type === 'private' || p.inStateAnnual === p.outOfStateAnnual || userState === p.state;
+  const mode = p.type === 'private' || p.inStateAnnual === p.outOfStateAnnual ? 'Flat Rate (All Students)' : (userState === p.state ? 'In-State / Resident Rate' : 'Out-of-State Rate');
 
   let diffHtml = '';
   if (base) {
