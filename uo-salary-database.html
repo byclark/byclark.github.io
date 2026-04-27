@@ -3,136 +3,150 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>University of Oregon Unclassified Employee Salary Database</title>
+<title>UO Faculty &amp; Administration Salary Database | Benjamin Clark</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232d5be3'/><text x='50' y='67' font-family='system-ui,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'>BC</text></svg>">
 <style>
 :root {
-  --uo-green:   #154733;
-  --uo-gold:    #FEE11A;
-  --green-dark: #0f3324;
-  --green-mid:  #1e6b4b;
-  --green-light:#e4ede8;
-  --font-sans:  'Open Sans', Arial, sans-serif;
-  --font-serif: 'Source Serif 4', Georgia, serif;
+  --bg: #faf9f7;
+  --bg2: #f2f0ec;
+  --bg3: #e8e5e0;
+  --ink: #1a1917;
+  --ink2: #3d3b38;
+  --muted: #7a7673;
+  --rule: #dedad5;
+  --accent: #2d5be3;
+  --accent-light: #e8eefb;
+  --accent-dark: #1e3fa0;
+  --font-serif: 'Literata', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --nav-h: 64px;
   --radius: 6px;
-  --shadow: 0 1px 4px rgba(0,0,0,.09);
+  --shadow: 0 1px 4px rgba(0,0,0,.07);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-sans);font-size:14px;background:#f6f8f7;color:#222}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);font-size:14px;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
 
-/* ── HEADER ── */
-.uo-topbar{background:#1c1c1c;padding:6px 24px;display:flex;align-items:center;gap:16px}
-.uo-topbar svg{flex-shrink:0}
-.uo-topbar-links{margin-left:auto;display:flex;gap:14px}
-.uo-topbar-links a{color:#ccc;font-size:12px;text-decoration:none}
-.uo-topbar-links a:hover{color:#fff}
-
-.school-banner{background:var(--uo-green);padding:14px 24px 12px}
-.school-banner .college{font-family:var(--font-serif);font-style:italic;color:var(--uo-gold);font-size:13px;font-weight:400;letter-spacing:.03em}
-.school-banner .school-name{font-family:var(--font-serif);color:var(--uo-gold);font-size:20px;font-weight:600;margin-top:2px}
-
-.tool-subheader{background:var(--green-dark);padding:8px 24px}
-.tool-subheader h1{font-family:var(--font-serif);color:#fff;font-size:16px;font-weight:600;letter-spacing:.02em}
-
-.pppm-nav{background:#fff;border-bottom:2px solid var(--green-light);padding:0 24px;display:flex;gap:0;overflow-x:auto}
-.pppm-nav a{color:var(--uo-green);font-size:13px;font-weight:600;text-decoration:none;padding:10px 14px;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-2px;transition:border-color .15s}
-.pppm-nav a:hover{border-bottom-color:var(--uo-green)}
-.pppm-nav a.active{border-bottom-color:var(--uo-gold);color:var(--green-dark)}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(250,249,247,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.25rem,4vw,3.5rem)}
+.nav-logo{font-family:var(--font-sans);font-size:0.92rem;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-0.01em}
+.nav-logo span{color:var(--accent)}
+.nav-center{display:flex;gap:0.25rem;list-style:none}
+.nav-center a{font-family:var(--font-sans);font-size:0.82rem;font-weight:500;color:var(--muted);text-decoration:none;padding:0.35rem 0.8rem;border-radius:var(--radius);transition:color 0.15s,background 0.15s}
+.nav-center a:hover{color:var(--ink);background:var(--bg2)}
+.nav-center a.active{color:var(--accent);background:var(--accent-light)}
+.nav-right{display:flex;gap:0.75rem;align-items:center}
+.nav-right a{font-family:var(--font-sans);font-size:0.82rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color 0.15s}
+.nav-right a:hover{color:var(--ink)}
+.nav-btn{background:var(--accent)!important;color:#fff!important;padding:0.4rem 1rem!important;border-radius:var(--radius)!important;font-size:0.8rem!important;transition:background 0.15s!important}
+.nav-btn:hover{background:var(--accent-dark)!important;color:#fff!important}
 
 /* ── MAIN LAYOUT ── */
-.page-wrap{max-width:1300px;margin:0 auto;padding:24px 20px 60px}
+.page-wrap{max-width:1300px;margin:0 auto;padding:calc(var(--nav-h) + 28px) 20px 60px}
 
-.page-title{font-family:var(--font-serif);font-size:24px;color:var(--uo-green);margin-bottom:4px}
-.page-subtitle{color:#666;font-size:13px;margin-bottom:20px}
+.page-title{font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--ink);margin-bottom:4px}
+.page-subtitle{color:var(--muted);font-size:13px;margin-bottom:20px;line-height:1.6}
+.page-subtitle a{color:var(--accent)}
 
 /* ── CONTROLS ── */
 .controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end}
 .ctrl-group{display:flex;flex-direction:column;gap:4px}
-.ctrl-group label{font-size:11px;font-weight:600;color:#555;text-transform:uppercase;letter-spacing:.04em}
+.ctrl-group label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .ctrl-group input,
-.ctrl-group select{font-family:var(--font-sans);font-size:13px;padding:7px 10px;border:1px solid #ccc;border-radius:var(--radius);background:#fff;color:#222;height:34px}
+.ctrl-group select{font-family:var(--font-sans);font-size:13px;padding:7px 10px;border:1px solid var(--rule);border-radius:var(--radius);background:#fff;color:var(--ink);height:34px}
 .ctrl-group input{width:240px}
 .ctrl-group select{width:200px}
 .ctrl-group input:focus,
-.ctrl-group select:focus{outline:2px solid var(--uo-green);border-color:transparent}
+.ctrl-group select:focus{outline:2px solid var(--accent);border-color:transparent}
 
-.btn{font-family:var(--font-sans);font-size:13px;font-weight:600;padding:7px 16px;height:34px;border-radius:var(--radius);cursor:pointer;border:none;transition:background .15s,transform .1s;white-space:nowrap}
-.btn-primary{background:var(--uo-green);color:#fff}
-.btn-primary:hover{background:var(--green-mid)}
-.btn-gold{background:var(--uo-gold);color:var(--green-dark)}
-.btn-gold:hover{background:#f5d800}
-.btn-gold.active{background:var(--uo-green);color:#fff}
-.btn-outline{background:#fff;color:var(--uo-green);border:1.5px solid var(--uo-green)}
-.btn-outline:hover{background:var(--green-light)}
+.btn{font-family:var(--font-sans);font-size:13px;font-weight:500;padding:7px 16px;height:34px;border-radius:var(--radius);cursor:pointer;border:none;transition:background .15s;white-space:nowrap}
+.btn-gold{background:var(--accent-light);color:var(--accent);border:1px solid var(--accent)}
+.btn-gold:hover{background:var(--accent);color:#fff}
+.btn-gold.active{background:var(--accent-dark);color:#fff;border-color:var(--accent-dark)}
+.btn-outline{background:#fff;color:var(--ink2);border:1px solid var(--rule)}
+.btn-outline:hover{background:var(--bg2);border-color:var(--ink2)}
 .btn-group{display:flex;gap:8px;align-items:flex-end}
 
 .results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
-.results-count{font-size:13px;color:#555}
-.results-count strong{color:var(--uo-green)}
+.results-count{font-size:13px;color:var(--muted)}
+.results-count strong{color:var(--ink)}
 
 /* ── TABLE ── */
-.table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow)}
+.table-wrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--rule)}
 table{width:100%;border-collapse:collapse;background:#fff;font-size:13px}
-thead th{background:var(--uo-green);color:#fff;font-weight:600;padding:10px 12px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0}
-thead th:hover{background:var(--green-mid)}
+thead th{background:var(--accent);color:#fff;font-weight:600;padding:10px 12px;text-align:left;white-space:nowrap;cursor:pointer;user-select:none;position:sticky;top:0}
+thead th:hover{background:var(--accent-dark)}
 thead th.sort-asc::after{content:" ↑"}
 thead th.sort-desc::after{content:" ↓"}
-tbody tr{border-bottom:1px solid #eee;transition:background .1s}
-tbody tr:hover{background:#f0f5f2}
+tbody tr{border-bottom:1px solid var(--rule);transition:background .1s}
+tbody tr:hover{background:var(--accent-light)}
 tbody td{padding:9px 12px;vertical-align:top}
-.td-name{font-weight:600;color:var(--green-dark)}
-.td-salary{font-weight:600;color:var(--uo-green);text-align:right;white-space:nowrap}
+.td-name{font-weight:600;color:var(--ink)}
+.td-salary{font-weight:600;color:var(--accent);text-align:right;white-space:nowrap}
 .td-year{text-align:center}
 .badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
-.badge-primary{background:#e8f0ec;color:#1a5e38}
+.badge-primary{background:var(--accent-light);color:var(--accent-dark)}
 .badge-overload{background:#fff3cd;color:#7a5000}
-.badge-secondary{background:#e8eaf6;color:#303f9f}
-.badge-active{background:#e8f0ec;color:#1a5e38}
-.badge-leave{background:#fff3e0;color:#e65100}
-.badge-term{background:#fce4ec;color:#c62828}
-.top25-row td{background:#fffce8 !important;border-left:3px solid var(--uo-gold)}
+.badge-secondary{background:#f0f0f0;color:#555}
+.top25-row td{background:#fffce8 !important;border-left:3px solid #f0b429}
 .top25-row:hover td{background:#fff8c0 !important}
 .rank-badge{font-size:11px;font-weight:700;color:#7a5000;margin-right:4px}
 
 /* ── PAGINATION ── */
 .pagination{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
-.pagination button{font-family:var(--font-sans);padding:5px 12px;border:1.5px solid #ccc;border-radius:var(--radius);background:#fff;cursor:pointer;font-size:13px}
-.pagination button:hover:not(:disabled){border-color:var(--uo-green);color:var(--uo-green)}
-.pagination button.current{background:var(--uo-green);color:#fff;border-color:var(--uo-green)}
+.pagination button{font-family:var(--font-sans);padding:5px 12px;border:1px solid var(--rule);border-radius:var(--radius);background:#fff;cursor:pointer;font-size:13px;color:var(--ink2)}
+.pagination button:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.pagination button.current{background:var(--accent);color:#fff;border-color:var(--accent)}
 .pagination button:disabled{color:#bbb;cursor:default}
-.pagination .page-info{font-size:13px;color:#666;margin:0 4px}
-
-/* ── TOP 25 MODAL / SECTION ── */
-.section-label{font-family:var(--font-serif);font-size:17px;color:var(--uo-green);border-bottom:2px solid var(--green-light);padding-bottom:6px;margin-bottom:14px}
+.pagination .page-info{font-size:13px;color:var(--muted);margin:0 4px}
 
 /* ── FOOTER ── */
-footer{background:#1c1c1c;color:#aaa;text-align:center;padding:24px;font-size:12px;margin-top:40px}
-footer a{color:#ccc}
+footer{border-top:1px solid var(--rule);padding:2.5rem clamp(1.25rem,4vw,3.5rem);background:var(--bg)}
+.footer-inner{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-inner p,.footer-inner a{font-family:var(--font-sans);font-size:0.78rem;color:var(--muted);text-decoration:none}
+.footer-inner a:hover{color:var(--ink)}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap}
 
 /* ── EMPTY STATE ── */
-.empty-state{text-align:center;padding:60px 20px;color:#888}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
 .empty-state p{font-size:15px}
+
+@media(max-width:600px){.nav-center{display:none}}
 </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<header>
-  <div class="tool-subheader" style="padding:16px 24px">
-    <h1 style="font-size:20px">University of Oregon Unclassified Employee Salary Database</h1>
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="consulting.html">Consulting</a></li>
+    <li><a href="tools.html" class="active">Tools</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+    <a href="consulting.html" class="nav-btn">Work With Me</a>
   </div>
-</header>
+</nav>
 
 <!-- ── MAIN ── -->
 <div class="page-wrap">
-  <h2 class="page-title" style="display:none">University of Oregon Unclassified Employee Salary Database</h2>
+  <h2 class="page-title">University of Oregon Faculty &amp; Administration Salary Database</h2>
   <p class="page-subtitle">
     Sourced from UO Office of Institutional Research fall census reports (2023–2025).
     Includes unclassified employees (faculty, officers of administration, librarians)
-    on record as of November 1 each year.
-    <a href="https://ir.uoregon.edu/employees/salary-reports" target="_blank" style="color:var(--uo-green)">Data source ↗</a>
+    on record as of November 1 each year. &nbsp;
+    <a href="https://ir.uoregon.edu/employees/salary-reports" target="_blank">Data source ↗</a>
+    &nbsp;·&nbsp;
+    <a href="tools.html">← Back to Tools</a>
   </p>
 
   <!-- Controls -->
@@ -187,7 +201,7 @@ footer a{color:#ccc}
 
   <div class="results-bar">
     <div class="results-count" id="resultsCount">Loading…</div>
-    <div style="font-size:12px;color:#888">Click column headers to sort</div>
+    <div style="font-size:12px;color:var(--muted)">Click column headers to sort</div>
   </div>
 
   <div class="table-wrap">
@@ -215,8 +229,17 @@ footer a{color:#ccc}
 </div>
 
 <footer>
-  <p>Data sourced from <a href="https://ir.uoregon.edu/employees/salary-reports" target="_blank">UO Office of Institutional Research</a> — Unclassified Personnel Salary Reports (2023, 2024, 2025 fall census).</p>
-  <p style="margin-top:6px">University of Oregon | Department of Planning, Public Policy and Management</p>
+  <div class="footer-inner">
+    <p>Data from <a href="https://ir.uoregon.edu/employees/salary-reports" target="_blank">UO Office of Institutional Research</a> — Unclassified Personnel Salary Reports (2023–2025).</p>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html">CV</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="tools.html">Tools</a>
+      <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -226,19 +249,17 @@ const DATA = [{"n":"Abbe, Erica L","y":2023,"t":"Primary","s":60000,"sr":"$60,00
 // ── STATE ──
 let filtered = [];
 let sortCol = 's';
-let sortDir = -1; // -1 = desc, 1 = asc
+let sortDir = -1;
 let page = 1;
 const PAGE_SIZE = 50;
 let top25Mode = false;
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
-  // Default: show 2025, Primary jobs only
   document.getElementById('yearFilter').value = '2025';
   document.getElementById('jobTypeFilter').value = 'Primary';
   applyFilters();
 
-  // Search debounce
   let timer;
   document.getElementById('search').addEventListener('input', () => {
     clearTimeout(timer);
@@ -262,10 +283,9 @@ function applyFilters() {
     if (eeo && r.e !== eeo) return false;
     if (jt && r.t !== jt) return false;
     if (q) {
-      const nameMatch = r.n.toLowerCase().includes(q);
-      const titleMatch = r.a.toLowerCase().includes(q);
-      const deptMatch = r.d.toLowerCase().includes(q);
-      if (!nameMatch && !titleMatch && !deptMatch) return false;
+      if (!r.n.toLowerCase().includes(q) &&
+          !r.a.toLowerCase().includes(q) &&
+          !r.d.toLowerCase().includes(q)) return false;
     }
     return true;
   });
@@ -278,9 +298,7 @@ function applyFilters() {
 function sortFiltered() {
   filtered.sort((a, b) => {
     let va = a[sortCol] || '', vb = b[sortCol] || '';
-    if (sortCol === 's' || sortCol === 'y') {
-      return (va - vb) * sortDir;
-    }
+    if (sortCol === 's' || sortCol === 'y') return (va - vb) * sortDir;
     return va.toString().localeCompare(vb.toString()) * sortDir;
   });
 }
@@ -328,12 +346,12 @@ function renderTable() {
     const badgeCls = r.t === 'Primary' ? 'badge-primary' : r.t === 'Overload' ? 'badge-overload' : 'badge-secondary';
     const sal = r.s > 0 ? '$' + r.s.toLocaleString() : r.sr || '—';
     return `<tr>
-      <td class="td-year" style="color:#999;font-size:12px">${rank}</td>
+      <td class="td-year" style="color:#aaa;font-size:12px">${rank}</td>
       <td class="td-name">${esc(r.n)}</td>
       <td class="td-year">${r.y}</td>
-      <td>${esc(r.a) || '<span style="color:#bbb">—</span>'}</td>
-      <td style="color:#555">${esc(r.d) || '<span style="color:#bbb">—</span>'}</td>
-      <td><span class="badge badge-primary" style="background:#f0f0f0;color:#444">${esc(r.e) || '—'}</span></td>
+      <td>${esc(r.a) || '<span style="color:#ccc">—</span>'}</td>
+      <td style="color:var(--ink2)">${esc(r.d) || '<span style="color:#ccc">—</span>'}</td>
+      <td><span class="badge" style="background:var(--bg2);color:var(--ink2)">${esc(r.e) || '—'}</span></td>
       <td><span class="badge ${badgeCls}">${esc(r.t) || '—'}</span></td>
       <td class="td-salary">${sal}</td>
     </tr>`;
@@ -353,7 +371,6 @@ function toggleTop25() {
   } else {
     btn.classList.remove('active');
     btn.textContent = '⭐ Top 25 Highest Paid';
-    // Reset to default view
     document.getElementById('yearFilter').value = '2025';
     document.getElementById('jobTypeFilter').value = 'Primary';
     page = 1;
@@ -362,7 +379,6 @@ function toggleTop25() {
 }
 
 function renderTop25() {
-  // Get selected year for Top 25 (use yearFilter if set, else 2025)
   const yr = document.getElementById('yearFilter').value || '2025';
   const top25 = DATA
     .filter(r => r.y == yr && r.t === 'Primary' && r.s > 0)
@@ -374,9 +390,8 @@ function renderTop25() {
   document.getElementById('pagination').innerHTML = '';
   document.getElementById('emptyState').style.display = 'none';
 
-  const yearLabel = yr;
   document.getElementById('resultsCount').innerHTML =
-    `<strong>Top 25 Highest-Paid Employees</strong> — ${yearLabel} Primary Jobs`;
+    `<strong>Top 25 Highest-Paid Employees</strong> — ${yr} Primary Jobs`;
 
   tbody.innerHTML = top25.map((r, i) => {
     const sal = r.s > 0 ? '$' + r.s.toLocaleString() : '—';
@@ -384,9 +399,9 @@ function renderTop25() {
       <td class="td-year"><span class="rank-badge">#${i+1}</span></td>
       <td class="td-name">${esc(r.n)}</td>
       <td class="td-year">${r.y}</td>
-      <td>${esc(r.a) || '<span style="color:#bbb">—</span>'}</td>
-      <td style="color:#555">${esc(r.d) || '<span style="color:#bbb">—</span>'}</td>
-      <td><span class="badge" style="background:#f0f0f0;color:#444">${esc(r.e) || '—'}</span></td>
+      <td>${esc(r.a) || '<span style="color:#ccc">—</span>'}</td>
+      <td style="color:var(--ink2)">${esc(r.d) || '<span style="color:#ccc">—</span>'}</td>
+      <td><span class="badge" style="background:var(--bg2);color:var(--ink2)">${esc(r.e) || '—'}</span></td>
       <td><span class="badge badge-primary">Primary</span></td>
       <td class="td-salary" style="font-size:15px">${sal}</td>
     </tr>`;
@@ -398,25 +413,19 @@ function renderPagination() {
   const total = filtered.length;
   const pages = Math.ceil(total / PAGE_SIZE);
   const pg = document.getElementById('pagination');
-
   if (pages <= 1) { pg.innerHTML = ''; return; }
 
   let html = `<button onclick="goPage(${page-1})" ${page===1?'disabled':''}>‹ Prev</button>`;
-
-  // Show limited page buttons
   const range = 2;
   let start = Math.max(1, page - range);
   let end = Math.min(pages, page + range);
-
   if (start > 1) html += `<button onclick="goPage(1)">1</button>${start > 2 ? '<span>…</span>' : ''}`;
   for (let p = start; p <= end; p++) {
     html += `<button onclick="goPage(${p})" class="${p===page?'current':''}">${p}</button>`;
   }
   if (end < pages) html += `${end < pages-1 ? '<span>…</span>' : ''}<button onclick="goPage(${pages})">${pages}</button>`;
-
   html += `<button onclick="goPage(${page+1})" ${page===pages?'disabled':''}>Next ›</button>`;
   html += `<span class="page-info">Page ${page} of ${pages}</span>`;
-
   pg.innerHTML = html;
 }
 

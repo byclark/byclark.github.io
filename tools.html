@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tools | Benjamin Clark</title>
+  <meta name="description" content="Open data tools and interactive resources built by Benjamin Clark — UO salary database and graduate program cost comparison.">
+  <link rel="canonical" href="https://byclark.github.io/tools.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232d5be3'/><text x='50' y='67' font-family='system-ui,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'>BC</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --bg2: #f2f0ec;
+      --bg3: #e8e5e0;
+      --ink: #1a1917;
+      --ink2: #3d3b38;
+      --muted: #7a7673;
+      --rule: #dedad5;
+      --accent: #2d5be3;
+      --accent-light: #e8eefb;
+      --accent-dark: #1e3fa0;
+      --font-serif: 'Literata', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --nav-h: 64px;
+      --max-w: 1100px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --radius: 6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-serif);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(250,249,247,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--pad);
+    }
+    .nav-logo {
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-center { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-center a {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-center a:hover { color: var(--ink); background: var(--bg2); }
+    .nav-center a.active { color: var(--accent); background: var(--accent-light); }
+    .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-right a {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-right a:hover { color: var(--ink); }
+    .nav-btn {
+      background: var(--accent) !important;
+      color: #fff !important;
+      padding: 0.4rem 1rem !important;
+      border-radius: var(--radius) !important;
+      font-size: 0.8rem !important;
+      transition: background 0.15s !important;
+    }
+    .nav-btn:hover { background: var(--accent-dark) !important; color: #fff !important; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: calc(var(--nav-h) + 3.5rem);
+      padding-bottom: 3rem;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--rule);
+    }
+    .page-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .page-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--ink2);
+      max-width: 640px;
+      line-height: 1.8;
+    }
+
+    /* ── TOOLS GRID ── */
+    .tools-section {
+      padding: 3.5rem var(--pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 0;
+    }
+    @media (max-width: 700px) { .tools-grid { grid-template-columns: 1fr; } }
+
+    .tool-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+    }
+    .tool-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(45,91,227,0.1);
+      transform: translateY(-2px);
+    }
+    .tool-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .tool-label {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .tool-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .tool-desc {
+      font-family: var(--font-sans);
+      font-size: 0.87rem;
+      color: var(--ink2);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .tool-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+    .tool-chip {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .tool-cta {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .tool-card:hover .tool-cta { gap: 0.6rem; }
+
+    /* ── NOTE ── */
+    .tools-note {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad) 4rem;
+    }
+    .note-box {
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+    .note-box a { color: var(--accent); text-decoration: none; }
+    .note-box a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem var(--pad);
+      background: var(--bg);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-inner p, .footer-inner a {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-inner a:hover { color: var(--ink); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    @media (max-width: 600px) { .nav-center { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="consulting.html">Consulting</a></li>
+    <li><a href="tools.html" class="active">Tools</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+    <a href="consulting.html" class="nav-btn">Work With Me</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Open Data &amp; Tools</div>
+  <h1>Public Data <em>Tools</em></h1>
+  <p class="page-intro">Interactive tools I've built for transparency and research — drawing on public records and official data sources to make information more accessible.</p>
+</div>
+
+<div class="tools-section">
+  <div class="tools-grid">
+
+    <a href="uo-salary-database.html" class="tool-card">
+      <div class="tool-icon"><i class="fas fa-database"></i></div>
+      <div>
+        <div class="tool-label">Salary Transparency</div>
+        <div class="tool-title">UO Faculty &amp; Administration Salary Database</div>
+      </div>
+      <p class="tool-desc">Search and explore salary records for over 13,500 University of Oregon unclassified employees across three years — including faculty, officers of administration, and librarians. Filter by name, department, position type, or year. See the Top 25 highest-paid employees at a click.</p>
+      <div class="tool-meta">
+        <span class="tool-chip">13,500+ records</span>
+        <span class="tool-chip">2023–2025</span>
+        <span class="tool-chip">Public data</span>
+      </div>
+      <div class="tool-cta">Open database <i class="fas fa-arrow-right" style="font-size:0.75rem"></i></div>
+    </a>
+
+    <a href="pppm-cost-comparison.html" class="tool-card">
+      <div class="tool-icon"><i class="fas fa-graduation-cap"></i></div>
+      <div>
+        <div class="tool-label">Higher Education Finance</div>
+        <div class="tool-title">Graduate Program Cost Comparison</div>
+      </div>
+      <p class="tool-desc">Compare the total estimated cost of UO PPPM graduate programs — MPA, MURP, MS, and MPP — against peer programs nationwide. Accounts for in-state vs. out-of-state tuition, WICHE WRGP eligibility, and living expenses, so you can make an apples-to-apples comparison.</p>
+      <div class="tool-meta">
+        <span class="tool-chip">2025–26 rates</span>
+        <span class="tool-chip">Nationwide programs</span>
+        <span class="tool-chip">WRGP eligible</span>
+      </div>
+      <div class="tool-cta">Open tool <i class="fas fa-arrow-right" style="font-size:0.75rem"></i></div>
+    </a>
+
+  </div>
+</div>
+
+<div class="tools-note">
+  <div class="note-box">
+    <strong>Data sources &amp; methodology:</strong> The salary database draws from <a href="https://ir.uoregon.edu/employees/salary-reports" target="_blank">UO Office of Institutional Research</a> fall census reports, which are public records. The cost comparison uses official tuition schedules from each institution's graduate program website; figures are approximate and should be verified directly with each school.
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Benjamin Y. Clark</p>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html">CV</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="tools.html">Tools</a>
+      <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

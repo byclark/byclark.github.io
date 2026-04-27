@@ -3,183 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graduate Program Cost Comparison | UO PPPM</title>
+    <title>Graduate Program Cost Comparison | Benjamin Clark</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232d5be3'/><text x='50' y='67' font-family='system-ui,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'>BC</text></svg>">
     <style>
         :root {
-            --uo-green: #154733;
-            --uo-green-mid: #1a5c42;
-            --uo-emerald: #13AA67;
-            --uo-gold: #FEE11A;
-            --uo-gold-dark: #c9920a;
-            --text-dark: #1a1a1a;
-            --text-medium: #5a5a5a;
-            --text-light: #909090;
-            --bg-light: #f7f7f5;
-            --bg-white: #ffffff;
-            --border: #dde5e0;
-            --shadow: 0 1px 4px rgba(0,0,0,0.08);
-            --shadow-lg: 0 4px 16px rgba(0,0,0,0.10);
+            /* Index page design system */
+            --bg: #faf9f7;
+            --bg2: #f2f0ec;
+            --bg3: #e8e5e0;
+            --ink: #1a1917;
+            --ink2: #3d3b38;
+            --muted: #7a7673;
+            --rule: #dedad5;
+            --accent: #2d5be3;
+            --accent-light: #e8eefb;
+            --accent-dark: #1e3fa0;
+            --font-serif: 'Literata', Georgia, serif;
+            --font-sans: 'DM Sans', system-ui, sans-serif;
+            --nav-h: 64px;
             --radius: 6px;
-            --font-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            --shadow: 0 1px 4px rgba(0,0,0,0.07);
+            --shadow-lg: 0 4px 16px rgba(0,0,0,0.10);
+            /* Aliases for component CSS below */
+            --uo-green: var(--accent);
+            --uo-green-mid: var(--accent-dark);
+            --uo-emerald: #13AA67;
+            --uo-gold: #f0b429;
+            --uo-gold-dark: #c9920a;
+            --text-dark: var(--ink);
+            --text-medium: var(--ink2);
+            --text-light: var(--muted);
+            --bg-light: var(--bg);
+            --bg-white: #ffffff;
+            --border: var(--rule);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: var(--font-sans);
-            background: #ffffff;
-            color: var(--text-dark);
+            background: var(--bg);
+            color: var(--ink);
             line-height: 1.6;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ── HEADER ─────────────────────────────────── */
-        header { background: var(--uo-green); color: white; }
-
-        /* UO top utility bar */
-        .uo-topbar {
-            background: #1c1c1c;
-            padding: 0 40px;
-        }
-        .uo-topbar-inner {
+        /* ── NAV (index-page style) ──────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            background: rgba(250,249,247,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+            z-index: 200;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 1180px;
-            margin: 0 auto;
-            height: 44px;
+            padding: 0 clamp(1.25rem, 4vw, 3.5rem);
         }
-        .uo-wordmark {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            text-decoration: none;
-            color: white;
-        }
-        .uo-logo-circle {
-            width: 32px;
-            height: 32px;
-            border: 2px solid white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 17px;
-            font-weight: 900;
-            font-style: italic;
-            color: white;
-            flex-shrink: 0;
-            font-family: var(--font-serif);
-        }
-        .uo-wordtext {
-            font-size: 8.5px;
-            font-weight: 700;
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            color: white;
-            line-height: 1.4;
+        .nav-logo {
             font-family: var(--font-sans);
-        }
-        .uo-topbar-links {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-        .uo-topbar-links a {
-            font-size: 11px;
-            color: #b0b0b0;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--ink);
             text-decoration: none;
-            letter-spacing: 0.3px;
+            letter-spacing: -0.01em;
+        }
+        .nav-logo span { color: var(--accent); }
+        .nav-center { display: flex; gap: 0.25rem; list-style: none; }
+        .nav-center a {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            padding: 0.35rem 0.8rem;
+            border-radius: var(--radius);
+            transition: color 0.15s, background 0.15s;
+        }
+        .nav-center a:hover { color: var(--ink); background: var(--bg2); }
+        .nav-center a.active { color: var(--accent); background: var(--accent-light); }
+        .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+        .nav-right a {
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
             transition: color 0.15s;
         }
-        .uo-topbar-links a:hover { color: var(--uo-gold); }
-
-        /* School name banner */
-        .school-banner {
-            background: var(--uo-green);
-            padding: 14px 40px 16px;
+        .nav-right a:hover { color: var(--ink); }
+        .nav-btn {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 0.4rem 1rem !important;
+            border-radius: var(--radius) !important;
+            font-size: 0.8rem !important;
+            transition: background 0.15s !important;
         }
-        .school-banner-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-        }
-        .college-eyebrow {
-            font-family: var(--font-serif);
-            font-size: 13px;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--uo-gold);
-            margin-bottom: 3px;
-            opacity: 0.85;
-        }
-        .school-title {
-            font-family: var(--font-serif);
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--uo-gold);
-            letter-spacing: -0.2px;
-            line-height: 1.15;
-        }
-
-        /* White nav bar */
-        .pppm-nav {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .pppm-nav-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            display: flex;
-            align-items: stretch;
-            padding: 0 40px;
-        }
-        .pppm-nav a {
-            display: flex;
-            align-items: center;
-            padding: 0 18px;
-            height: 44px;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--uo-green);
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.15s, color 0.15s;
-            white-space: nowrap;
-        }
-        .pppm-nav a:hover { border-bottom-color: var(--uo-green); }
-        .pppm-nav a.active { border-bottom-color: var(--uo-gold); color: var(--uo-green); }
-
-        /* Tool subheader */
-        .tool-subheader {
-            background: var(--uo-green);
-            padding: 18px 40px 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .tool-subheader-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-        }
-        .tool-subheader h1 {
-            font-family: var(--font-sans);
-            font-size: 19px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 4px;
-        }
-        .tool-subheader p {
-            font-size: 13px;
-            color: #b8d8c8;
-            max-width: 640px;
-        }
+        .nav-btn:hover { background: var(--accent-dark) !important; color: #fff !important; }
         .prototype-badge {
             display: inline-block;
-            background: var(--uo-gold);
-            color: var(--uo-green);
+            background: var(--accent-light);
+            color: var(--accent-dark);
             font-size: 9px;
-            font-weight: 800;
+            font-weight: 700;
             padding: 2px 8px;
             border-radius: 3px;
             text-transform: uppercase;
@@ -195,17 +128,17 @@
         .container {
             max-width: 1180px;
             margin: 0 auto;
-            padding: 28px 24px 56px;
+            padding: calc(var(--nav-h) + 28px) 24px 56px;
         }
 
         .section-label {
             font-family: var(--font-serif);
             font-size: 17px;
             font-weight: 600;
-            color: var(--uo-green);
+            color: var(--ink);
             margin-bottom: 16px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #e4ede8;
+            border-bottom: 1px solid var(--rule);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -217,7 +150,7 @@
             background: var(--bg-white);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            border: 1px solid #e0e5e2;
+            border: 1px solid var(--rule);
         }
 
         /* ── DISCLAIMER ──────────────────────────────── */
@@ -309,7 +242,7 @@
             cursor: pointer;
             transition: border-color 0.18s;
         }
-        .select-wrap select:focus { outline: none; border-color: var(--uo-green); }
+        .select-wrap select:focus { outline: none; border-color: var(--accent); }
         .select-wrap::after {
             content: '▾';
             position: absolute;
@@ -461,7 +394,7 @@
             border-radius: 7px; font-size: 13.5px; color: var(--text-dark);
             background: white; transition: border-color 0.18s;
         }
-        .search-wrap input:focus { outline: none; border-color: var(--uo-green); }
+        .search-wrap input:focus { outline: none; border-color: var(--accent); }
         .search-wrap .s-icon {
             position: absolute; left: 11px; top: 50%;
             transform: translateY(-50%);
@@ -494,9 +427,9 @@
         thead th.sort-desc::after { content: ' ↓'; color: var(--uo-green); }
 
         tbody tr { transition: background 0.12s; }
-        tbody tr:hover { background: #f5faf7; }
-        tbody tr.row-base { background: #f0f7f3; }
-        tbody tr.row-base:hover { background: #e8f2ec; }
+        tbody tr:hover { background: var(--accent-light); }
+        tbody tr.row-base { background: var(--accent-light); }
+        tbody tr.row-base:hover { background: #dce7fb; }
         tbody td { padding: 11px 13px; border-bottom: 1px solid #f3f3f3; vertical-align: middle; }
 
         .cell-program strong { display: block; font-weight: 700; color: var(--text-dark); font-size: 13.5px; }
@@ -540,79 +473,68 @@
             transition: border-color 0.18s;
         }
         .form-group input:focus,
-        .form-group select:focus { outline: none; border-color: var(--uo-green); }
+        .form-group select:focus { outline: none; border-color: var(--accent); }
         .btn-add {
             width: 100%; padding: 10px;
-            background: var(--uo-green); color: white;
+            background: var(--accent); color: white;
             border: none; border-radius: 7px;
             font-size: 13px; font-weight: 700;
             cursor: pointer; transition: background 0.18s;
             height: 40px; align-self: end;
         }
-        .btn-add:hover { background: var(--uo-green-mid); }
+        .btn-add:hover { background: var(--accent-dark); }
         .add-session-note { font-size: 11.5px; color: var(--text-light); font-style: italic; margin-top: 10px; }
 
         /* ── FOOTER ──────────────────────────────────── */
         footer {
-            background: #1c1c1c;
-            color: #888;
-            padding: 24px 40px;
-            font-size: 11.5px;
-            text-align: center;
-            font-family: var(--font-sans);
+            border-top: 1px solid var(--rule);
+            padding: 2.5rem clamp(1.25rem, 4vw, 3.5rem);
+            background: var(--bg);
         }
-        footer a { color: var(--uo-gold); text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        footer .f-divider { margin: 0 8px; opacity: 0.4; }
-        footer .f-school { color: #ccc; font-weight: 600; }
+        .footer-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-inner p, .footer-inner a {
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            color: var(--muted);
+            text-decoration: none;
+        }
+        .footer-inner a:hover { color: var(--ink); }
+        .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+        @media (max-width: 600px) { .nav-center { display: none; } }
     </style>
 </head>
 <body>
 
-<!-- ── HEADER ───────────────────────────────────────── -->
-<header>
-    <!-- UO top utility bar -->
-    <div class="uo-topbar">
-        <div class="uo-topbar-inner">
-            <a href="https://uoregon.edu" class="uo-wordmark" target="_blank">
-                <span class="uo-logo-circle">O</span>
-                <span class="uo-wordtext">University of<br>Oregon</span>
-            </a>
-            <div class="uo-topbar-links">
-                <a href="https://pppm.uoregon.edu" target="_blank">pppm.uoregon.edu</a>
-                <a href="https://pppm.uoregon.edu/graduate" target="_blank">Graduate Programs</a>
-                <a href="https://pppm.uoregon.edu/admissions" target="_blank">Apply</a>
-            </div>
-        </div>
-    </div>
-    <!-- School name banner -->
-    <div class="school-banner">
-        <div class="school-banner-inner">
-            <div class="college-eyebrow">College of Design</div>
-            <div class="school-title">School of Planning, Public Policy and Management</div>
-        </div>
-    </div>
-    <!-- Tool sub-header -->
-    <div class="tool-subheader">
-        <div class="tool-subheader-inner">
-            <h1>Graduate Program Cost Comparison <span class="prototype-badge">Prototype</span></h1>
-            <p>Compare the estimated cost of UO PPPM graduate programs with other public service, public affairs, and planning programs nationwide.</p>
-        </div>
-    </div>
-</header>
-<!-- ── NAV BAR ──────────────────────────────────────── -->
-<nav class="pppm-nav">
-    <div class="pppm-nav-inner">
-        <a href="https://pppm.uoregon.edu/admissions" target="_blank">Admissions</a>
-        <a href="https://pppm.uoregon.edu/graduate" target="_blank">Graduate Programs</a>
-        <a href="https://pppm.uoregon.edu/research" target="_blank">Research</a>
-        <a href="https://pppm.uoregon.edu/advising" target="_blank">Advising</a>
-        <a href="#" class="active">Cost Comparison Tool</a>
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav>
+    <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+    <ul class="nav-center">
+        <li><a href="index.html">About</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="cv.html">CV</a></li>
+        <li><a href="consulting.html">Consulting</a></li>
+        <li><a href="tools.html" class="active">Tools</a></li>
+    </ul>
+    <div class="nav-right">
+        <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+        <a href="consulting.html" class="nav-btn">Work With Me</a>
     </div>
 </nav>
 
 <!-- ── MAIN ─────────────────────────────────────────── -->
 <div class="container">
+
+    <h2 style="font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--ink);margin-bottom:4px">Graduate Program Cost Comparison <span class="prototype-badge">Prototype</span></h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:20px;line-height:1.6">Compare the estimated cost of UO PPPM graduate programs with other public service, public affairs, and planning programs nationwide. &nbsp;<a href="tools.html" style="color:var(--accent)">← Back to Tools</a></p>
 
     <!-- Notice -->
     <div class="notice">
@@ -807,20 +729,17 @@
 
 <!-- ── FOOTER ───────────────────────────────────────── -->
 <footer>
-    <p>
-        <span class="f-school">School of Planning, Public Policy and Management</span>
-        <span class="f-divider">|</span>
-        <a href="https://uoregon.edu" target="_blank">University of Oregon</a>
-        <span class="f-divider">|</span>
-        Eugene, OR 97403
-        <span class="f-divider">|</span>
-        <a href="https://pppm.uoregon.edu" target="_blank">pppm.uoregon.edu</a>
-    </p>
-    <p style="margin-top:6px;">
-        Prototype tool for discussion purposes only. Tuition data sourced from institutional websites, 2025–2026 where confirmed.
-        <span class="f-divider">|</span>
-        Living costs = avg. 1-BR apartment rent near campus · All figures are estimates — verify with each institution.
-    </p>
+    <div class="footer-inner">
+        <p>Data sourced from official graduate program websites — tuition figures approximate and subject to change.</p>
+        <div class="footer-links">
+            <a href="index.html">About</a>
+            <a href="research.html">Research</a>
+            <a href="cv.html">CV</a>
+            <a href="consulting.html">Consulting</a>
+            <a href="tools.html">Tools</a>
+            <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
+        </div>
+    </div>
 </footer>
 
 <script>
