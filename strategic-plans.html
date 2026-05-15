@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strategic Plans Library | Benjamin Clark</title>
+  <meta name="description" content="An open library of strategic plans, leadership profiles, and DEI plans from public affairs, public policy, and planning programs across U.S. universities.">
+  <link rel="canonical" href="https://byclark.github.io/strategic-plans.html">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232d5be3'/><text x='50' y='67' font-family='system-ui,sans-serif' font-size='46' font-weight='700' fill='white' text-anchor='middle'>BC</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --bg2: #f2f0ec;
+      --bg3: #e8e5e0;
+      --ink: #1a1917;
+      --ink2: #3d3b38;
+      --muted: #7a7673;
+      --rule: #dedad5;
+      --accent: #2d5be3;
+      --accent-light: #e8eefb;
+      --accent-dark: #1e3fa0;
+      --font-serif: 'Literata', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --nav-h: 64px;
+      --max-w: 1100px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --radius: 6px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-serif);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(250,249,247,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--pad);
+    }
+    .nav-logo {
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-center { display: flex; gap: 0.25rem; list-style: none; }
+    .nav-center a {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-center a:hover { color: var(--ink); background: var(--bg2); }
+    .nav-center a.active { color: var(--accent); background: var(--accent-light); }
+    .nav-right { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-right a {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-right a:hover { color: var(--ink); }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      padding-top: calc(var(--nav-h) + 3.5rem);
+      padding-bottom: 3rem;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+      max-width: var(--max-w);
+      margin: 0 auto;
+      border-bottom: 1px solid var(--rule);
+    }
+    .page-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .page-intro {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--ink2);
+      max-width: 720px;
+      line-height: 1.8;
+    }
+    .page-intro p + p { margin-top: 0.9rem; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1.75rem var(--pad) 0;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-label {
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 0.4rem;
+    }
+    .filter-btn {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink2);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .results-count {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    /* ── PLANS LIST ── */
+    .plans-section {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2rem var(--pad) 4rem;
+    }
+    .plans-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .plan-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.25rem 2rem;
+      align-items: start;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .plan-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(45,91,227,0.06);
+    }
+    .plan-main { min-width: 0; }
+    .plan-meta-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+    }
+    .chip {
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.18rem 0.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+    .chip-type {
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+    .chip-period {
+      color: var(--ink2);
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+    }
+    .plan-institution {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .plan-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+    }
+    .plan-school {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink2);
+      margin-bottom: 0.7rem;
+    }
+    .plan-summary {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      color: var(--ink2);
+      line-height: 1.65;
+    }
+    .plan-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+      min-width: 150px;
+    }
+    .plan-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .plan-btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+    }
+    .plan-btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+    .plan-btn-ghost {
+      background: #fff;
+      color: var(--ink2);
+      border: 1px solid var(--rule);
+    }
+    .plan-btn-ghost:hover { border-color: var(--ink2); background: var(--bg2); }
+
+    /* hidden state */
+    .plan-card[hidden] { display: none; }
+
+    /* ── NOTE ── */
+    .plans-note {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad) 4rem;
+    }
+    .note-box {
+      background: var(--bg2);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      color: var(--ink2);
+      line-height: 1.6;
+    }
+    .note-box strong { color: var(--ink); }
+    .note-box a { color: var(--accent); text-decoration: none; }
+    .note-box a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2.5rem var(--pad);
+      background: var(--bg);
+    }
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-inner p, .footer-inner a {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-inner a:hover { color: var(--ink); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    @media (max-width: 700px) {
+      .plan-card { grid-template-columns: 1fr; }
+      .plan-actions { min-width: 0; flex-direction: row; }
+    }
+    @media (max-width: 600px) {
+      .nav-center { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Benjamin <span>Clark</span></a>
+  <ul class="nav-center">
+    <li><a href="index.html">About</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="cv.html">CV</a></li>
+    <li><a href="tools.html" class="active">Tools</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:bclark2@uoregon.edu"><i class="fas fa-envelope"></i></a>
+    <a href="https://www.linkedin.com/in/benjamin-y-clark-1692a4a/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Open Library</div>
+  <h1>Strategic Plans in Public Affairs &amp; Planning</h1>
+  <div class="page-intro">
+    <p>A growing collection of strategic plans, dean's profiles, and DEI plans from schools of public affairs, public policy, and urban planning. The library aims to make peer institutions' planning documents easier to find, compare, and learn from — for deans, faculty, students, and accreditation teams.</p>
+    <p>Each entry links to the original document. Coverage skews toward NASPAA and ACSP member programs.&nbsp;<a href="tools.html" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent)">← Back to Tools</a></p>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="strategic">Strategic Plan</button>
+  <button class="filter-btn" data-filter="dei">DEI Plan</button>
+  <button class="filter-btn" data-filter="leadership">Leadership / Dean's Profile</button>
+  <button class="filter-btn" data-filter="program">Program Plan</button>
+  <span class="results-count" id="resultsCount"></span>
+</div>
+
+<div class="plans-section">
+  <div class="plans-list" id="plansList">
+
+    <!-- Chicago / Harris -->
+    <article class="plan-card" data-type="leadership">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Leadership Profile</span>
+          <span class="chip chip-period">Fall 2023</span>
+        </div>
+        <div class="plan-institution">University of Chicago</div>
+        <div class="plan-title">Dean of the Harris School of Public Policy — Leadership Profile</div>
+        <div class="plan-school">Irving B. Harris Graduate School of Public Policy Studies</div>
+        <p class="plan-summary">A dean-search profile that doubles as a forward-looking strategic agenda: build a more sustainable business model, grow philanthropy, deepen faculty research and teaching excellence, and create a more diverse and inclusive school.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/chicago-harris.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://harris.uchicago.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- FSU / Askew -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">Updated April 2019</span>
+        </div>
+        <div class="plan-institution">Florida State University</div>
+        <div class="plan-title">Askew School Strategic Plan</div>
+        <div class="plan-school">Reubin O'D. Askew School of Public Administration and Policy</div>
+        <p class="plan-summary">A goal-and-measure framework focused on graduate enrollment growth, annual curriculum review, expanded experiential learning, faculty development, and research and community engagement in public administration.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/fsu-askew-school.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://coss.fsu.edu/askew/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Harvard / CPL -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan Overview</span>
+          <span class="chip chip-period">2024 · 10-year</span>
+        </div>
+        <div class="plan-institution">Harvard Kennedy School</div>
+        <div class="plan-title">Center for Public Leadership: A Ten-Year Strategic Direction</div>
+        <div class="plan-school">Center for Public Leadership (CPL)</div>
+        <p class="plan-summary">Director Anthony Foxx's announcement of CPL's ten-year strategic plan, emphasizing collaboration across the school, expanded field experience for student fellows, and a wider leadership community to advance principled, effective public leadership.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/harvard-kennedy-cpl.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.hks.harvard.edu/centers/cpl" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit center</a>
+      </div>
+    </article>
+
+    <!-- Indiana / O'Neill -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2022–2027</span>
+        </div>
+        <div class="plan-institution">Indiana University</div>
+        <div class="plan-title">Stewarding Social Betterment and Environmental Sustainability</div>
+        <div class="plan-school">Paul H. O'Neill School of Public and Environmental Affairs</div>
+        <p class="plan-summary">A five-year plan organized around strategic goals that span teaching, research, and service, anchored in the school's mission of stewarding social betterment and environmental sustainability across its Bloomington and Indianapolis campuses.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/indiana-oneill.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://oneill.indiana.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Minnesota / Humphrey -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2023–2027</span>
+        </div>
+        <div class="plan-institution">University of Minnesota</div>
+        <div class="plan-title">Our Future for the Common Good</div>
+        <div class="plan-school">Hubert H. Humphrey School of Public Affairs</div>
+        <p class="plan-summary">Dean Nisha Botchwey's first strategic plan, drafted by a 50-member steering committee. Centers diversity, inclusion of thought and identity, and resilience; aligned with the University of Minnesota's MPact 2025 plan.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/minnesota-humphrey.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.hhh.umn.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Nebraska Omaha / CPACS -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">Revised Jan 2023</span>
+        </div>
+        <div class="plan-institution">University of Nebraska Omaha</div>
+        <div class="plan-title">CPACS Strategic Plan</div>
+        <div class="plan-school">College of Public Affairs and Community Service</div>
+        <p class="plan-summary">Three college-wide goals: inclusive educational opportunities, research that advances UNO's metropolitan mission, and community engagement woven through teaching, research, and service.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/nebraska-omaha-cpacs.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.unomaha.edu/college-of-public-affairs-and-community-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit college</a>
+      </div>
+    </article>
+
+    <!-- Ohio State / Glenn -->
+    <article class="plan-card" data-type="leadership">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Dean's Letter</span>
+          <span class="chip chip-period">May 2025</span>
+        </div>
+        <div class="plan-institution">The Ohio State University</div>
+        <div class="plan-title">A Letter from the Dean</div>
+        <div class="plan-school">John Glenn College of Public Affairs</div>
+        <p class="plan-summary">A dean's address framing the case for a new strategic plan in a moment of low confidence in public institutions and higher education, with priorities tied to OSU's broader excellence agenda.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/ohio-state-glenn.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://glenn.osu.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit college</a>
+      </div>
+    </article>
+
+    <!-- Pittsburgh / GSPIA DEI -->
+    <article class="plan-card" data-type="dei">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">DEI Strategic Plan</span>
+          <span class="chip chip-period">Updated AY 2022–23</span>
+        </div>
+        <div class="plan-institution">University of Pittsburgh</div>
+        <div class="plan-title">Diversity, Equity, and Inclusion Strategic Plan for GSPIA</div>
+        <div class="plan-school">Graduate School of Public and International Affairs</div>
+        <p class="plan-summary">Commitments organized under leadership, capacity, climate, and curriculum — including school-specific training, broader stakeholder engagement, and collaboration with national networks like the University Leadership Council on Diversity in International Affairs.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/pittsburgh-gspia-dei.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.gspia.pitt.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- PSU / MPA -->
+    <article class="plan-card" data-type="program">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Program Plan</span>
+          <span class="chip chip-period">2024–2027</span>
+        </div>
+        <div class="plan-institution">Portland State University</div>
+        <div class="plan-title">Making a Difference Together Through Public Service</div>
+        <div class="plan-school">MPA Program — Mark O. Hatfield School of Government</div>
+        <p class="plan-summary">A single-page program plan with four 2024–2027 goals: elevate academic excellence, empower graduate success, expand educational access beyond Portland, and strengthen alumni connections.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-mpa.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/public-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit program</a>
+      </div>
+    </article>
+
+    <!-- PSU / University-wide -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">University Plan</span>
+          <span class="chip chip-period">Current</span>
+        </div>
+        <div class="plan-institution">Portland State University</div>
+        <div class="plan-title">Future in Focus</div>
+        <div class="plan-school">University-wide Strategic Plan</div>
+        <p class="plan-summary">Portland State's university-wide plan as Oregon's urban research university, emphasizing access for diverse learners, partnerships across the Portland metro region, and the institution's role as a minority-serving anchor for the state.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-university.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/strategic-plan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit page</a>
+      </div>
+    </article>
+
+    <!-- Rutgers / SPAA -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2020</span>
+        </div>
+        <div class="plan-institution">Rutgers University–Newark</div>
+        <div class="plan-title">SPAA Strategic Plan 2020</div>
+        <div class="plan-school">School of Public Affairs and Administration</div>
+        <p class="plan-summary">A multi-year plan adopted in Fall 2020 after a multi-stage planning process begun in 2017. Goals cover academic programs, experiential opportunities, faculty research, global engagement, and curricular innovation across SPAA's BA, MPA, EMPA, and PhD programs.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/rutgers-spaa.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://spaa.newark.rutgers.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Syracuse / Maxwell DEI -->
+    <article class="plan-card" data-type="dei">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">DEI Strategic Plan</span>
+          <span class="chip chip-period">Current</span>
+        </div>
+        <div class="plan-institution">Syracuse University</div>
+        <div class="plan-title">Maxwell DEI Strategic Plan</div>
+        <div class="plan-school">Maxwell School of Citizenship and Public Affairs</div>
+        <p class="plan-summary">A DEI roadmap built around four pillars: education and awareness; belonging and community; problem-solving on emerging DEI issues; and culture change that institutionalizes diversity, equity, inclusion, and accessibility across the school.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/syracuse-maxwell.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.maxwell.syr.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Texas A&M / Bush -->
+    <article class="plan-card" data-type="leadership">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">School Profile</span>
+          <span class="chip chip-period">Current</span>
+        </div>
+        <div class="plan-institution">Texas A&amp;M University</div>
+        <div class="plan-title">About the Bush School</div>
+        <div class="plan-school">Bush School of Government &amp; Public Service</div>
+        <p class="plan-summary">A school overview rather than a strategic plan: snapshot of departments, centers and institutes, high-impact student experiences, and the school's mission of preparing leaders for public and nonprofit service.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/texas-am-bush.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://bush.tamu.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- UIC / CUPPA -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2025–2027</span>
+        </div>
+        <div class="plan-institution">University of Illinois Chicago</div>
+        <div class="plan-title">A Shared Path Forward: Our Roadmap for Continued Success</div>
+        <div class="plan-school">College of Urban Planning and Public Affairs (CUPPA)</div>
+        <p class="plan-summary">A three-year strategic and enabling-goals plan led by a steering committee chaired by Kelly LeRoux and Phil Ashton. Priorities include expanding the pipeline of planning and public-affairs professionals, deepening research impact, and rooting the college's work in Chicago and inclusive justice.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/uic-cuppa.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://cuppa.uic.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit college</a>
+      </div>
+    </article>
+
+    <!-- UMD / Public Policy -->
+    <article class="plan-card" data-type="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">Five-year horizon</span>
+        </div>
+        <div class="plan-institution">University of Maryland</div>
+        <div class="plan-title">School of Public Policy Strategic Plan</div>
+        <div class="plan-school">School of Public Policy</div>
+        <p class="plan-summary">Mission-and-values plan that names the headwinds facing the school: economic pressure on students and public universities, political polarization, declining trust in higher education and public service, and a rapidly shifting policy-degree landscape.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/umd-public-policy.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://spp.umd.edu/our-community/school-leadership/strategic-plan" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit page</a>
+      </div>
+    </article>
+
+    <!-- UT Arlington / MCRP -->
+    <article class="plan-card" data-type="program">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Program Plan</span>
+          <span class="chip chip-period">2024–2031</span>
+        </div>
+        <div class="plan-institution">University of Texas at Arlington</div>
+        <div class="plan-title">MCRP Strategic Plan</div>
+        <div class="plan-school">Master of City and Regional Planning Program</div>
+        <p class="plan-summary">Adopted March 2024, this plan defines mission, vision, and six program goals spanning curriculum, community engagement, sustainability and resilience, faculty growth, diversity and inclusion, and partnerships — anchored in UTA's Quality Enhancement Plan.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/ut-arlington-mcrp.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.uta.edu/academics/schools-colleges/cappa/programs/planning-disaster" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit program</a>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<div class="plans-note">
+  <div class="note-box">
+    <strong>About this library &amp; submissions:</strong> Documents are mirrored here for easier access and side-by-side comparison; original publishers retain all rights. Have a plan to suggest — or notice an outdated link or stale version? <a href="mailto:bclark2@uoregon.edu?subject=Strategic%20Plans%20Library%20submission">Email me</a> and I'll add or update it.
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 Benjamin Y. Clark</p>
+    <div class="footer-links">
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="cv.html">CV</a>
+      <a href="tools.html">Tools</a>
+      <a href="mailto:bclark2@uoregon.edu">bclark2@uoregon.edu</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    const list = document.getElementById('plansList');
+    const cards = Array.from(list.querySelectorAll('.plan-card'));
+    const buttons = document.querySelectorAll('.filter-btn');
+    const count = document.getElementById('resultsCount');
+
+    function applyFilter(filter) {
+      let visible = 0;
+      cards.forEach(card => {
+        const show = filter === 'all' || card.dataset.type === filter;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      count.textContent = visible + (visible === 1 ? ' plan' : ' plans');
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter);
+      });
+    });
+
+    applyFilter('all');
+  })();
+</script>
+
+</body>
+</html>
