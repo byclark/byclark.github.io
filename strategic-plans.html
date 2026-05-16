@@ -283,6 +283,38 @@
     /* hidden state */
     .plan-card[hidden] { display: none; }
 
+    /* ── GROUPED CARDS (e.g. multiple plans from same institution) ── */
+    .plan-card-group {
+      display: block;
+      padding: 0;
+    }
+    .plan-card-group .plan-group-header {
+      padding: 1.25rem 1.75rem 0.9rem;
+      border-bottom: 1px solid var(--rule);
+      background: var(--bg2);
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+    }
+    .plan-card-group .plan-group-header .plan-institution { margin-bottom: 0; }
+    .plan-card-group .plan-entry {
+      padding: 1.25rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.25rem 2rem;
+      align-items: start;
+      border-bottom: 1px solid var(--rule);
+    }
+    .plan-card-group .plan-entry:last-child { border-bottom: none; }
+    .plan-card-group .plan-entry .plan-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+    .plan-card-group .plan-entry .plan-school { margin-bottom: 0.55rem; }
+    @media (max-width: 700px) {
+      .plan-card-group .plan-entry { grid-template-columns: 1fr; }
+      .plan-card-group .plan-entry .plan-actions { flex-direction: row; min-width: 0; }
+    }
+
     /* ── NOTE ── */
     .plans-note {
       max-width: var(--max-w);
@@ -365,17 +397,34 @@
   <span class="filter-label">Filter:</span>
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="strategic">Strategic Plan</button>
-  <button class="filter-btn" data-filter="dei">DEI Plan</button>
-  <button class="filter-btn" data-filter="leadership">Leadership / Dean's Profile</button>
   <button class="filter-btn" data-filter="program">Program Plan</button>
+  <button class="filter-btn" data-filter="dei">DEI Plan</button>
   <span class="results-count" id="resultsCount"></span>
 </div>
 
 <div class="plans-section">
   <div class="plans-list" id="plansList">
 
+    <!-- Cornell / Brooks -->
+    <article class="plan-card" data-types="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2024–2028</span>
+        </div>
+        <div class="plan-institution">Cornell University</div>
+        <div class="plan-school">Jeb E. Brooks School of Public Policy</div>
+        <div class="plan-title">Founding Strategic Priorities: A Five-Year Plan</div>
+        <p class="plan-summary">Dean Colleen Barry's founding strategic plan for the new Brooks School (established Fall 2021). Three founding priorities — Research, Education, and Engagement — pursued through cross-cutting commitments to community, collaboration, equity, and impact. <a href="strategic-plans/cornell-brooks-full.pdf" target="_blank" rel="noopener" style="color:var(--accent)">Full 33-page plan</a> also available.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/cornell-brooks-exec.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Executive Summary</a>
+        <a class="plan-btn plan-btn-ghost" href="https://publicpolicy.cornell.edu/about-us/strategicplan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
     <!-- FSU / Askew -->
-    <article class="plan-card" data-type="strategic">
+    <article class="plan-card" data-types="strategic">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Strategic Plan</span>
@@ -389,6 +438,24 @@
       <div class="plan-actions">
         <a class="plan-btn plan-btn-primary" href="strategic-plans/fsu-askew-school.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
         <a class="plan-btn plan-btn-ghost" href="https://coss.fsu.edu/askew/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Georgia State / Andrew Young -->
+    <article class="plan-card" data-types="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2025–2033</span>
+        </div>
+        <div class="plan-institution">Georgia State University</div>
+        <div class="plan-school">Andrew Young School of Policy Studies</div>
+        <div class="plan-title">Leading with Purpose</div>
+        <p class="plan-summary">An eight-year plan organized around three pillars: transformative learning prepared for data- and AI-influenced policy environments; research innovation with public purpose; and a thriving community. Aligned with Georgia State's BluePrint to 2033.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="https://aysps.gsu.edu/strategic-plan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Open plan</a>
+        <a class="plan-btn plan-btn-ghost" href="https://aysps.gsu.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
       </div>
     </article>
 
@@ -428,98 +495,63 @@
       </div>
     </article>
 
-    <!-- Minnesota / Humphrey -->
-    <article class="plan-card" data-type="strategic">
-      <div class="plan-main">
-        <div class="plan-meta-row">
-          <span class="chip chip-type">Strategic Plan</span>
-          <span class="chip chip-period">2023–2027</span>
-        </div>
-        <div class="plan-institution">University of Minnesota</div>
-        <div class="plan-school">Hubert H. Humphrey School of Public Affairs</div>
-        <div class="plan-title">Our Future for the Common Good</div>
-        <p class="plan-summary">Dean Nisha Botchwey's first strategic plan, drafted by a 50-member steering committee. Centers diversity, inclusion of thought and identity, and resilience; aligned with the University of Minnesota's MPact 2025 plan.</p>
+    <!-- Portland State (grouped: University-wide + MPA) -->
+    <article class="plan-card plan-card-group" data-types="strategic program">
+      <div class="plan-group-header">
+        <div class="plan-institution">Portland State University</div>
       </div>
-      <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/minnesota-humphrey.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://www.hhh.umn.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      <div class="plan-entry">
+        <div class="plan-main">
+          <div class="plan-meta-row">
+            <span class="chip chip-type">University Plan</span>
+            <span class="chip chip-period">Current</span>
+          </div>
+          <div class="plan-school">University-wide Strategic Plan</div>
+          <div class="plan-title">Future in Focus</div>
+          <p class="plan-summary">Portland State's university-wide plan as Oregon's urban research university, emphasizing access for diverse learners, partnerships across the Portland metro region, and the institution's role as a minority-serving anchor for the state.</p>
+        </div>
+        <div class="plan-actions">
+          <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-university.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+          <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/strategic-plan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit page</a>
+        </div>
+      </div>
+      <div class="plan-entry">
+        <div class="plan-main">
+          <div class="plan-meta-row">
+            <span class="chip chip-type">Program Plan</span>
+            <span class="chip chip-period">2024–2027</span>
+          </div>
+          <div class="plan-school">MPA Program — Mark O. Hatfield School of Government</div>
+          <div class="plan-title">Making a Difference Together Through Public Service</div>
+          <p class="plan-summary">A single-page program plan with four 2024–2027 goals: elevate academic excellence, empower graduate success, expand educational access beyond Portland, and strengthen alumni connections.</p>
+        </div>
+        <div class="plan-actions">
+          <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-mpa.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+          <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/public-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit program</a>
+        </div>
       </div>
     </article>
 
-    <!-- Nebraska Omaha / CPACS -->
-    <article class="plan-card" data-type="strategic">
-      <div class="plan-main">
-        <div class="plan-meta-row">
-          <span class="chip chip-type">Strategic Plan</span>
-          <span class="chip chip-period">Revised Jan 2023</span>
-        </div>
-        <div class="plan-institution">University of Nebraska Omaha</div>
-        <div class="plan-school">College of Public Affairs and Community Service</div>
-        <div class="plan-title">CPACS Strategic Plan</div>
-        <p class="plan-summary">Three college-wide goals: inclusive educational opportunities, research that advances UNO's metropolitan mission, and community engagement woven through teaching, research, and service.</p>
-      </div>
-      <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/nebraska-omaha-cpacs.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://www.unomaha.edu/college-of-public-affairs-and-community-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit college</a>
-      </div>
-    </article>
-
-    <!-- Pittsburgh / GSPIA DEI -->
-    <article class="plan-card" data-type="dei">
-      <div class="plan-main">
-        <div class="plan-meta-row">
-          <span class="chip chip-type">DEI Strategic Plan</span>
-          <span class="chip chip-period">Updated AY 2022–23</span>
-        </div>
-        <div class="plan-institution">University of Pittsburgh</div>
-        <div class="plan-school">Graduate School of Public and International Affairs</div>
-        <div class="plan-title">Diversity, Equity, and Inclusion Strategic Plan for GSPIA</div>
-        <p class="plan-summary">Commitments organized under leadership, capacity, climate, and curriculum — including school-specific training, broader stakeholder engagement, and collaboration with national networks like the University Leadership Council on Diversity in International Affairs.</p>
-      </div>
-      <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/pittsburgh-gspia-dei.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://www.gspia.pitt.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
-      </div>
-    </article>
-
-    <!-- PSU / MPA -->
-    <article class="plan-card" data-type="program">
+    <!-- Rutgers New Brunswick / Bloustein -->
+    <article class="plan-card" data-types="strategic program">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Program Plan</span>
-          <span class="chip chip-period">2024–2027</span>
+          <span class="chip chip-period">2020–2025</span>
         </div>
-        <div class="plan-institution">Portland State University</div>
-        <div class="plan-school">MPA Program — Mark O. Hatfield School of Government</div>
-        <div class="plan-title">Making a Difference Together Through Public Service</div>
-        <p class="plan-summary">A single-page program plan with four 2024–2027 goals: elevate academic excellence, empower graduate success, expand educational access beyond Portland, and strengthen alumni connections.</p>
+        <div class="plan-institution">Rutgers University–New Brunswick</div>
+        <div class="plan-school">Edward J. Bloustein School of Planning and Public Policy — Urban Planning and Policy Development (UPPD) Program</div>
+        <div class="plan-title">UPPD Strategic Plan 2020–2025</div>
+        <p class="plan-summary">A 51-page strategic plan reviewing progress against the 2013–2018 plan and laying out detailed goals, objectives, and actions for the UPPD program: education, research, and professional involvement and community outreach, plus strategic initiatives in innovative education, global planning, and emerging issues.</p>
       </div>
       <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-mpa.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/public-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit program</a>
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/rutgers-bloustein.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://bloustein.rutgers.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
       </div>
     </article>
 
-    <!-- PSU / University-wide -->
-    <article class="plan-card" data-type="strategic">
-      <div class="plan-main">
-        <div class="plan-meta-row">
-          <span class="chip chip-type">University Plan</span>
-          <span class="chip chip-period">Current</span>
-        </div>
-        <div class="plan-institution">Portland State University</div>
-        <div class="plan-school">University-wide Strategic Plan</div>
-        <div class="plan-title">Future in Focus</div>
-        <p class="plan-summary">Portland State's university-wide plan as Oregon's urban research university, emphasizing access for diverse learners, partnerships across the Portland metro region, and the institution's role as a minority-serving anchor for the state.</p>
-      </div>
-      <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/psu-university.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://www.pdx.edu/strategic-plan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit page</a>
-      </div>
-    </article>
-
-    <!-- Rutgers / SPAA -->
-    <article class="plan-card" data-type="strategic">
+    <!-- Rutgers Newark / SPAA -->
+    <article class="plan-card" data-types="strategic">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Strategic Plan</span>
@@ -537,7 +569,7 @@
     </article>
 
     <!-- Syracuse / Maxwell DEI -->
-    <article class="plan-card" data-type="dei">
+    <article class="plan-card" data-types="dei">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">DEI Strategic Plan</span>
@@ -554,26 +586,26 @@
       </div>
     </article>
 
-    <!-- Texas A&M / Bush -->
-    <article class="plan-card" data-type="leadership">
+    <!-- UConn / School of Public Policy -->
+    <article class="plan-card" data-types="strategic">
       <div class="plan-main">
         <div class="plan-meta-row">
-          <span class="chip chip-type">School Profile</span>
-          <span class="chip chip-period">Current</span>
+          <span class="chip chip-type">Strategic Plan (Draft)</span>
+          <span class="chip chip-period">2025–2030</span>
         </div>
-        <div class="plan-institution">Texas A&amp;M University</div>
-        <div class="plan-school">Bush School of Government &amp; Public Service</div>
-        <div class="plan-title">About the Bush School</div>
-        <p class="plan-summary">A school overview rather than a strategic plan: snapshot of departments, centers and institutes, high-impact student experiences, and the school's mission of preparing leaders for public and nonprofit service.</p>
+        <div class="plan-institution">University of Connecticut</div>
+        <div class="plan-school">School of Public Policy</div>
+        <div class="plan-title">Mission, Vision Areas, Goals, and Values</div>
+        <p class="plan-summary">A condensed draft of UConn SPP's next strategic plan, organized around four mutually reinforcing areas — student learning &amp; success, institutional quality &amp; distinction, research with public purpose, and professional engagement — to be achieved over five-plus years.</p>
       </div>
       <div class="plan-actions">
-        <a class="plan-btn plan-btn-primary" href="strategic-plans/texas-am-bush.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
-        <a class="plan-btn plan-btn-ghost" href="https://bush.tamu.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/uconn-spp.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://publicpolicy.uconn.edu/strategicplan/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit page</a>
       </div>
     </article>
 
     <!-- UIC / CUPPA -->
-    <article class="plan-card" data-type="strategic">
+    <article class="plan-card" data-types="strategic">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Strategic Plan</span>
@@ -591,7 +623,7 @@
     </article>
 
     <!-- UMD / Public Policy -->
-    <article class="plan-card" data-type="strategic">
+    <article class="plan-card" data-types="strategic">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Strategic Plan</span>
@@ -608,8 +640,62 @@
       </div>
     </article>
 
+    <!-- Minnesota / Humphrey -->
+    <article class="plan-card" data-types="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">2023–2027</span>
+        </div>
+        <div class="plan-institution">University of Minnesota</div>
+        <div class="plan-school">Hubert H. Humphrey School of Public Affairs</div>
+        <div class="plan-title">Our Future for the Common Good</div>
+        <p class="plan-summary">Dean Nisha Botchwey's first strategic plan, drafted by a 50-member steering committee. Centers diversity, inclusion of thought and identity, and resilience; aligned with the University of Minnesota's MPact 2025 plan.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/minnesota-humphrey.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.hhh.umn.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
+    <!-- Nebraska Omaha / CPACS -->
+    <article class="plan-card" data-types="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">Revised Jan 2023</span>
+        </div>
+        <div class="plan-institution">University of Nebraska Omaha</div>
+        <div class="plan-school">College of Public Affairs and Community Service</div>
+        <div class="plan-title">CPACS Strategic Plan</div>
+        <p class="plan-summary">Three college-wide goals: inclusive educational opportunities, research that advances UNO's metropolitan mission, and community engagement woven through teaching, research, and service.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/nebraska-omaha-cpacs.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.unomaha.edu/college-of-public-affairs-and-community-service/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit college</a>
+      </div>
+    </article>
+
+    <!-- Pittsburgh / GSPIA DEI -->
+    <article class="plan-card" data-types="dei">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">DEI Strategic Plan</span>
+          <span class="chip chip-period">Updated AY 2022–23</span>
+        </div>
+        <div class="plan-institution">University of Pittsburgh</div>
+        <div class="plan-school">Graduate School of Public and International Affairs</div>
+        <div class="plan-title">Diversity, Equity, and Inclusion Strategic Plan for GSPIA</div>
+        <p class="plan-summary">Commitments organized under leadership, capacity, climate, and curriculum — including school-specific training, broader stakeholder engagement, and collaboration with national networks like the University Leadership Council on Diversity in International Affairs.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="strategic-plans/pittsburgh-gspia-dei.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="plan-btn plan-btn-ghost" href="https://www.gspia.pitt.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
+      </div>
+    </article>
+
     <!-- UT Arlington / MCRP -->
-    <article class="plan-card" data-type="program">
+    <article class="plan-card" data-types="program">
       <div class="plan-main">
         <div class="plan-meta-row">
           <span class="chip chip-type">Program Plan</span>
@@ -623,6 +709,24 @@
       <div class="plan-actions">
         <a class="plan-btn plan-btn-primary" href="strategic-plans/ut-arlington-mcrp.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
         <a class="plan-btn plan-btn-ghost" href="https://www.uta.edu/academics/schools-colleges/cappa/programs/planning-disaster" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit program</a>
+      </div>
+    </article>
+
+    <!-- UVA / Batten 2030 -->
+    <article class="plan-card" data-types="strategic">
+      <div class="plan-main">
+        <div class="plan-meta-row">
+          <span class="chip chip-type">Strategic Plan</span>
+          <span class="chip chip-period">through 2030</span>
+        </div>
+        <div class="plan-institution">University of Virginia</div>
+        <div class="plan-school">Frank Batten School of Leadership and Public Policy</div>
+        <div class="plan-title">Batten 2030</div>
+        <p class="plan-summary">A multi-year vision built around three priorities — Access (reaching and empowering more promising leaders), Impact (extending the reach and influence of faculty contributions), and Innovation (advancing leadership development through bold experiments in teaching). Presented as an interactive microsite rather than a single PDF.</p>
+      </div>
+      <div class="plan-actions">
+        <a class="plan-btn plan-btn-primary" href="https://2030.batten.virginia.edu/" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Open plan</a>
+        <a class="plan-btn plan-btn-ghost" href="https://batten.virginia.edu" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Visit school</a>
       </div>
     </article>
 
@@ -658,7 +762,8 @@
     function applyFilter(filter) {
       let visible = 0;
       cards.forEach(card => {
-        const show = filter === 'all' || card.dataset.type === filter;
+        const types = (card.dataset.types || card.dataset.type || '').split(/\s+/);
+        const show = filter === 'all' || types.includes(filter);
         card.hidden = !show;
         if (show) visible++;
       });
